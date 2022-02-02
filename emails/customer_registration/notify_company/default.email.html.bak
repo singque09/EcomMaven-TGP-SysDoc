@@ -1,0 +1,10 @@
+<!--[FROM:[@config:company_email@]]-->
+<!--[TO:[@config:bcc_email@]]-->
+<!--[SUBJECT:New [@config:company_name@] User Account Created]-->
+
+A new user registered on [@config:company_name@].
+
+Username: [@username@]
+Email: [@email@]
+
+Group: [@user_group@]

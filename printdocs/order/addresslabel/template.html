@@ -1,0 +1,836 @@
+<meta charset="utf-8">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="expires" content="0">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
+<script>
+
+	jQuery(document).ready(function () {
+		jQuery('.extraHolder:contains("Gift Message: ")').each(function () {
+			jQuery(this).html(jQuery(this).html().split("Gift Message: ").join(''));
+
+		});
+	});
+</script>
+<!-- hds qr code -->
+<script src='https://static.homedelivery.com.au/js/qrious.2.0.0.min.js'></script>
+<!-- /hds qr code -->
+<style>
+	/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.3.6,
+* Autoprefixer: v10.3.1
+* Browsers: last 4 version
+*/
+
+	* {
+		font-family: "Montserrat", sans-serif;
+	}
+
+	.box {
+		width: 95%;
+		height: 95%;
+		margin: auto;
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-align: center;
+		-ms-flex-align: center;
+		align-items: center;
+		-webkit-box-pack: center;
+		-ms-flex-pack: center;
+		justify-content: center;
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		-ms-flex-direction: column;
+		flex-direction: column;
+		page-break-after: always;
+		padding-top: 5px;
+	}
+
+	.textArea {
+		height: 60px;
+		line-height: 20px;
+		width: 99%;
+		overflow: hidden;
+		margin-top: 5px;
+		margin-bottom: 5px;
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		-ms-flex-wrap: wrap;
+		flex-wrap: wrap;
+	}
+
+	.xs-6 {
+		width: 50%;
+		overflow: hidden;
+		height: 18px;
+	}
+
+	.labelRecipient,
+	.labelMessage,
+	.labelSender {
+		text-align: center;
+	}
+
+	hr {
+		border-color: transparent;
+	}
+
+	.orderDetailsHolder .left,
+	.orderDetailsHolder .right {
+		font-size: 9px;
+	}
+
+
+	.order-details {
+		height: 55px;
+		overflow: hidden;
+	}
+
+	.pagebreak {
+		display: none;
+	}
+
+
+	.pageinner>div {
+		width: 570px !important;
+		height: auto !Important;
+		margin-bottom: 0px !important;
+		padding-top: 0px !important;
+		float: none !important;
+		overflow: visible !important;
+	}
+
+	.extraOptionOption {
+		font-family: 'Courgette', cursive;
+		font-size: 24px;
+		-webkit-transform: rotate(-90deg);
+		-ms-transform: rotate(-90deg);
+		transform: rotate(-90deg);
+		height: 250px;
+		width: 400px;
+		clear: both;
+	}
+
+	.extraoptionHolder {
+		height: 450px;
+		width: 250px;
+		margin-top: 150px;
+	}
+
+	.box.boxmessage .rorateHolder {
+		height: 630px;
+		margin-top: 115px;
+	}
+
+	.loopnormalprods {
+		display: block !important;
+	}
+
+	.dataSet {
+		page-break-after: always;
+	}
+
+	.row.hds {
+		page-break-after: always;
+		display: block;
+	}
+
+
+	.rotateHolder.rotateHolderHDS {
+		height: 860px !important;
+	}
+
+	.rotateHolder {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+</style>
+<div class="row hds" style="height : 880px;">
+	<div class="col-xs-12">
+		<!-- hds label start -->
+		<p>.</p>
+		<p>.</p>
+		<p>.</p>
+		<p>.</p>
+		<table cellpadding="0" cellspacing="0" border="0" width="350px" align="center">
+			<tr>
+				<td style="padding-bottom:8px;">
+					<table cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+						<tr>
+							<td valign="top"
+								style="width:110px;font-size:116px;text-align: center;background: #000;color:#fff">
+								P
+							</td>
+							<td style="text-align: center;">
+								<font style="font-size:24px;text-transform:uppercase;"><b> [@shacc_name@] </b></font>
+
+								[%if [@shacc_name@] eq 'HDS' %]
+								<img height="50px"
+									src="[%barcode_url fn:'' height:'10'%][@order_id@]-[@count@][%/barcode_url%]" />
+								[%else%]
+								<img height="50px"
+									src="[%barcode_url fn:'' height:'10'%][@order_id@][%/barcode_url%]" />
+								[%/if%]
+							</td>
+					</table>
+
+					<br /><br />
+					<table cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+						<tr>
+							<td valign="top" width="50%">
+								<font style="font-size:  11px;">LODGED</font>
+
+								<br />
+								<strong style="font-size: 12px;">[%FORMAT type:'date' now:1 format:'#Y-#M-#d'
+									default:'n/a'%][@label_created@][%END FORMAT%]</strong>
+							</td>
+							<td width="50%" valign="top">
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">&nbsp;</td>
+						</tr>
+						<tr>
+							<td valign="top" width="50%">
+								<font style="font-size:  11px;">PARCEL ID</font>
+								<br />
+								<strong style="font-size: 12px;">
+									[%if [@shacc_name@] eq 'HDS' %]
+									[%NOHTML%][@order_id@]-[@count@][%END NOHTML%]
+									[%else%]
+									[%NOHTML%][@order_id@][%END NOHTML%]
+									[%/if%]
+								</strong>
+							</td>
+							<td width="50%" valign="top">
+							</td>
+						</tr>
+					</table>
+
+					<hr style="border-top: 1px solid #000;border-bottom:1px solid #000;" />
+
+					<table cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+						<tr>
+							<td valign="top" width="60%">
+								<font style="text-transform:uppercase;">
+									[%NOHTML%][@ship_first_name@] [@ship_last_name@][%END NOHTML%]
+									[%DATA id:'ship_company' if:'ne' value:''%][%NOHTML%] [@ship_company@][%END
+									NOHTML%][%END DATA%]
+									<br />
+									[%NOHTML%][@ship_street1@][%END NOHTML%]<br>
+									[%DATA id:'ship_street2' if:'ne' value:''%][%NOHTML%][@ship_street2@][%END
+									NOHTML%]<br>[%END DATA%]
+									[%NOHTML%][@ship_city@], [@ship_state@] [@ship_zip@][%END NOHTML%]
+								</font>
+							</td>
+							<td valign="top" align="right">
+								<img class='qrcode'
+									id='qrcode-[@count@]-[%NOHTML%][@cngmt_id@]-[@order_id@][%END NOHTML%]' />
+								<br />
+								<span style="padding-right: 20px;">
+									[%NOHTML%][@count@] of [@total@][%END NOHTML%]
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<font style="text-transform:uppercase;font-size;11px;">
+									DELIVERY INSTRUCTIONS
+									<br />
+									[%DATA id:'ship_comment' if:'ne' value:''%][%PARAM if_true%]
+									[%NOHTML%][%FORMAT type:'text' maxlength:'255'%][@ship_comment@][%END FORMAT%][%END
+									NOHTML%]
+									[%END PARAM%][%PARAM if_false%]
+
+									[%END PARAM%][%END DATA%]
+
+								</font>
+							</td>
+						</tr>
+					</table>
+
+					<hr style="border-top: 1px solid #000;border-bottom:1px solid #000;" />
+
+					<table cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+						<tr>
+							<td valign="top">
+								<font style="text-transform:uppercase;font-size;11px;">SENDER</font>
+								<br />
+								<font style="font-size: 20px;padding-left:25px;">[@CONFIG:COMPANY_NAME@]</font>
+							</td>
+						</tr>
+					</table>
+
+					<hr style="border-top: 1px dashed; #000;border-bottom:0; " />
+					<br /><br />
+					<table width="100%">
+
+						<tr>
+							<td>
+								<font style="font-size: 20px; ">[%NOHTML%][@ship_first_name@] [@ship_last_name@][%END
+									NOHTML%]</font>
+							</td>
+							<td>
+								<font style="font-size: 20px; ">[@ship_state@]</font>
+							</td>
+							<td align="right">
+								<img class='qrcode'
+									id='qrcode-[@count@]-2-[%NOHTML%][@cngmt_id@]-[@order_id@][%END NOHTML%]' />
+								<br />
+								<span style="padding-right: 20px;">
+									[%NOHTML%][@count@] of [@total@][%END NOHTML%]
+								</span>
+							</td>
+						</tr>
+					</table>
+
+				</td>
+			</tr>
+		</table>
+
+		<script type="text/javascript">
+			new QRious({
+				element: document.getElementById('qrcode-[@count@]-[%NOHTML%][@cngmt_id@]-[@order_id@][%END NOHTML%]'),
+				size: 75,
+				value: [%if [@shacc_name @] eq 'HDS' %]'[%NOHTML%][@order_id@]-[@count@][%END NOHTML%]'[%else%]'[%NOHTML%][@order_id@][%END NOHTML%]'[% /if%]
+   			});
+
+			new QRious({
+				element: document.getElementById('qrcode-[@count@]-2-[%NOHTML%][@cngmt_id@]-[@order_id@][%END NOHTML%]'),
+				size: 75,
+				value: [%if [@shacc_name @] eq 'HDS' %]'[%NOHTML%][@order_id@]-[@count@][%END NOHTML%]'[%else%]'[%NOHTML%][@order_id@][%END NOHTML%]'[% /if%]
+   			});
+		</script>
+		<!-- hds label end -->
+
+
+	</div>
+</div>
+
+
+[%if [@username@] like 'ds-inno' %]
+<div style="width:92%;"><a href="[@document_image@].pdf" target="_blank"><img style="max-width:100%; max-height:100%;"
+			src="[@document_image@]"></a></div>
+[%else%]
+
+
+</div>
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet" />
+
+<style>
+	* {
+		font-family: "Montserrat", sans-serif;
+	}
+
+	.box {
+		width: 95%;
+		margin: auto;
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-align: center;
+		-ms-flex-align: center;
+		align-items: center;
+		-webkit-box-pack: center;
+		-ms-flex-pack: center;
+		justify-content: center;
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		-ms-flex-direction: column;
+		flex-direction: column;
+		page-break-after: always;
+		padding-top: 5px;
+	}
+
+	.textArea {
+		height: 60px;
+		line-height: 20px;
+		width: 99%;
+		overflow: hidden;
+		margin-top: 0px;
+		margin-bottom: 5px;
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		-ms-flex-wrap: wrap;
+		flex-wrap: wrap;
+	}
+
+	.xs-6 {
+		width: 50%;
+		overflow: hidden;
+		height: 18px;
+	}
+
+	.labelRecipient,
+	.labelMessage,
+	.labelSender {
+		text-align: center;
+	}
+
+	hr {
+		border-color: transparent;
+	}
+
+	.orderDetailsHolder .left,
+	.orderDetailsHolder .right {
+		font-size: 9px;
+	}
+
+
+	.order-details {
+		height: 55px;
+		overflow: hidden;
+	}
+
+	.pagebreak {
+		display: none;
+	}
+
+	.rotate h2 {
+		display: block;
+		word-wrap: break-word;
+	}
+</style>
+
+[%load_template file:'printdocs/includes/styles.template.html'/%]
+[%show_order ids:'[@ids@]' sortby:'[@tmpl_sort_by@]' groupby:'[@tmpl_group_by@]' sortorder:'[@tmpl_sort_order@]'%]
+[%PARAM *header%]
+
+[%set [@^loopCount@] %][@count@][%/set%]
+<div class="box" style="padding-left: 10px; display : none;">
+	<div class="order-details">
+
+		[%show_order id:'[@order_id@]' customer:'[@username@]' hidechild:'1'%]
+		[%param *header%]
+		<div class="orderDetailsHolder">
+			<div style="clear : both;"></div>
+			<div class="left" style="width : 60%; float : left; text-align: left;">
+				<strong>Order Id :</strong> [@order_id@]<br />
+				<strong>Name :</strong> [@ship_first_name@] [@ship_last_name@]<br />
+				<strong>Shipping Address :</strong> [@ship_street1@] [%if [@ship_street2@]%], [@ship_street2@][%/if%]
+				[@ship_city@], [@ship_state@], [@ship_zip@],
+				[@ship_country_name@]<br />
+
+			</div>
+			<div class="right" style="width : 40%; float : left; text-align: left;">
+				<strong>Product Name :</strong> [%if [@total_items@] >= 2 %]multiple
+				items[%else%][%escape%][@model@][%/escape%][%/if%]<br />
+				<strong>No. of SKUs on order :</strong> [@total_items@]
+			</div>
+			<div style="clear : both;"></div>
+		</div>
+
+		[%/param%]
+		[%param *body%]
+		[%/param%]
+		[%/show_order%]
+	</div>
+
+
+	[%if [@cngmt_id@] ne ''%]
+
+
+	<div style="width:92%;"><a href="[@document_image@].pdf" target="_blank"><img
+				style="max-width:100%; max-height:100%;" src="[@document_image@]"></a></div>
+
+
+	[%else%]
+	<span style="text-align : center;">consignment not yet generated</span>
+	[%/if%]
+</div>
+<div class="box" [%if [@ship_comment@]%][%else%]style="display : none;" [%/if%]>
+	<div class="order-details">
+
+		[%show_order id:'[@order_id@]' customer:'[@username@]' hidechild:'1'%]
+		[%param *header%]
+		<div class="orderDetailsHolder">
+			<div style="clear : both;"></div>
+			<div class="left" style="width : 60%; float : left; text-align: left;">
+				<strong>Order Id :</strong> [@order_id@]<br />
+				<strong>Name :</strong> [@ship_first_name@] [@ship_last_name@]<br />
+				<strong>Shipping Address :</strong> [@ship_street1@] [%if [@ship_street2@]%], [@ship_street2@][%/if%]
+				[@ship_city@], [@ship_state@], [@ship_zip@],
+				[@ship_country_name@]<br />
+
+			</div>
+			<div class="right" style="width : 40%; float : left; text-align: left;">
+				<strong>Product Name :</strong> [%if [@total_items@] >= 2 %]multiple
+				items[%else%][%escape%][@model@][%/escape%][%/if%]<br />
+				<strong>No. of SKUs on order :</strong> [@total_items@]
+			</div>
+			<div style="clear : both;"></div>
+		</div>
+
+		[%/param%]
+		[%param *body%]
+		[%/param%]
+		[%/show_order%]
+	</div>
+
+
+	<img style="max-width: 75%; max-height: 100%; margin-top: 30px"
+		src="https://www.thegourmetpantry.com.au/assets/image/tgp-logo.png">
+	<p style="margin-top: 50px">Dear AusPost driver, we hope you’re well!</p>
+	[%if [@ship_comment@]%] <h2 style="margin-top: 0">Sender’s Delivery Instructions:</h2>[%else%][%/if%]
+	<div style="text-align: center; position: relative; top: 250px">
+		<h2 style="margin-bottom: 0.3em">Thank you!</h2>
+		[%if [@sales_channel@] like 'Everyday Market' %]
+		<p style="margin-top: 0">The Team @ Everyday Market</p>
+
+		[%elseif [@sales_channel@] not like 'Everyday Market' %]
+		<p style="margin-top: 0">The Team @ The Gourmet Pantry</p>
+		[%else%]
+		[%/if%]
+	</div>
+	<p style="margin-top: 50px">[@ship_comment@]</p>
+
+</div>
+
+<hr class="pagebreak" style="display : none;" />
+
+[%END PARAM%]
+[%PARAM *section_header%]
+[%END PARAM%]
+[%PARAM *body%]
+[%END PARAM%]
+[%PARAM *section_footer%]
+[%END PARAM%]
+[%PARAM *footer%]
+[%show_order id:'[@order_ID@]' customer:'[@username@]' dropshipper:'[@showdropshipper@]'%]
+[%param *header%]
+<div class="loopHolder" [%if [@^loopCount@]>= 2 %]style="display : none;"[%else%][%/if%]>
+	<div class="box" style="display : none;">
+		<div class="order-details">
+
+			[%show_order id:'[@order_id@]' customer:'[@username@]' hidechild:'1'%]
+			[%param *header%]
+			<div class="orderDetailsHolder">
+				<div style="clear : both;"></div>
+				<div class="left" style="width : 60%; float : left; text-align: left;">
+					<strong>Order Id :</strong> [@order_id@]<br />
+					<strong>Name :</strong> [@ship_first_name@] [@ship_last_name@]<br />
+					<strong>Shipping Address :</strong> [@ship_street1@] [%if [@ship_street2@]%],
+					[@ship_street2@][%/if%]
+					[@ship_city@], [@ship_state@], [@ship_zip@],
+					[@ship_country_name@]<br />
+
+				</div>
+				<div class="right" style="width : 40%; float : left; text-align: left;">
+					<strong>Product Name :</strong> [%if [@total_items@] >= 2 %]multiple
+					items[%else%][%escape%][@model@][%/escape%][%/if%]<br />
+					<strong>No. of SKUs on order :</strong> [@total_items@]
+				</div>
+				<div style="clear : both;"></div>
+			</div>
+
+			[%/param%]
+			[%param *body%]
+			[%/param%]
+			[%/show_order%]
+		</div>
+
+
+		<img style="max-width: 75%; max-height: 100%; margin-top: 30px"
+			src="https://www.thegourmetpantry.com.au/assets/image/tgp-logo.png">
+		<p style="margin-top: 50px">Dear AusPost driver, we hope you’re well!</p>
+		[%if [@ship_comment@]%] <h2 style="margin-top: 0">Sender’s Delivery Instructions:</h2>[%else%][%/if%]
+		<div style="text-align: center; position: relative; top: 250px">
+			<h2 style="margin-bottom: 0.3em">Thank you!</h2>
+			[%if [@sales_channel@] like 'Everyday Market' %]
+			<p style="margin-top: 0">The Team @ Everyday Market</p>
+
+			[%elseif [@sales_channel@] not like 'Everyday Market' %]
+			<p style="margin-top: 0">The Team @ The Gourmet Pantry</p>
+			[%else%]
+			[%/if%]
+		</div>
+		<p style="margin-top: 50px">[@ship_comment@]</p>
+
+	</div>
+
+	<hr class="pagebreak" style="display : none;" />
+	[%END PARAM%]
+
+
+
+	[%param *body%]
+	<div class="dataSet">
+		<div>
+			<div class="box" style="padding-left: 10px; display : none;">
+				<div class="order-details">
+
+					[%show_order id:'[@order_id@]' customer:'[@username@]' hidechild:'1'%]
+					[%param *header%]
+					<div class="orderDetailsHolder">
+						<div style="clear : both;"></div>
+						<div class="left" style="width : 60%; float : left; text-align: left;">
+							<strong>Order Id :</strong> [@order_id@]<br />
+							<strong>Name :</strong> [@ship_first_name@] [@ship_last_name@]<br />
+							<strong>Shipping Address :</strong> [@ship_street1@] [%if [@ship_street2@]%],
+							[@ship_street2@][%/if%]
+							[@ship_city@], [@ship_state@], [@ship_zip@],
+							[@ship_country_name@]<br />
+
+						</div>
+						<div class="right" style="width : 40%; float : left; text-align: left;">
+							<strong>Product Name :</strong> [%if [@total_items@] >= 2 %]multiple
+							items[%else%][%escape%][@model@][%/escape%][%/if%]<br />
+							<strong>No. of SKUs on order :</strong> [@total_items@]
+						</div>
+						<div style="clear : both;"></div>
+					</div>
+
+					[%/param%]
+					[%param *body%]
+					[%/param%]
+					[%/show_order%]
+				</div>
+
+
+				[%if [@cngmt_id@] ne ''%]
+
+				<a href="[@document_image@].pdf" target="_blank">
+					<img style="width: 100%; height: 100%" src="[@document_image@].pdf" />
+				</a>
+				[%else%]
+				<span style="text-align : center;">consignment not yet generated</span>
+				[%/if%]
+			</div>
+			<hr class="pagebreak" style="display : none;" />
+
+
+
+
+
+			<div class="box" style="display : none;">
+				<div class="order-details">
+
+					[%show_order id:'[@order_id@]' customer:'[@username@]' hidechild:'1'%]
+					[%param *header%]
+					<div class="orderDetailsHolder">
+						<div style="clear : both;"></div>
+						<div class="left" style="width : 60%; float : left;text-align: left;">
+							<strong>Order Id :</strong> [@order_id@]<br />
+							<strong>Name :</strong> [@ship_first_name@] [@ship_last_name@]<br />
+							<strong>Shipping Address :</strong> [@ship_street1@] [%if [@ship_street2@]%],
+							[@ship_street2@][%/if%]
+							[@ship_city@], [@ship_state@], [@ship_zip@],
+							[@ship_country_name@]<br />
+
+						</div>
+						<div class="right" style="width : 40%; float : left; text-align: left;">
+							<strong>Product Name :</strong> [%if [@total_items@] >= 2 %]multiple
+							items[%else%][%escape%][@model@][%/escape%][%/if%]<br />
+							<strong>No. of SKUs on order :</strong> [@total_items@]
+						</div>
+						<div style="clear : both;"></div>
+					</div>
+
+					[%/param%]
+					[%param *body%]
+					[%/param%]
+					[%/show_order%]
+				</div>
+
+
+				<img style="max-width: 75%; max-height: 100%; margin-top: 30px"
+					src="https://www.thegourmetpantry.com.au/assets/image/tgp-logo.png">
+				<p style="margin-top: 50px">Dear AusPost driver, we hope you’re well!</p>
+				[%if [@ship_comment@]%] <h2 style="margin-top: 0">Sender’s Delivery Instructions:</h2>[%else%][%/if%]
+				<div style="text-align: center; position: relative; top: 250px">
+					<h2 style="margin-bottom: 0.3em">Thank you!</h2>
+					[%if [@sales_channel@] like 'Everyday Market' %]
+					<p style="margin-top: 0">The Team @ Everyday Market</p>
+
+					[%elseif [@sales_channel@] not like 'Everyday Market' %]
+					<p style="margin-top: 0">The Team @ The Gourmet Pantry</p>
+					[%else%]
+					[%/if%]
+				</div>
+				<p style="margin-top: 50px">[@ship_comment@]</p>
+
+			</div>
+
+			<hr class="pagebreak" style="display : none;" />
+			[%split delimiter:': '%]
+			[%param data1%][@extra@][%/param%]
+			[%param *body%]
+			[%if [@count@] eq 1%]
+			[%split delimiter:';'%]
+			[%param data1%][@data1@][%/param%]
+			[%param *body%]
+			[%if [@count@] eq 0%]
+			[%set [@^^label_recipient@] %][@data1@][%/set%]
+			[%if%]
+			[%/param%]
+			[%/split%]
+			[%if%]
+			[%/param%]
+			[%/split%]
+			[%split delimiter:': '%][%split delimiter:': '%]
+			[%param data1%][@extra@][%/param%]
+			[%param *body%]
+			[%if [@count@] eq 2%]
+			[%split delimiter:';'%]
+			[%param data1%][@data1@][%/param%]
+			[%param *body%]
+			[%if [@count@] eq 0%]
+			[%set [@^^label_message@] %][@data1@][%/set%]
+			[%if%]
+			[%/param%]
+			[%/split%]
+			[%if%]
+			[%/param%]
+			[%/split%]
+			[%param data1%][@extra@][%/param%]
+			[%param *body%]
+			[%if [@count@] eq 3%]
+			[%split delimiter:';'%]
+			[%param data1%][@data1@][%/param%]
+			[%param *body%]
+			[%if [@count@] eq 0%][%set [@^^label_sender@] %][@data1@][%/set%]
+			[%if%]
+			[%/param%]
+			[%/split%]
+			[%if%]
+			[%/param%]
+			[%/split%]
+
+			<div class="box boxmessage boxmessageHDS" [%if [@sales_channel@] like 'Everyday Market' %][%if
+				[@customer_ref8@] eq '' %]style="display : none;" [%/if%][%/if%]>
+				<div class="order-details">
+
+					[%show_order id:'[@order_id@]' customer:'[@username@]' hidechild:'1'%]
+					[%param *header%]
+					<div class="orderDetailsHolder">
+						<div style="clear : both;"></div>
+						<div class="left" style="width : 60%; float : left; text-align: left;">
+							<strong>Order Id :</strong> [@order_id@]<br />
+							<strong>Name :</strong> [@ship_first_name@] [@ship_last_name@]<br />
+							<strong>Shipping Address :</strong> [@ship_street1@] [%if [@ship_street2@]%],
+							[@ship_street2@][%/if%]
+							[@ship_city@], [@ship_state@], [@ship_zip@],
+							[@ship_country_name@]<br />
+
+						</div>
+						<div class="right" style="width : 40%; float : left; text-align: left;">
+							<strong>Product Name :</strong> [%if [@total_items@] >= 2 %]multiple
+							items[%else%][%escape%][@model@][%/escape%][%/if%]<br />
+							<strong>No. of SKUs on order :</strong> [@total_items@]
+						</div>
+						<div style="clear : both;"></div>
+					</div>
+
+					[%/param%]
+					[%param *body%]
+					[%/param%]
+					[%/show_order%]
+				</div>
+				<div class="rotateHolder rotateHolderHDS">
+					<div class="rotate"
+						style="-webkit-transform: rotate(270deg); -ms-transform: rotate(270deg); transform: rotate(270deg); text-align: center;">
+
+						[%if [@sales_channel@] like 'Everyday Market' %]
+						<h2>[@customer_ref8@]</h2>
+						[%else%]
+
+						<span class="extraOptionHandler" hidden>[@extra@]</span>
+						<span class="labelGiftCardStyle" hidden></span>
+						[%product sku:'[@SKU@]'%] [%param *body%] [%if [@product_type@] like
+						'hamper' %]
+						<span hidden>[@model@]</span>
+						[%else%]
+						<span class="normalProduct" hidden>Normal Product</span>
+						[%/if%] [%/param%] [%/product%]
+						<h2 class="labelRecipient" style="margin-top: 0"></h2>
+						<h2 class="labelMessage" style="margin-top: 0"></h2>
+						<h2 class="labelSender" style="margin-top: 0"></h2>
+						[%/if%]
+					</div>
+				</div>
+			</div>
+			<hr class="pagebreak" style="display : none;" />
+		</div>
+	</div>
+	[%/param%]
+	[%/show_order%]
+	[%END PARAM%]
+	[%PARAM *section_footer%]
+	[%END PARAM%]
+	[%PARAM *footer%]
+</div>
+[%END PARAM%]
+[%END show_order%]
+
+<script type="text/javascript">
+	var dataSet = document.getElementsByClassName("dataSet");
+
+	var labelRecipient = (index) => dataSet[index].getElementsByClassName("labelRecipient");
+	var labelMessage = (index) => dataSet[index].getElementsByClassName("labelMessage");
+	var labelSender = (index) => dataSet[index].getElementsByClassName("labelSender");
+	var labelGiftCardStyle = (index) => dataSet[index].getElementsByClassName("labelGiftCardStyle");
+	var extraOptionHandler = (index) => dataSet[index].getElementsByClassName("extraOptionHandler");
+	var isNormalProduct = (index) => dataSet[index].getElementsByClassName("normalProduct");
+
+	var camelize = (str) =>
+		str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function (match, index) {
+			if (+match === 0) return ""; // or if (/\s+/.test(match)) for white spaces
+			return index === 0 ? match.toLowerCase() : match.toUpperCase();
+		});
+
+	window.onload = function () {
+		for (let y = 0; y < dataSet.length; y++) {
+			for (let x = 0; x < extraOptionHandler(y).length; x++) {
+				if (dataSet[y].children[0].children.length !== 6) {
+					dataSet[y].style.display = "none";
+				}
+
+				let extraOptionObjects = {};
+				let extraOptionInnerText = extraOptionHandler(y)[x].innerText.split(";");
+				for (let z = 0; z < extraOptionInnerText.length - 1; z++) {
+					let extraInnerText = extraOptionInnerText[z].split(":");
+					extraOptionObjects = {
+						...extraOptionObjects,
+						[camelize(extraInnerText[0])]: extraInnerText[1],
+					};
+				}
+
+				const { recipientName, GiftMessage, Sender, GiftCardStyle } = extraOptionObjects;
+
+				labelRecipient(y)[x].innerHTML = recipientName || "Blank gift card";
+				labelMessage(y)[x].innerHTML = GiftMessage || "Blank gift card";
+				labelSender(y)[x].innerHTML = Sender || "Blank gift card";
+				labelGiftCardStyle(y)[x].innerHTML = GiftCardStyle;
+
+				if (!recipientName?.trim() && !GiftMessage?.trim() && !Sender?.trim()) {
+					let pageBreaks = extraOptionHandler(y)[x].parentElement.parentElement.parentElement.parentElement.getElementsByTagName("hr")
+					pageBreaks[pageBreaks.length - 1].classList.remove("pagebreak");
+					extraOptionHandler(y)[x].parentElement.parentElement.parentElement.style.display = "none";
+				}
+			}
+			for (let x = 1; x < isNormalProduct(y).length; x++) {
+				for (let z = 0; z < isNormalProduct(y)[x].parentElement.parentElement.parentElement.getElementsByTagName("hr").length; z++) {
+					isNormalProduct(y)
+					[x].parentElement.parentElement.parentElement.getElementsByTagName("hr")
+					[z].classList.remove("pagebreak");
+				}
+
+				if (isNormalProduct(y)[x]) {
+					isNormalProduct(y)[x].parentElement.parentElement.parentElement.style.display = "none";
+				}
+			}
+		}
+	};
+</script>
+
+[%/if%]

@@ -1,0 +1,14 @@
+<!--[SUBJECT:[@send_from_company@] Quote #[@order_id@]]-->
+<!--[FROM:[@send_from_email@]]-->
+<!--[TO:[@email@]]-->
+<!--[BCC:[@secondary_email@],[@CONFIG:BCC_EMAIL@]]-->
+
+<p>
+Dear [@bill_first_name@],<br />
+<br />
+Thank you for shopping with [@send_from_company@].
+<br />
+<br />
+You can view all ordering history, track the progress of quotes and change your account details online by going to "<a href="[%url page:'account'%][%END url%]">Your Account</a>". <br /><br />
+To view and approve this order, go to the following link "<a href="[%URL page:'account' type:'view_order' id:'[@order_id@]'%][%END URL%]&filter_1=[@email@]">Approve this quote</a>". <br />
+</p>

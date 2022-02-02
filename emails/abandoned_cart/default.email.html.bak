@@ -1,0 +1,26 @@
+<!--[SUBJECT:[@send_from_company@] Abandoned Carts #[@batch_id@]]-->
+<!--[FROM:[@send_from_email@]]-->
+<!--[TO:[@email@]]-->
+<!--[BCC:[$BCC_EMAIL$]]-->
+
+Dear [@config:COMPANY_NAME@],
+
+<p>
+The following carts have been abandoned since your last notification email:
+</p>
+
+[%abandoned_carts %]
+[%PARAM cart_track_id%][@cart_track_ids@][%end PARAM%]
+[%PARAM *header%]<table width="100%" border="1" cellspacing="0" cellpadding="4">[%end PARAM%]
+[%PARAM *body%]
+  <tr>
+    <td width="18%" valign="top" nowrap><strong>Cart ID:</strong> <br>
+    [@cart_code@][@cart_id@]</td>
+    <td width="82%" valign="top"><strong>Product:<br>
+    </strong>[@SKU@] </td>
+  </tr>
+[%end PARAM%]
+[%PARAM *footer%]</table>[%end PARAM%]
+[%PARAM *ifempty%]no products found[%end PARAM%]
+[%end abandoned_carts%]
+

@@ -1,0 +1,135 @@
+<table cellpadding="0" cellspacing="0" border="0" width="350px" align="center">
+	<tr>
+	  <td>
+<table cellpadding="4px" cellspacing="0" border="0" width="100%" align="center">
+<tr><td><font style="font-size:14px;"><b>
+	C/N: [%NOHTML%][@cngmt_number@][%/ NOHTML%]<br>
+	A/N: [%NOHTML%][@article_number@][%/ NOHTML%]
+	</b></font></td>
+<td align="center"><font style="font-size:26px; font-weight:bold;">AAE</font></td>
+<td align="right">
+[%DATA id:'signature' if:'eq' value:'y'%][%PARAM if_true%]
+DELIVERY SIGNATURE REQUIRED
+[%/ PARAM%][%PARAM if_false%]
+	<font style="font-size:10px;">[%NOHTML%][%FORMAT format:'C%09d'%][@cngmt_id@][%/FORMAT%][%/ NOHTML%]</font><br>
+	<img width="100px" src="[%BARCODE_URL fn:'code128' height:'20'%][%FORMAT format:'C%09d'%][@cngmt_id@][%/FORMAT%][%END BARCODE_URL%]" border="0"/>
+[%/ PARAM%][%/ DATA%]
+	</td></tr>
+</table>
+  </td></tr>
+	<tr><td style="padding-bottom:8px; border-top:1px solid #000;">
+<font style="text-transform:uppercase; font-size:10px;">
+[%DATA id:'bill_company' if:'ne' value:''%]<b>[%NOHTML%][@bill_company@][%/ NOHTML%]</b><br>[%/ DATA%]
+[%NOHTML%][@bill_street1@][%END NOHTML%]
+[%DATA id:'bill_street2' if:'ne' value:''%][%NOHTML%][@bill_street2@][%/ NOHTML%],[%/ DATA%]
+[%NOHTML%][@bill_city@], [@bill_state@] [@bill_zip@][%/ NOHTML%]
+</font>
+  	</td></tr>
+	<tr><td style="padding-bottom:12px; border-top:1px solid #000;">
+<font style="font-size:12px; padding-bottom:2px;">AUSTRALIAN AIR EXPRESS DELIVER TO</font>
+  	</td></tr>
+	<tr><td>
+<font style="text-transform:uppercase; font-size:16px;">
+[%NOHTML%][@ship_first_name@] [@ship_last_name@][%/ NOHTML%]<br />
+[%DATA id:'ship_company' if:'ne' value:''%][%NOHTML%][@ship_company@][%/ NOHTML%]<br>[%/ DATA%]
+[%NOHTML%][@ship_street1@][%END NOHTML%]
+[%DATA id:'ship_street2' if:'ne' value:''%]<br>[%NOHTML%][@ship_street2@][%/ NOHTML%][%/ DATA%]
+</font>
+  	</td></tr>
+	<tr><td style="padding-bottom:8px; border-bottom:1px solid #000;">
+<table cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+	<tr><td valign="bottom" width="70%">
+<font style="text-transform:uppercase; font-size:18px;"><b>[@ship_city@]</b></font>
+  	</td><td align="right" width="20%" nowrap valign="bottom">
+<font style="text-transform:uppercase; font-size:18px;"><b>[@ship_zip@]</b></font>
+	</td>
+</tr>
+</table>
+  </td></tr>
+	<tr><td style="padding-bottom:8px;">
+<font style="font-size:8px; padding-bottom:2px;">DELIVERY INSTRUCTIONS</font><br />
+<font style="font-size:10px; text-transform:uppercase;">
+[%DATA id:'ship_comment' if:'ne' value:''%][%PARAM if_true%]
+[%NOHTML%][%FORMAT type:'text' maxlength:'255'%][@ship_comment@][%END FORMAT%][%/ NOHTML%]
+[%/ PARAM%][%PARAM if_false%]
+n/a
+[%/ PARAM%][%/ DATA%]
+[%DATA id:'ship_phone' if:'ne' value:''%]<br />PHONE: <font style="text-transform:uppercase;">[%NOHTML%][@ship_phone@][%/ NOHTML%]</font>[%/ DATA%]
+</font>
+  </td></tr>
+  <tr><td style="padding-bottom:8px; border-top:1px solid #000;">
+<table cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+	<tr><td valign="top" width="60%">
+<font style="font-size:8px; padding-bottom:2px;">REF NO.1:</font><br />
+<font style="text-transform:uppercase; font-size:10px;">
+[%NOHTML%][@order_id@][%/ NOHTML%]
+</font>
+  	</td><td width="40%" valign="top">
+<font style="font-size:8px; padding-bottom:2px;">REF NO.2:</font><br />
+<font style="text-transform:uppercase; font-size:10px;">
+[%NOHTML%][@customer_po@][%/ NOHTML%]</font>
+	</td>
+</tr>
+</table>
+  </td></tr>
+ 	<tr><td style="padding-bottom:2px;">
+ <table cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+	<tr><td width="150px" valign="top">
+<font style="text-transform:uppercase; font-size:10px;">
+[%FORMAT type:'date' now:1 format:'#D/#M/#Y'%][%/ FORMAT%]<br>
+TOTAL: [%NOHTML%][@count@] OF [@total@][%/ NOHTML%]<br>
+WEIGHT:
+[%DATA id:'shserv_code' if:'eq' value:'LSK'%]15[%/ DATA%]
+[%DATA id:'shserv_code' if:'eq' value:'ASK'%][%DATA id:'weight' if:'<=' value:'1'%]
+	[%PARAM if_true%]1[%/ PARAM%]
+	[%PARAM if_false%]
+		[%DATA id:'weight' if:'<=' value:'3'%]
+		[%PARAM if_true%]3[%/ PARAM%]
+		[%PARAM if_false%]5[%/ PARAM%]
+		[%/ DATA%]
+	[%/ PARAM%]
+[%/ DATA%][%/ DATA%]
+[%DATA id:'shserv_code' if:'eq' value:'O/N'%][%DATA id:'weight' if:'<=' value:'1'%]
+	[%PARAM if_true%]1[%/ PARAM%]
+	[%PARAM if_false%]
+		[%DATA id:'weight' if:'<=' value:'3'%]
+		[%PARAM if_true%]3[%/ PARAM%]
+		[%PARAM if_false%]5[%/ PARAM%]
+		[%/ DATA%]
+	[%/ PARAM%]
+[%/ DATA%][%/ DATA%]
+[%DATA id:'shserv_code' if:'ne' value:'LSK'%][%DATA id:'shserv_code' if:'ne' value:'ASK'%][%DATA id:'shserv_code' if:'ne' value:'O/N'%]
+[%FORMAT type:'number' dp:'3'%][@weight@][%/ FORMAT%]
+[%/ DATA%][%/ DATA%][%/ DATA%]kg
+</font>
+  	</td >
+  	<td width="200px" valign="top" align="center">
+<img width="200px" src="[%BARCODE_URL fn:'code128' height:'60' cngmt:'[@cngmt_id@]' art:'[@art_id@]'%][@shserv_code@][@ship_zip@][@ship_port@][%END BARCODE_URL%]" border="0"/><br>
+    <font style="font-size:10px;">[@shserv_code@][@ship_zip@][@ship_port@]</font>
+    </td></tr>
+</table>
+</td></tr>
+	<tr>
+	  <td style="padding-bottom:10px;">
+<table cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+	<tr>
+	<td>
+<b><font style="font-size:22px;">
+[%NOHTML%][@from_port@][%/ NOHTML%]
+</font></b></td >
+	  <td>
+<b><font style="font-size:22px;">
+[%NOHTML%][@ship_port@][%/ NOHTML%]
+</font></b></td >
+	  <td><b><font style="font-size:22px;">[%NOHTML%][@shserv_code@][%/ NOHTML%]</font></b></td>
+	  </tr>
+</table>
+  </td></tr>
+	<tr><td style="padding-bottom:10px;" align="center">
+<img width="295px" src="[%BARCODE_URL fn:'article' height:'60' cngmt:'[@cngmt_id@]' art:'[@art_id@]'%][@barcode@][%END BARCODE_URL%]" border="0"/><br>
+<font style="font-size:10px;">[%NOHTML%][@barcode@][%/ NOHTML%]</font>
+  </td></tr>
+	<tr>
+	  <td align="center"><font style="font-size:8px;">Printed With Neto E-commerce Software www.neto.com.au</font></td>
+  </tr>
+</table>

@@ -1,0 +1,10 @@
+<!--[BCC:]-->
+<!--[TO:[@email@]]-->
+<!--[FROM:[@config:company_email@]]-->
+<!--[SUBJECT:New Account Registration]-->
+
+<p>Thank you for registering with [@config:website_name@]!</p>
+
+<p>You may log in to our website with your email address ([@email@]) and password <a href="[%url page:'account' type:'login'/%]">here</a>.</p>
+
+<p>Note: Your password has not been sent via email for security purposes.</p>

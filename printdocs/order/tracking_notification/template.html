@@ -1,0 +1,114 @@
+[%load_template file:'printdocs/includes/styles.template.html'/%]
+<div class="nPrintDoc">
+	<div class="container" id="trackingnotification">
+	[%show_order id:'[@order_id@]'%]
+	[%param *header%]
+	<table class="table">
+			<tr>
+				<th>Image</th>
+				<th>Qty & Product</th>
+				<th>Shipping Details </th>
+			</tr>
+	[%/param%]
+	[%param *body%]
+			<tr>
+				<td><img src="[@config:homeurl@]/[%asset_url type:'product' id:'[@SKU@]' thumb:'thumbL'/%]" alt="[%escape%][@model@][%/escape%]" width="150"></td>
+				<td>[@qty@] x <i>[@model@]</i></td>
+				<td>
+					<p><strong>[@shipping_method@]</strong></p>
+					[%if [@ship_tracking@]%]Tracking #<span class="text-important">[@ship_tracking@]</span>[%/if%]
+					[%if [@tracking_url@]%]<p><a class="btn btn-default btn-sm" href="[@tracking_url@]" target="_blank">Track Online</a></p>[%/if%]
+				</td>
+			</tr>
+			[%multi_item_pack id:'[@order_id@]' counter:'[@counter@]'%]
+				[%param *header%]
+				[%/param%]
+			[%/multi_item_pack%]
+	[%/param%]
+	[%param *footer%]
+	</table>
+	[%backorder_items id:'[@order_id@]'%][%param *header%]
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">Items on backorder</h3>
+		</div>
+		<table class="table">
+		<tr>
+			<th>QTY</th>
+			[%if [@config:INVOICE_SH_UNIT@]%]<th>Unit</th>[%/if%]
+			<th>Code</th>
+			<th>Name</th>
+			<th>Unit Price</th>
+			[%if [@has_product_discounts@]%]<th>Discounts</th>[%/if%]
+			[%if [@config:INVOICE_SH_TAX@]%]<th>Tax</th>[%/if%]
+			<th class="text-right">Subtotal</th>
+		</tr>
+		[%/param%]
+		[%param *body%]
+		<tr>
+			<td>[@qty@]</td>
+			[%if [@config:INVOICE_SH_UNIT@]%]<td>[@unit@]</td>[%/if%]
+			<td>[@sku@]</td>
+			<td>[@model@]<br>
+				<i>[@extra@]</i>
+				[%extra_options currentextra:'[@extra@]' id:'[@sku@]'%]
+				[%param header%]
+					<ul>
+				[%/param%]
+				[%param *text_option%]
+					<li>[@currentextra@]</li>
+				[%/param%]
+				[%param *select_option%]
+					<li>[@currentextra@] ([@price@]) [@choices@]</li>
+				[%/param%]
+				[%param *category_option%]
+					<li>[@currentextra@]</li>
+				[%/param%]
+				[%param *choices%]
+					<li>'[@name@]: [@text@]' '[@currentextra@]' -- [%if [@currentextra@] eq '[@name@]: [@text@]'%]OK [@price@][%/if%];</li>
+				[%/param%]
+				[%param footer%]
+					</ul>
+				[%/param%]
+				[%/extra_options%]
+				[%if [@aff_id@] eq [@config:aff_ebay_id@]%] <span class="text-muted">EBay ID: <strong>[@aff_ref@]</strong></span>[%/if%]
+				[%if [@aff_id@] eq [@config:aff_free_id@]%] <span class="text-muted"><strong>Free Gift</strong></span>[%/if%]
+				[%if [@aff_id@] eq [@config:aff_rental_id@]%] <span class="text-muted">Rental</span>[%/if%]
+				[%if [@config:invoice_sh_serial@] AND [@itm_serial@]%]<b>Serial # [@itm_serial@]</b>[%/if%]
+				[%format type:'date' default:'' format:'<b>Deliver On</b> #D/#M/#Y (#G:#I#a)'%][@date_delivery@][%/format%]
+				[%if [@config:INVOICE_SH_NOTE@] AND [@itemnotes@]%][%format type:'text' nohtml:'1' addbr:'y'%][@itemnotes@][%/format%][%/if%]
+			</td>
+			<td>[%format type:'currency'%][@price@][%/format%]</td>
+			[%if [@has_product_discounts@]%]<td>[%format type:'currency'%][@discount@][%/format%]</td>[%/if%]
+			[%if [@config:INVOICE_SH_TAX@]%]<td>[%format type:'percent' dp:'2'%][@tax_percent@][%/format%]</td>[%/if%]
+			<td class="text-right">[%format type:'currency'%][@subtotal@][%/format%]</td>
+		</tr>
+		[%multi_item_pack id:'[@order_id@]' counter:'[@counter@]'%]
+		[%param *header%]
+		<tr>
+			<td>&nbsp;</td>
+			[%if [@config:INVOICE_SH_UNIT@]%]<td>&nbsp;</td>[%/if%]
+			<td>&nbsp;</td>
+			<td>
+			<p class="text-muted small">[@sku@] Comprised of :</p>
+		[%/param%]
+		[%param *body%]
+			<p><b>[@quantity@] &times;</b> [@description@]</p>
+		[%/param%]
+		[%param *footer%]
+			</td>
+			<td>&nbsp;</td>
+			[%if [@has_product_discounts@]%]<td>&nbsp;</td>[%/if%]
+			[%if [@config:INVOICE_SH_TAX@]%]<td>&nbsp;</td>[%/if%]
+			<td>&nbsp;</td>
+		</tr>
+		[%/param%]
+		[%/multi_item_pack%]
+	</table>
+	</div>
+	[%/param%]
+	[%/backorder_items%]
+	[%/param%]
+	[%/show_order%]
+	</div>
+</div>

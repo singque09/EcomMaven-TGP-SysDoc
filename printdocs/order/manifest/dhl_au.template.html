@@ -1,0 +1,102 @@
+[%load_template file:'printdocs/includes/styles.template.html'/%]
+<div class="nPrintDoc">
+	[%shipping_manifest id:'[@MANIFEST_ID@]' module:'dhl_au' date_manifest:'[@date_manifest@]'%]
+	[%param *header%]
+	<h1>Print manifest report</h1>
+	<div class="row">
+		<div class="col-xs-6">
+			<h4>[@data:shacc_name@] manifest for [@data:lodgement_title@]</h4>
+			<h4><strong>Customer's address:</strong> [@data:lodgement_address@]</h4>
+			<h4><strong>Manifest created date:</strong> [@date_manifest@]</h4>
+			<h4><strong>Manifest number:</strong> [@data:MANIFEST_ID@]</h4>
+		</div>
+		<div class="col-xs-6">
+			<h4><strong>Merchant ID:</strong> [@data:MERCHANT_ID@]</h4>
+			<h4><strong>Merchant location ID:</strong> [@data:LOCATION_ID@]</h4>
+			<h4><strong>[@data:SHACC_NAME@] account number:</strong> [@data:MERCHANT_ACC@]</h4>
+			<h4><strong>Lodgement Facility:</strong> [@data:LODGEMENT_CODE@] - [@data:LODGEMENT_LOCATION@]</h4>
+		</div>
+	</div>
+	<br>
+	<table class="table table-condensed">
+		<tr>
+			<th>Consignment #</th>
+			<th>Article #</th>
+			<th>Invoice #</th>
+			<th>Deliver To</th>
+			<th>Postcode</th>
+			<th>Country</th>
+			<th>Charge Code Description</th>
+			<th>Charging Zone</th>
+			<th>Dangerous Goods</th>
+			<th>Total Articles in Consgmt</th>
+			<th>Extra/ Transit Cover</th>
+			<th>Cubic Weight</th>
+			<th>Actual Weight</th>
+			<th>Chargeable Weight</th>
+		</tr>
+	[%/param%]
+	[%param *body%]
+		<tr>
+			<td>[@cngmt_number@]</td>
+			<td>[@article_number@]</td>
+			<td>[@order_id@]</td>
+			<td>[@name@]</td>
+			<td>[@ship_zip@]</td>
+			<td>[@ship_country_name@]</td>
+			<td>[@shserv_name@]</td>
+			<td>[@zone_code@]</td>
+			<td>[@danger_txt@]</td>
+			<td>[@art_total@]</td>
+			<td>[@tran_txt@]</td>
+			<td>[@cubic@]</td>
+			<td>[@shipping@]</td>
+			<td>[@charge@]</td>
+		</tr>
+	[%/param%]
+	[%param *stotal_body%]
+		<tr>
+			<td colspan="9" class="text-right"><strong>Subtotal</strong> <span class="text-muted">for  [@stotal_con@] [@cng_txt@]</span></td>
+			<td>[@stotal_art@]</td>
+			<td>&nbsp;</td>
+			<td>[@stotal_cubic@]</td>
+			<td>[@stotal_shipping@]</td>
+			<td>[@stotal_charge@]</td>
+		</tr>
+	[%/param%]
+	[%param *total_body%]
+		<tr>
+			<td colspan="9" class="text-right"><strong>Total</strong> <span class="text-muted">for  [@total_con@]</span></td>
+			<td>[@total_art@]</td>
+			<td>&nbsp;</td>
+			<td>[@total_cubic@]</td>
+			<td>[@total_shipping@]</td>
+			<td>[@total_charge@]</td>
+		</tr>
+	[%/param%]
+	[%/shipping_manifest%]
+	</table>
+	<hr>
+	<div class="row">
+		<div class="col-xs-4">
+			<p class="underline-field">Sender's signature :</p>
+		</div>
+		<div class="col-xs-4">
+			<p>For [@data:SHACC_NAME@] Use</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-6">
+			<p class="underline-field">Checked by:</p>
+			<p class="underline-field">Time received:</p>
+			<p class="underline-field">Date received:</p>
+			<p class="underline-field">Number of ULDs:</p>
+		</div>
+		<div class="col-xs-6">
+			<p class="underline-field">Approx no. of articles:</p>
+			<p class="underline-field">Type of revenue check:</p>
+			<p class="underline-field">Acceptance scan performed <span class="text-muted">(date/time/initials)</span>:</p>
+			<p class="underline-field">Accepted in eParcel system <span class="text-muted">(date/time/initials)</span>:</p>
+		</div>
+	</div>
+</div>

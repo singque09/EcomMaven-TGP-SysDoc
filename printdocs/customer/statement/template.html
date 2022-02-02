@@ -1,0 +1,106 @@
+[%load_template file:'printdocs/includes/styles.template.html'/%]
+<div class="nPrintDoc">
+	<div id="invoice" class="container">
+	[%order_statement customer:'[@username@]'%]
+	[%param *header%]
+	<div class="row">
+		<div class="col-xs-6">
+			<h1>Statement</h1>
+			<h2>Date : [%format type:"date" format:"#D/#M/#Y"%]NOW[%/format%]</h2>
+		</div>
+  	<div class="col-xs-6 text-right">
+		<p><img class="logo" src="[%asset_url type:'logo' thumb:'website' /%]"></p>
+		[%if [@config:company_abn@]%]<p class="text-muted">[%if [@config:PRIMARY_ABN_LABEL@]%][@config:PRIMARY_ABN_LABEL@][%else%]ABN[%/if%]: [@config:company_abn@]</p>[%/if%]
+		[%if [@config:company_acn@]%]<p class="text-muted">[%if [@config:PRIMARY_ACN_LABEL@]%][@config:PRIMARY_ACN_LABEL@][%else%]ACN[%/if%]: [@config:company_acn@]</p>[%/if%]
+		[%if [@config:logo_footer@]%]<p>[@config:logo_footer@]</p>[%/if%]
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<h4>Billed to</h4>
+			[%if [@bill_company@]%]<p>[@bill_company@]</p>[%/if%]
+			<p>[@bill_first_name@] [@bill_last_name@]</p>
+			<p>[@bill_street1@] [%if [@bill_street2@]%], [@bill_street2@][%/if%]
+			<p>[@bill_city@], [@bill_state@] [@bill_zip@]</p>
+			<p>[@bill_country_name@]</p>
+		</div>
+	</div>
+	<table class="table table-items table-noborder">
+		<tr>
+			<th>Date invoiced</th>
+			<th>Order ID</th>
+			<th>Customer PO#</th>
+			<th>Date Due</th>
+			<th>Amount</th>
+			<th class="text-right">Amount Owed</th>
+		</tr>
+	[%/param%]
+	[%param *body%]
+		<tr>
+			<td>[%format type:'date' default:'' format:'#D/#M/#Y'%][@date_invoiced@][%/format%]</td>
+			<td>[@order_id@]</td>
+			<td>[@customer_po@]</td>
+			<td>[%format type:'date' default:'' format:'#D/#M/#Y'%][@date_due@][%/format%]</td>
+			<td>[%format type:'currency'%][@grand_total@][%/format%]</td>
+			<td>[%format type:'currency'%][@amount_owed@][%/format%]</td>
+		</tr>
+	[%/param%]
+	[%param *footer%]
+	</table>
+	<div class="row">
+		<div class="col-xs-7">
+		<h3>Payment Options</h3>
+		[%payment_methods charge_type:'cc' sortby:'sortorder,name' visible:'1'%]
+			[%param *header%]
+				<h4>Credit Card</h4>
+			[%/param%]
+			[%param *body%]
+				[%if [@count@] != 0%], [%/if%]
+				[@name@]
+			[%/param%]
+			[%param *footer%]
+				[@config:CC_PAYMENT_NOTE@]
+			[%/param%]
+		[%/payment_methods%]
+		[%if [@bpay_crn@]%]
+			[%payment_methods charge_type:'bpay' visible:'1'%]
+				[%param *header%]
+					<h4>Telephone &amp; Internet Banking - BPAY</h4>
+				[%/param%]
+				[%param *body%]
+					<img width="60" src="/assets/paymenticons/bpay.svg">
+					Biller Code: <b>[@config:BPAY_BILLER_CODE@]</b>
+					Ref: <b>[@bpay_crn@]</b>
+				[%/param%]
+				[%param *footer%]
+					<p class="small text-muted"> Contact your bank, credit union or building society to make this payment from your cheque, savings or credit card account. <a href="http://www.bpay.com.au" target="_blank">More info</a></p>
+				[%/param%]
+			[%/payment_methods%]
+		[%/if%]
+		[%payment_methods charge_type:'bank' sortby:'sortorder,name'%]
+			[%param *header%]
+				<h4>Direct Bank Deposit or Internet Transfer</h4>
+				<p>Send To [@config:company_bank_acc@]</p>
+				<p>[@config:company_bank_name@]</p>
+				<p>[@config:PRIMARY_BSB_LABEL@]: [@config:company_bank_bsb@], Account Number: [@config:company_bank_num@]</p>
+				<h4>Money Order or Cheque</h4>
+				<p>Send To [@config:COMPANY_POADDR@]</p>
+			[%/param%]
+			[%param *footer%]
+				<p class="text-muted">[$BANK_PAYMENT_NOTE$]</p>
+			[%/param%]
+		[%/payment_methods%]
+		</div>
+		<div class="col-xs-5">
+		<table class="table table-noborder">
+			<tr>
+				<td class="text-right"><h3 class="text-success"><b>Balance Due:</b></h3></td>
+				<td class="text-right"><h3 class="text-success"><b>[%format type:'currency'%][@total_due@][%/format%]</b></h3></td>
+			</tr>
+		</table>
+		</div>
+	</div>
+	[%/param%]
+	[%/order_statement%]
+	</div>
+</div>

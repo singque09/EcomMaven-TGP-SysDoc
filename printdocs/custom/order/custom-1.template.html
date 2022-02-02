@@ -1,0 +1,118 @@
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link
+  href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+  rel="stylesheet"
+/>
+<style>
+  * {
+    font-family: "Montserrat", sans-serif;
+  }
+  .box {
+    border-radius: 10px;
+    padding: 20px;
+    height: 210px;
+    width: calc(99% - 40px);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .textArea {
+    height: 60px;
+    line-height: 20px;
+    width: 99%;
+    overflow: hidden;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .xs-6 {
+    width: 50%;
+    overflow: hidden;
+    height: 18px;
+  }
+  .message {
+    text-align: center;
+  }
+</style>
+[%load_template file:'printdocs/includes/styles.template.html'/%]
+[%show_orderlist ids:'[@ids@]' sortby:'[@tmpl_sort_by@]'
+groupby:'[@tmpl_group_by@]' sortorder:'[@tmpl_sort_order@]'%][%PARAM *header%]
+<div></div>
+<div class="page-break"></div>
+[%END PARAM%] [%PARAM *section_header%] [%END PARAM%] [%PARAM *body%] [%END
+PARAM%] [%PARAM *section_footer%] [%END PARAM%] [%PARAM *footer%] [%show_order
+id:'[@order_ID@]' customer:'[@username@]' dropshipper:'[@showdropshipper@]'%]
+[%param *body%]
+
+<div class="container">
+  <div class="box">
+    [%extra_options currentextra:'[@extra@]' id:'[@sku@]'%] [%param header%]
+    <ul class="extraOptionHandler" hidden>
+      [%/param%]
+      <li>[%param *text_option%] [@currentextra@] [%/param%]</li>
+      <li>[%param *select_option%] [@currentextra@] [@choices@] [%/param%]</li>
+      <li>[%param *category_option%] [@currentextra@] [%/param%]</li>
+      [%param *footer%]
+    </ul>
+    [%/param%] [%/extra_options%]
+    <h1 class="recipient"></h1>
+    <h1 class="message"></h1>
+    <h1 class="sender"></h1>
+  </div>
+  <div class="textArea">
+    <div class="xs-6">[@order_ID@]</div>
+    [%product sku:'[@SKU@]'%] [%param *body%] [%if [@product_type@] like
+    'hamper' %]
+    <div class="xs-6">[@model@]</div>
+    [%else%]
+    <div class="xs-6 normalProduct">Normal Product</div>
+    [%/if%] [%/param%] [%/product%]
+    <div class="xs-6 receipientName"></div>
+    <div class="xs-6 cardStyle"></div>
+  </div>
+</div>
+[%/param%] [%/show_order%] [%END PARAM%] [%END show_orderlist%]
+
+<script type="text/javascript">
+  var extraOptionHandler = document.getElementsByClassName(
+    "extraOptionHandler"
+  );
+  var receipientName = document.getElementsByClassName("receipientName");
+  var recipient = document.getElementsByClassName("recipient");
+  var message = document.getElementsByClassName("message");
+  var sender = document.getElementsByClassName("sender");
+  var cardStyle = document.getElementsByClassName("cardStyle");
+  var isNormalProduct = document.getElementsByClassName("normalProduct");
+
+  window.onload = function () {
+    for (let x = 0; x < extraOptionHandler.length; x++) {
+      var extraExtraOptionsFilter = (y) =>
+        extraOptionHandler[x].innerHTML
+          .split("<b>")
+          [y].split("</b>:")[1]
+          .replace(/(<([^>]+)>)/gi, "");
+
+      receipientName[x].innerHTML = extraExtraOptionsFilter(1);
+      recipient[x].innerHTML = extraExtraOptionsFilter(1);
+      message[x].innerHTML = extraExtraOptionsFilter(2);
+      if (
+        extraOptionHandler[x].innerHTML.split("<b>").length >= 4 &&
+        extraOptionHandler[x].innerHTML.split("<b>")[3].split(":").length > 1
+      ) {
+        sender[x].innerHTML = extraExtraOptionsFilter(3);
+      }
+      if (
+        extraOptionHandler[x].innerHTML.split("<b>").length >= 5 &&
+        extraOptionHandler[x].innerHTML.split("<b>")[4].split(":").length > 1
+      ) {
+        cardStyle[x].innerHTML = extraExtraOptionsFilter(4);
+      }
+    }
+    for (let x = 1; x < isNormalProduct.length; x++) {
+      isNormalProduct[x].parentElement.parentElement.hidden = true;
+    }
+  };
+</script>

@@ -1,0 +1,99 @@
+</div>
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link
+  href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+  rel="stylesheet"
+/>
+
+<style>
+  * {
+    font-family: "Montserrat", sans-serif;
+  }
+  .box {
+    width: 95%;
+    height: 95%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    page-break-after: always;
+    padding-top: 5px;
+  }
+  .textArea {
+    height: 60px;
+    line-height: 20px;
+    width: 99%;
+    overflow: hidden;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .xs-6 {
+    width: 50%;
+    overflow: hidden;
+    height: 18px;
+  }
+  .labelRecipient,
+  .labelMessage,
+  .labelSender {
+    text-align: center;
+  }
+  hr {
+    border-color: transparent;
+  }
+  .orderDetailsHolder .left, .orderDetailsHolder .right {
+    font-size: 9px;
+	}
+
+
+	.order-details {
+		height: 55px;
+		overflow: hidden;
+	}
+	.pagebreak {
+		display : none;
+	}
+</style>
+[%load_template file:'printdocs/includes/styles.template.html'/%]
+[%show_order ids:'[@ids@]' sortby:'[@tmpl_sort_by@]' groupby:'[@tmpl_group_by@]' sortorder:'[@tmpl_sort_order@]'%]
+<div class="box" style="padding-left: 10px">
+		<div class="order-details">
+			
+			[%show_order id:'[@order_id@]' customer:'[@username@]' hidechild:'1'%]
+			[%param *header%]
+			<div class="orderDetailsHolder">
+				<div style="clear : both;"></div>
+				<div class="left" style="width : 60%; float : left; text-align: left;">
+				<strong>Order Id :</strong> [@order_id@]<br />
+				<strong>Name :</strong> [@ship_first_name@] [@ship_last_name@]<br />
+				<strong>Shipping Address :</strong> [@ship_street1@] [%if [@ship_street2@]%], [@ship_street2@][%/if%]
+					[@ship_city@], [@ship_state@], [@ship_zip@],
+					[@ship_country_name@]<br />
+					
+				</div>
+				<div class="right" style="width : 40%; float : left; text-align: left;">
+					<strong>Product Name :</strong> [%if [@total_items@] >= 2 %]multiple items[%else%][%escape%][@model@][%/escape%][%/if%]<br />
+					<strong>No. of SKUs on order :</strong> [@total_items@]
+				</div>
+				<div style="clear : both;"></div>
+			</div>
+				
+			[%/param%]
+			[%param *body%]
+			[%/param%]
+			[%/show_order%]
+		 </div>
+		  
+		  
+		[%if [@cngmt_id@] ne ''%]
+		
+		  
+			<div style="width:92%;"><a href="[@document_image@].pdf" target="_blank"><img style="max-width:100%; max-height:100%;" src="[@document_image@]"></a></div>
+
+
+		[%else%]
+		<span style="text-align : center;">consignment not yet generated</span>
+		[%/if%]
+    </div>

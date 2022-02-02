@@ -1,0 +1,43 @@
+<!--[SUBJECT:[@config:company_name@] Stock Warning Notification]-->
+<!--[FROM:info@thegourmetpantry.com.au]-->
+<!--[REPLY-TO:]-->
+<!--[TO:andrew@gourmetbrands.com.au, miranda@thegourmetpantry.com.au]-->
+<!--[CC:]-->
+<!--[BCC:]-->
+
+
+
+
+<p>Dear [@config:company_name@],</p>
+<p>The follow SKU is out of stock / lower than a special stock level at [$home_url$].</p>
+<table border="1" cellpadding="4" cellspacing="0">
+	<thead>
+		<tr>
+			<th cp-column-name="SKU">SKU</th>
+			<th cp-column-name="Product">Product</th>
+			<th cp-column-name="Restock Warning Level">Restock Warning Level</th>
+			<th cp-column-name="Quantity Committed">Quantity Committed</th>
+			<th cp-column-name="Quantity on Hand">Quantity on Hand</th>
+			<th cp-column-name="Incoming Quantity">Incoming Quantity</th>
+		</tr>
+	</thead>
+	<tbody>
+		[%thumb_list type:'products_by_id' filter_inventory_id:'[@inventory_ids@]' sortby:'lowest_qty'%]
+			[%param *body%]
+				<tr>
+					<td><a href="[%url page:'cpanel' type:'products' fn:'view' id:'[@inventory_id@]'/%]" target="_blank">[@SKU@]</a></td>
+					<td>[@model@]</td>
+					<td>[@restock_warning_level@]</td>
+					<td>[@committed_quantity@]</td>
+					<td>[@store_quantity@]</td>
+					<td>[@incoming_quantity@]</td>
+				</tr>
+			[%/param%]
+		[%/thumb_list%]
+	</tbody>
+</table>
+<p>You are receiving this email because you requested to be advised when the above item returned to stock.</p>
+<p>
+	Regards <br>
+	[@config:company_name@]
+</p>

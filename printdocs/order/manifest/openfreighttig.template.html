@@ -1,0 +1,121 @@
+[%shipping_manifest id:'[@MANIFEST_ID@]' module:'openfreighttig' date_manifest:'[@date_manifest@]'%][%PARAM *header%]
+
+<font style="font-size:16px; font-weight:bold; margin: 12px;">Print Manifest Report</font>
+<br><br>
+<table cellpadding="2px" cellspacing="0" border="0">
+    <tr>
+        <td colspan="3">
+            <b><font style="font-size:32px; font-weight:bold; margin: 12px;">[@DATA:SHACC_NAME@] Manifest for [@DATA:LODGEMENT_TITLE@]</font></b></td></tr>
+    <tr>
+        <td width="20%"><b>Customer's Address:</b></td>
+        <td width="20%">[@DATA:LODGEMENT_ADDRESS@]</td>
+        <td rowspan="7" ><div style="float:right;width:135px;text-align:center"><img src="[%BARCODE_URL fn:'code128'%][@DATA:MANIFEST_NUMBER@][%END BARCODE_URL%]" ><br/>[@DATA:MANIFEST_NUMBER@]</div></td>
+    </tr>
+    <tr>
+        <td><b>Manifest Created Date:</b></td>
+        <td>[@DATA:DATE_MANIFEST@]</td>
+    </tr>
+    <tr>
+        <td><b>Manifest Number:</b></td>
+        <td>[@DATA:MANIFEST_ID@]</td>
+    </tr>
+    <tr>
+        <td><b>Merchant ID:</b></td>
+        <td>[@DATA:MERCHANT_ID@]</td>
+    </tr>
+    <tr>
+        <td><b>Merchant Location ID:</b></td>
+        <td>[@DATA:LOCATION_ID@]</td>
+    </tr>
+    <tr>
+        <td><b>[@DATA:SHACC_NAME@] Account<br>Number:</b></td>
+        <td>[@DATA:MERCHANT_ACC@]</td>
+    </tr>
+    <tr>
+        <td><b>Lodgement Facility:</b></td>
+        <td>[@DATA:LODGEMENT_CODE@] - [@DATA:LODGEMENT_LOCATION@]</td>
+    </tr>
+</table>
+<br>
+<table width="100%" cellpadding="2px" cellspacing="0" border="0">
+    <tr><td class="hdr">Cnsgmt Nbr</td>
+        <td class="hdr">Article Nbr</td>
+        <td class="hdr">Order No.</td>
+        <td class="hdr">Item Code</td>
+        <td class="hdr">Item Description</td>
+        <td class="hdr">DeliverTo</td>
+        <td class="hdr">Postcode</td>
+        <td class="hdr">Country</td>
+        <td class="hdr">Charge Code Description</td>
+        <td class="hdr">Charging Zone</td>
+        <td class="hdr">Dngrous Goods</td>
+        <td class="hdr">Total Articles in Consgmt</td>
+        <td class="hdr">Extra/ Transit Cover</td>
+        <td class="hdr">Cubic Weight</td>
+        <td class="hdr">Actual Weight</td>
+        <td class="hdr">Chargeable Weight</td></tr>
+    [%END PARAM%][%PARAM *body%]
+    <tr><td class="itm">[@cngmt_number@]</td>
+        <td class="itm">[@article_number@]</td>
+        <td class="itm">[@order_id@]</td>
+        <td class="itm">[@itemcode@]</td>
+        <td class="itm">[@item_desctiption@]</td>
+        <td class="itm">[@name@]</td>
+        <td class="itm">[@ship_zip@]</td>
+        <td class="itm">[@ship_country_name@]</td>
+        <td class="itm">[@shserv_name@]</td>
+        <td class="itm">[@zone_code@]</td>
+        <td class="itm" align="center">[@danger_txt@]</td>
+        <td class="itm" align="right">[@art_total@]</td>
+        <td class="itm" align="center">[@tran_txt@]</td>
+        <td class="itm" align="right">[@cubic@]</td>
+        <td class="itm" align="right">[@shipping@]</td>
+        <td class="itm" align="right">[@charge@]</td></tr>
+[%END PARAM%][%PARAM *stotal_body%]
+
+    <tr><td class="subtotal" colspan="11"><b>Subtotal</b> (for  [@stotal_con@] [@cng_txt@])</td>
+        <td class="subtotal" align="right">[@stotal_art@]</td>
+        <td class="subtotal">&nbsp;</td>
+        <td class="subtotal" align="right">[@stotal_cubic@]</td>
+        <td class="subtotal" align="right">[@stotal_shipping@]</td>
+        <td class="subtotal" align="right">[@stotal_charge@]</td></tr>
+    <tr><td colspan="16">&nbsp;</td></tr>
+
+[%END PARAM%][%PARAM *total_body%]
+
+    <tr><td colspan="16" style="border-top: 2px solid #000000;">&nbsp;</td></tr>
+    <tr><td class="total" colspan="11"><b>Total</b> (for  [@total_con@])</td>
+        <td class="total" align="right">[@total_art@]</td>
+        <td class="total">&nbsp;</td>
+        <td class="total" align="right">[@total_cubic@]</td>
+        <td class="total" align="right">[@total_shipping@]</td>
+        <td class="total" align="right">[@total_charge@]</td></tr>
+    <tr><td colspan="16" style="border-bottom: 2px solid #000000; ">&nbsp;</td></tr>
+    [%END PARAM%]
+[%END shipping_manifest%]
+</table>
+<table cellpadding="0" cellspacing="0" width="100%" border="0">
+    <tr><td colspan="2" height="50px" align="right">Sender's signature ________________________________</td></tr>
+    <tr><td colspan="2" height="20px"><u>For [@DATA:SHACC_NAME@] Use</u></td></tr>
+    <tr><td width="50%" valign="top">
+        <table cellpadding="0" class="inpbox"  cellspacing="0" width="100%" border="0">
+            <tr><td valign="top" width="1%" nowrap>Checked by:</td><td>&nbsp;<br />&nbsp;</td></tr>
+            <tr><td valign="top" nowrap>Time received:</td><td>&nbsp;<br />&nbsp;</td></tr>
+            <tr><td valign="top" nowrap>Date received:</td><td>&nbsp;<br />&nbsp;</td></tr>
+            <tr><td valign="top" nowrap>Number of ULDs:</td><td>&nbsp;<br />&nbsp;</td></tr>
+        </table>
+    </td>
+        <td width="50%" align="right" valign="top">
+            <table cellpadding="0" class="inpbox"  cellspacing="0" width="100%" border="0">
+                <tr><td valign="top" width="1%" nowrap>Approx no. of articles:</td><td>&nbsp;<br />&nbsp;</td></tr>
+                <tr><td valign="top" nowrap>Type of revenue check:</td><td>&nbsp;<br />&nbsp;</td></tr>
+                <tr><td valign="top" nowrap>Acceptance scan performed<br />
+                    (date/time/initials)</td><td>&nbsp;<br />&nbsp;</td></tr>
+                <tr><td valign="top" nowrap>Accepted in eParcel system<br />
+                    (date/time/initials)</td><td>&nbsp;<br />&nbsp;</td></tr>
+            </table>
+        </td></tr>
+</table>
+<br/>
+
+

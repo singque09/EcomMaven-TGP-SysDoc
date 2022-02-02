@@ -1,0 +1,106 @@
+[%load_template file:'printdocs/includes/styles.template.html'/%]
+<div class="nPrintDoc">
+	<div id="deliverydocket" class="container">
+	[%show_order id:'[@order_id@]' customer:'[@username@]'%]
+	[%param *header%]
+	<div class="row">
+		<div class="col-xs-7">
+			<h1>Order # <span class="text-success">[@order_id@]</span></h1>
+			[%if [@customer_po@]%]<h4>PO # [@customer_po@]</h4>[%/if%]
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-4">
+			<h4>Ship to</h4>
+			[%if [@ship_company@]%]<p>[@ship_company@]</p>[%/if%]
+			<p>[@ship_first_name@] [@ship_last_name@][%if [@ship_phone@]%], [@ship_phone@][%/if%]</p>
+			<p>[@ship_street1@] [%if [@ship_street1@]%], [@ship_street2@][%/if%]
+			<p>[@ship_city@], [@ship_state@] [@ship_zip@]</p>
+			<p>[@ship_country_name@]</p>
+		</div>
+		<div class="col-xs-4">
+			<h4>Billed to</h4>
+			[%if [@bill_company@]%]<p>[@bill_company@]</p>[%/if%]
+			<p>[@bill_first_name@] [@bill_last_name@]</p>
+			<p>[@bill_street1@] [%if [@bill_street2@]%], [@bill_street2@][%/if%]
+			<p>[@bill_city@], [@bill_state@] [@bill_zip@]</p>
+			<p>[@bill_country_name@]</p>
+		</div>
+		<div class="col-xs-4 text-right">
+			<p>Date placed:	[%format type:"date" format:"#D/#M/#Y"%][@date_placed@][%/format%]</p>
+		</div>
+	</div>
+	[%if [@ship_comment@]%]
+		<div class="row">
+			<div class="alert alert-warning">
+				<b>Instructions:</b> [%nohtml%][@ship_comment@][%/nohtml%]
+			</div>
+		</div>
+	[%/if%]
+	<table class="table table-items table-noborder">
+		<tr>
+			<th>QTY</th>
+			[%if [@config:INVOICE_SH_UNIT@]%]<th>Unit</th>[%/if%]
+			<th>Code</th>
+			<th>Name</th>
+		</tr>
+	[%/param%]
+	[%param *body%]
+		<tr>
+			<td>[@qty@]</td>
+			[%if [@config:INVOICE_SH_UNIT@]%]<td>[@unit@]</td>[%/if%]
+			<td>[@sku@]</td>
+			<td>[@model@]<br>
+				<i>[@extra@]</i>
+				[%extra_options currentextra:'[@extra@]' id:'[@sku@]'%]
+				[%param header%]
+					<ul>
+				[%/param%]
+				[%param *text_option%]
+					<li>[@currentextra@]</li>
+				[%/param%]
+				[%param *select_option%]
+					<li>[@currentextra@] ([@price@]) [@choices@]</li>
+				[%/param%]
+				[%param *category_option%]
+					<li>[@currentextra@]</li>
+				[%/param%]
+				[%param *choices%]
+					<li>'[@name@]: [@text@]' '[@currentextra@]' -- [%if [@currentextra@] eq '[@name@]: [@text@]'%]OK[%/if%];</li>
+				[%/param%]
+				[%param footer%]
+					</ul>
+				[%/param%]
+				[%/extra_options%]
+				[%if [@aff_id@] eq [@config:aff_ebay_id@]%] <span class="text-muted">EBay ID: <strong>[@aff_ref@]</strong></span>[%/if%]
+				[%if [@aff_id@] eq [@config:aff_free_id@]%] <span class="text-muted"><strong>Free Gift</strong></span>[%/if%]
+				[%if [@aff_id@] eq [@config:aff_rental_id@]%] <span class="text-muted">Rental</span>[%/if%]
+				[%if [@config:invoice_sh_serial@] AND [@itm_serial@]%]<b>Serial # [@itm_serial@]</b>[%/if%]
+				[%format type:'date' default:'' format:'<b>Deliver On</b> #D/#M/#Y (#G:#I#a)'%][@date_delivery@][%/format%]
+				[%if [@config:INVOICE_SH_NOTE@] AND [@itemnotes@]%][%format type:'text' nohtml:'1' addbr:'y'%][@itemnotes@][%/format%][%/if%]
+			</td>
+		</tr>
+		[%multi_item_pack id:'[@order_id@]' counter:'[@counter@]'%]
+		[%param *header%]
+		<tr>
+			<td>&nbsp;</td>
+			[%if [@config:INVOICE_SH_UNIT@]%]<td>&nbsp;</td>[%/if%]
+			<td>&nbsp;</td>
+			<td>
+			<p class="text-muted small">[@sku@] Comprised of :</p>
+		[%/param%]
+		[%param *body%]
+			<p><b>[@quantity@] &times;</b> [@description@]</p>
+		[%/param%]
+		[%param *footer%]
+			</td>
+		</tr>
+		[%/param%]
+		[%/multi_item_pack%]
+	[%/param%]
+	[%param *footer%]
+	</table>
+	[%/param%]
+	[%/show_order%]
+	</div>
+</div>

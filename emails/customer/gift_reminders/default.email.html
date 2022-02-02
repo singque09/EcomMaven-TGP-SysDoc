@@ -1,0 +1,8 @@
+<!--[SUBJECT:[$COMPANY_NAME$] Reminder Service]-->
+<!--[TO:[@email@]]-->
+<!--[FROM:[$COMPANY_EMAIL$]]-->
+<!--[BCC:[$BCC_EMAIL$]]-->
+<p>Hi [@bill_first_name@],</p>
+<p>It looks like you have an event coming up soon.</p>
+[%if [@reminder_title@]%]<h3>Event: [@reminder_title@]</h3>[%/if%]
+[%if [@next_reminder_date@]%]<h3>Date: [@next_reminder_date@]</h3>[%/if%]

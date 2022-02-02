@@ -1,0 +1,56 @@
+[%load_template file:'printdocs/includes/styles.template.html'/%]
+<div class="nPrintDoc">
+	[%shipping_manifest id:'[@MANIFEST_ID@]' module:'fastwayapi' 'lodgement_title':[@description@]'%]
+	[%param *header%]
+	<h1>Print Manifest Report</h1>
+	<h2>Fastway Couriers run sheet</h2>
+	<div class="row">
+		<div class="col-xs-6">
+			<h4><strong>Date :</strong> [@date_now@]</h4>
+			<h4><strong>Manifest Number :</strong> [@DATA:MANIFEST_NUMBER@]</h4>
+			<h4><strong>Description :</strong> [@description@]</h4>
+		</div>
+		<div class="col-xs-6">
+			<p>The liability of Fastway will end when a signature has been obtained upon delivery of the goods.<br>
+				Any damage or loss must be shown when goods are signed for.<br>
+				<strong>Received in good order and condition</strong></p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-4">
+			<p class="underline-field">Courier Franchise :</p>
+		</div>
+		<div class="col-xs-4">
+			<p class="underline-field">Vehicle No :</p>
+		</div>
+	</div>
+	<table class="table">
+		<tr>
+			<th>From</th>
+			<th>To</th>
+			<th>No. Pkgs</th>
+			<th>Pickup Barcodes</th>
+		</tr>
+	[%/param%]
+	[%param *body%]
+		<tr>
+			<td>[@fmaddress@]</td>
+			<td>[@toaddress@]</td>
+			<td>[@art_count@]</td>
+			<td>[@barcodes@]</td>
+		</tr>
+	[%/param%]
+	[%param *total_body%]
+		<tr>
+			<td colspan="2"><strong>Parcel Total</strong> <span class="text-muted">for [@total_con@]</span></td>
+			<td colspan="2">[@total_art@]</td>
+		</tr>
+	[%/param%]
+	[%/shipping_manifest%]
+	</table>
+	<div class="row">
+		<div class="col-xs-4">
+			<p class="underline-field">Sender's signature : </p>
+		</div>
+	</div>
+</div>

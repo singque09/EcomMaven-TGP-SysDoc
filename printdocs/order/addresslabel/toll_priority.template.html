@@ -1,0 +1,149 @@
+<table cellpadding="0" cellspacing="0" border="0" width="350px" align="center">
+    <tr>
+        <td>
+            <table cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+                <tr>
+                    <td>
+                        <b><font style="font-size:13px;">CARRIER: TOLL PRIORITY</font></b>
+                        <br />
+                        <div style="background-color:#000; color:#FFF; padding:1px; margin-right: 2px;">
+                            <b><font style="font-size:14px;">SERVICE: [%NOHTML%][@shserv_name@][%END NOHTML%]</font></b>
+                        </div>
+                        <b><font style="font-size:14px;">CONNOTE #: [%NOHTML%][@cngmt_number@][%END NOHTML%]</font></b>
+                    </td>
+                    <td>
+                        <div style="border:2px solid #000; background-color:#FFF; color:#000; font-size:20px; text-align:center; padding:1px; margin: 0px 1px 2px 1px;">
+                            <b>[%NOHTML%][@ship_port@][%END NOHTML%]</b>
+                        </div>
+                        [%if [@serv_type@] eq 'b2c'%]
+                        <div style="background-color:#000; color:#FFF; font-size:20px; text-align:center; padding:1px; margin: 1px;">
+                            <b>[%NOHTML%]ADP[%END NOHTML%]</b>
+                        </div>
+                        [%/if%]
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+                <tr>
+                    <td valign="top" rowspan="2" nowrap width="10px" style="font-size:11px; text-transform:uppercase;">
+                        TO:&nbsp;
+                    </td>
+                    <td valign="top" width="70%">
+                        <div style="text-transform:uppercase;font-size:11px; padding-bottom:2px;">
+                            <div><b>[%if [@serv_type@] eq 'b2b' AND [@customer_company@] ne ''%][%NOHTML%][@customer_company@][%END NOHTML%]
+                                [%else%][%NOHTML%][@ship_first_name@] [@ship_last_name@][%END NOHTML%][%/if%]</b>
+                            </div>
+                            <div>[%NOHTML%][@ship_company@][%END NOHTML%]</div>
+                            <div>[%NOHTML%][@ship_street1@][%END NOHTML%]</div>
+                            <div>[%NOHTML%][@ship_street2@][%END NOHTML%]</div>
+                            <div style="font-size:13px;"><b>[%NOHTML%][@ship_city@][%END NOHTML%]</b></div>
+                            <div style="font-size:13px;"><b>[%NOHTML%][@ship_state@][%END NOHTML%], [%NOHTML%][@ship_zip@][%END NOHTML%]</b></div>
+                            <div style="font-size:13px;"><b>[%NOHTML%][@ship_country@][%END NOHTML%]</b></div>
+                        </div>
+                        <div style="text-transform:uppercase; font-size:10px; padding-bottom:2px;">
+                            [%if [@serv_type@] eq 'b2c'%]
+                            <b>Consumer Mobile:</b> [@ship_phone@]
+                            [%else%]
+                            <b>Customer Mobile:</b> [@ship_phone@]
+                            [%/if%]
+                        </div>
+                        <div style="font-size:10px; padding-bottom:1px;">
+                            <div><b>Special Instructions:</b></div>
+                            <div style="font-size:10px;">
+                                [%DATA id:'ship_comment' if:'ne' value:''%][%PARAM if_true%]
+                                [%NOHTML%][%FORMAT type:'text' maxlength:'200'%][@ship_comment@][%END FORMAT%][%END NOHTML%]
+                                [%END PARAM%][%PARAM if_false%]
+                                n/a
+                                [%END PARAM%][%END DATA%]
+                            </div>
+                        </div>
+                        <div style="font-size:10px; padding-bottom:2px;">
+                            <b>Account #:</b> [@merchant_id@]
+                        </div>
+                        <div style="padding-bottom:1px;">
+                            <div style="font-size:9px;"><b>From:</b></div>
+                            <div style="font-size:10px;">[%NOHTML%][@bill_company@][%END NOHTML%]</div>
+                            <div style="font-size:9px;">[%NOHTML%][@bill_street1@][%END NOHTML%]</div>
+                            <div style="font-size:9px;">[%NOHTML%][@bill_street2@][%END NOHTML%]</div>
+                            <div style="font-size:10px;"><b>[%NOHTML%][@bill_city@] [@bill_state@] [@bill_zip@][%END NOHTML%]</b></div>
+                            <div style="font-size:10px;"><b>[%NOHTML%][@bill_country@][%END NOHTML%]</b></div>
+                        </div>
+                    </td>
+                    <td valign="top" nowrap width="20%">
+                        <div style="border:2px solid #000; background-color:#FFF; color:#000; text-align:center; padding:1px; margin:1px;">
+                            <div style="font-size:11px;">DGs<br><b>[%if [@danger@] eq 'y'%]YES[%elseif [@danger@] eq 'n'%]NO[%/if%]</b></div>
+                        </div>
+                        <div style="border:2px solid #000; background-color:#FFF; color:#000; text-align:center; padding:1px;margin:1px;">
+                            <div style="font-size:11px"> Item No.<br>
+                            [%NOHTML%][@count@][%END NOHTML%] of [%NOHTML%][@total@][%END NOHTML%]</div>
+                        </div>
+                        <div style="border:2px solid #000; background-color:#FFF; color:#000; text-align:center; padding:1px;margin:1px;">
+                            <div style="font-size:11px"><b>DESPATCH DATE:</b><br>
+                                [%FORMAT type:'date' now:1 format:'#d #k #y'/%]</div>
+                        </div>
+                        <div style="border:2px solid #000; background-color:#FFF; color:#000; text-align:center; padding:1px;margin:1px;">
+                            <div style="font-size:11px;">
+                                Tot. Kgs<br/>
+                                [%FORMAT type:'number' dp:'3'%][@weight@][%END FORMAT%]<br/>
+                                Tot. M<sup style="font-size:10px;">3</sup>
+                            </div>
+                            <div style="font-size:11px;">
+                                [%FORMAT type:'number' dp:'3'%][@cubic@][%END FORMAT%]<br/>
+                                Item Weight (Kgs)<br/>
+                                [%FORMAT type:'number' dp:'3'%][@weight@][%END FORMAT%]
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div style="font-size:9px;"><b>For any Issues, Please Contact:</b></div>
+                        <div style="font-size:10px; padding-bottom:1px;">[%NOHTML%][%IF [@return_contact@] ne ''%][@return_contact@][%ELSE%][@return_company@][%/IF%], [@return_phone@][%END NOHTML%]</div>
+                        <div style="font-size:10px; padding-bottom:1px;"><b>Description of Goods:</b> [%IF [@danger@] eq 'y'%]Dangerous or Hazardous Goods[%ELSE%]Non-Hazardous Cargo[%/IF%]</div>
+                        <div style="font-size:10px;"><b>For Order:</b> [%NOHTML%][@order_id@][%END NOHTML%]</div>
+                    </td>
+                </tr>
+            </table>
+            <div style=" background-color:#000; color:#FFF; font-size:14px; padding:2px; text-align: center;">
+                <b>
+                    [%if [@serv_type@] eq 'b2c'%]
+                    [%if [@signature@] eq 'y'%]Signature Requried[%elseif [@danger@] eq 'n'%]NSR - No Signature Required[%/if%]
+                    [%/if%]
+                </b>
+            </div>
+            <div style="float: right;">
+                <div style="font-size:8px;"><b>Item no.</b></div>
+                <div style="font-size:10px;"><b>[@barcode@]</b></div>
+            </div>
+
+            <div style="padding-bottom: 2px;">
+            <img width="100%" height="65px" src="[%BARCODE_URL fn:'article' cngmt:'[@cngmt_id@]' art:'[@art_id@]'%][@barcode@][%END BARCODE_URL%]" border="0"/>
+            </div>
+
+            <div align="center">
+                <div style="font-size:10px;"><b>[@barcode@]</b></div>
+                <div style="font-size:8px;"><b>DECLARATION BY: </b>[%NOHTML%][@return_company@][%END NOHTML%]</div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            <p style="font-size:7px;padding:0px;margin:0px;">
+                <b>Toll Priority is not a common carrier. CARRIER TERMS AND CONDITIONS APPLY. THIS ITEM WILL BE SUBJECT TO SECURITY SCREENING AND CLEARING.
+                    [%IF [@danger@] eq 'y'%]
+                    DANGEROUS GOODS CONSIGNED WITHIN.<br />
+                    [%ELSE%]
+                    DANGEROUS GOODS NOT CONSIGNED WITHIN.<br />
+                    [%/IF%]
+                </b>
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td align="center"><font style="font-size:6px;">Printed With Neto E-commerce Software www.neto.com.au</font></td>
+    </tr>
+</table>

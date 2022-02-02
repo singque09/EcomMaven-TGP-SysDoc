@@ -1,0 +1,394 @@
+<table width="750" align="center" cellpadding="1" cellspacing="0">
+	<tbody style="display: block; max-height: 360px; overflow: hidden">
+	<tr>
+		<td>
+			<table cellpadding="0" cellspacing="0" border="0" width="100%" style="table-layout: fixed">
+				<tr>
+					<td width="30%">
+						<img src="https://cdn.neto.com.au/assets/cpanel-cdn/images/couriers/hunter_express_logo_label.jpg" border="0" width="250px"/>
+					</td>
+					<td width="40%"></td>
+					<td width="30%" style="font-size:12px">
+						Section 1: Detach - This is your copy<br/>
+						<span style="font-weight:bold;">Customer Service: 1300 556 232</span>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<table cellpadding="0" cellspacing="0" border="0" width="100%" style="table-layout: fixed;font-size:14px;">
+				<tr style="vertical-align: top">
+					<td width="90">
+						Sender:
+					</td>
+					<td colspan="2">
+						[%NOHTML%][@bill_first_name@] [@bill_last_name@][%END NOHTML%]<br>
+						[%NOHTML%][@bill_street1@][%END NOHTML%]<br>
+						[%DATA id:'bill_street2' if:'ne' value:''%][%NOHTML%][@bill_street2@][%END NOHTML%]<br>[%END DATA%]
+						[%NOHTML%][@bill_city@][%END NOHTML%] &nbsp; [%NOHTML%][@bill_zip@][%END NOHTML%]<br>
+					</td>
+					<td width="100" >
+						Receiver:
+					</td>
+					<td colspan="2" style="font-weight:bold;font-size:15px">
+						[%NOHTML%][@ship_first_name@] [@ship_last_name@][%END NOHTML%]<br>
+						[%DATA id:'ship_company' if:'ne' value:''%][%NOHTML%][@ship_company@][%END NOHTML%]<br>[%END DATA%]
+						[%NOHTML%][@ship_street1@][%END NOHTML%]<br>
+						[%DATA id:'ship_street2' if:'ne' value:''%][%NOHTML%][@ship_street2@][%END NOHTML%]<br>[%END DATA%]
+						[%NOHTML%][@ship_city@][%END NOHTML%]<br>
+						[%NOHTML%][@ship_state@][%END NOHTML%] [%NOHTML%][@ship_zip@][%END NOHTML%]
+					</td>
+					<td rowspan="8" width="150" style="-webkit-print-color-adjust:exact;
+					background-size: 120px;background-repeat: no-repeat;
+					background-image: url(https://cdn.neto.com.au/assets/cpanel-cdn/images/couriers/hunter_express_senders_copy.jpg);">
+						<div style="width:35px;font-size:35px;margin-left:30px;margin-top:30px">[@ship_port_with_space@]</div>
+					</td>
+				</tr>
+				<tr style="vertical-align: top">
+					<td>Instructions:</td>
+					<td colspan="5" >
+						<div style="height:16px;overflow:hidden">
+							[%DATA id:'ship_comment' if:'ne' value:''%][%PARAM if_true%]
+							[%NOHTML%][@ship_comment@][%END NOHTML%]
+							[%END PARAM%][%END DATA%]
+						</div>
+					</td>
+				</tr>
+				<tr style="vertical-align: top">
+					<td></td>
+					<td colspan="5" style="text-align:center">
+						<br/>
+						<img  width="70%" height="40px" src="[%BARCODE_URL fn:'article' height:'30' cngmt:'[@cngmt_id@]' art:'[@art_id@]'%][@barcode@][%END BARCODE_URL%]" border="0"/><br>
+						[%NOHTML%][@barcode@][%END NOHTML%]<br/><br/>
+					</td>
+				</tr>
+				<tr style="vertical-align: top">
+					<td width="70">
+						Date:
+					</td>
+					<td colspan="2" >
+						[%FORMAT type:'date' now:1 format:'#d/#M/#Y' default:'n/a'%][@date_manifest@][%END FORMAT%]
+					</td>
+					<td width="70" >
+						Consignment Note:
+					</td>
+					<td colspan="2" style="font-weight:bold;font-size:15px">
+						[%NOHTML%][@cngmt_number@][%END NOHTML%]
+					</td>
+				</tr>
+				<tr style="vertical-align: top">
+					<td width="70">
+						Item Description:
+					</td>
+					<td colspan="2" >
+						<div style="height:32px;overflow:hidden">
+							[%FORMAT type:'text' nohtml:'1' %][@article_notes@][%END FORMAT%]
+						</div>
+					</td>
+					<td width="70" >
+						Service:
+					</td>
+					<td colspan="2" style="font-weight:bold;font-size:15px">
+						[%NOHTML%][@shserv_name@][%END NOHTML%]
+					</td>
+				</tr>
+				<tr style="vertical-align: top">
+					<td width="70">
+						Item Reference:
+					</td>
+					<td colspan="2" >[@order_id@]</td>
+					<td colspan="3"></td>
+				</tr>
+				<tr style="vertical-align: top">
+					<td width="70">
+						[@count@]/[@total@] items
+					</td>
+					<td>Total dead weight: </td>
+					<td>[@total_weight_kg@]kg</td>
+					<td>Item dead weight:</td>
+					<td colspan="2">[@weight@]kg Item Dimensions: [@length_in_meter@] x [@width_in_meter@] x [@height_in_meter@]</td>
+				</tr>
+				<tr style="vertical-align: top">
+					<td colspan="4"></td>
+					<td colspan="2" align="right">Charge: [@merchant_id@]</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td><p style="font-size:10px">I hereby declare that this shipment does not contain dangerous goods.
+			Subject to the Terms and Conditions of contract and the Carrier's Proposal of Rates and	Services,
+			please accept the goods described above for delivery. WE ARE NOT A COMMON CARRIER.</p>
+			Sender's Signature:_______________________________________________________<br/><br/>
+			<hr style="border-color:black"/>
+		</td>
+	</tr>
+	</tbody>
+</table>
+
+<table width="750" align="center" cellpadding="1" cellspacing="0">
+	<tbody style="display: block; max-height: 360px; overflow: hidden">
+	<tr>
+		<td>
+			<table cellpadding="0" cellspacing="0" border="0" width="100%" style="table-layout: fixed">
+				<tr>
+					<td width="30%">
+						<img src="https://cdn.neto.com.au/assets/cpanel-cdn/images/couriers/hunter_express_logo_label.jpg" border="0" width="250px"/>
+					</td>
+					<td width="40%"></td>
+					<td width="30%" style="font-size:12px">
+						Section 3<br/>
+						<span style="font-weight:bold;">Customer Service: 1300 556 232</span>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<table cellpadding="0" cellspacing="0" border="0" width="100%" style="table-layout: fixed;font-size:14px;">
+				<tr style="vertical-align: top">
+					<td width="90">
+						Sender:
+					</td>
+					<td colspan="2">
+						[%NOHTML%][@bill_first_name@] [@bill_last_name@][%END NOHTML%]<br>
+						[%NOHTML%][@bill_street1@][%END NOHTML%]<br>
+						[%DATA id:'bill_street2' if:'ne' value:''%][%NOHTML%][@bill_street2@][%END NOHTML%]<br>[%END DATA%]
+						[%NOHTML%][@bill_city@][%END NOHTML%] &nbsp; [%NOHTML%][@bill_zip@][%END NOHTML%]<br>
+					</td>
+					<td width="100" >
+						Receiver:
+					</td>
+					<td colspan="2" style="font-weight:bold;font-size:15px">
+						[%NOHTML%][@ship_first_name@] [@ship_last_name@][%END NOHTML%]<br>
+						[%DATA id:'ship_company' if:'ne' value:''%][%NOHTML%][@ship_company@][%END NOHTML%]<br>[%END DATA%]
+						[%NOHTML%][@ship_street1@][%END NOHTML%]<br>
+						[%DATA id:'ship_street2' if:'ne' value:''%][%NOHTML%][@ship_street2@][%END NOHTML%]<br>[%END DATA%]
+						[%NOHTML%][@ship_city@][%END NOHTML%]<br>
+						[%NOHTML%][@ship_state@][%END NOHTML%] [%NOHTML%][@ship_zip@][%END NOHTML%]
+					</td>
+					<td rowspan="8" width="150" style="-webkit-print-color-adjust:exact;
+					background-size: 120px;background-repeat: no-repeat;
+					background-image: url(https://cdn.neto.com.au/assets/cpanel-cdn/images/couriers/hunter_express_receivers_copy.jpg);">
+						<div style="width:35px;font-size:35px;margin-left:30px;margin-top:30px">[@ship_port_with_space@]</div>
+					</td>
+				</tr>
+				<tr style="vertical-align: top">
+					<td>Instructions:</td>
+					<td colspan="5" >
+						<div style="height:16px;overflow:hidden">
+							[%DATA id:'ship_comment' if:'ne' value:''%][%PARAM if_true%]
+							[%NOHTML%][@ship_comment@][%END NOHTML%]
+							[%END PARAM%][%END DATA%]
+						</div>
+					</td>
+				</tr>
+				<tr style="vertical-align: top">
+					<td></td>
+					<td colspan="5" style="text-align:center">
+						<br/>
+						<img  width="70%" height="40px" src="[%BARCODE_URL fn:'article' height:'30' cngmt:'[@cngmt_id@]' art:'[@art_id@]'%][@barcode@][%END BARCODE_URL%]" border="0"/><br>
+						[%NOHTML%][@barcode@][%END NOHTML%]<br/><br/>
+					</td>
+				</tr>
+				<tr style="vertical-align: top">
+					<td width="70">
+						Date:
+					</td>
+					<td colspan="2" >
+						[%FORMAT type:'date' now:1 format:'#d/#M/#Y' default:'n/a'%][@date_manifest@][%END FORMAT%]
+					</td>
+					<td width="70" >
+						Consignment Note:
+					</td>
+					<td colspan="2" style="font-weight:bold;font-size:15px">
+						[%NOHTML%][@cngmt_number@][%END NOHTML%]
+					</td>
+				</tr>
+				<tr style="vertical-align: top">
+					<td width="70">
+						Item Description:
+					</td>
+					<td colspan="2" >
+						<div style="height:32px;overflow:hidden">
+							[%FORMAT type:'text' nohtml:'1' %][@article_notes@][%END FORMAT%]
+						</div>
+					</td>
+					<td width="70" >
+						Service:
+					</td>
+					<td colspan="2" style="font-weight:bold;font-size:15px">
+						[%NOHTML%][@shserv_name@][%END NOHTML%]
+					</td>
+				</tr>
+				<tr style="vertical-align: top">
+					<td width="70">
+						Item Reference:
+					</td>
+					<td colspan="2" >[@order_id@]</td>
+					<td colspan="3"></td>
+				</tr>
+				<tr style="vertical-align: top">
+					<td width="70">
+						[@count@]/[@total@] items
+					</td>
+					<td>Total dead weight: </td>
+					<td>[@total_weight_kg@]kg</td>
+					<td>Item dead weight:</td>
+					<td colspan="2">[@weight@]kg Item Dimensions: [@length_in_meter@] x [@width_in_meter@] x [@height_in_meter@]</td>
+				</tr>
+				<tr style="vertical-align: top">
+					<td colspan="4"></td>
+					<td colspan="2" align="right">Charge: [@merchant_id@]</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td><p style="font-size:10px">I hereby declare that this shipment does not contain dangerous goods.
+			Subject to the Terms and Conditions of contract and the Carrier's Proposal of Rates and	Services,
+			please accept the goods described above for delivery. WE ARE NOT A COMMON CARRIER.</p>
+			Sender's Signature:_______________________________________________________<br/><br/>
+			<hr style="border-color:black"/>
+		</td>
+	</tr>
+	</tbody>
+</table>
+
+<table width="750" align="center" cellpadding="1" cellspacing="0">
+	<tbody style="display: block; max-height: 370px; overflow: hidden">
+	<tr>
+		<td align="center" style="font-weight:bold">
+			<span>PROOF OF DELIVERY COPY</span><br/>
+			Leave this section loose. Do not tape or glue down. The delivery driver will use this to obtain a signature from the receiver.
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<table cellpadding="0" cellspacing="0" border="0" width="100%" style="table-layout: fixed">
+				<tr>
+					<td width="30%">
+						<img src="https://cdn.neto.com.au/assets/cpanel-cdn/images/couriers/hunter_express_logo_label.jpg" border="0" width="280px"/>
+					</td>
+					<td width="40%"></td>
+					<td width="30%" style="font-size:12px">
+						Section 3<br/>
+						<span style="font-weight:bold;">Customer Service: 1300 556 232</span>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td align="center">
+			<table cellpadding="0" cellspacing="0" border="0" width="80%" style="table-layout: fixed;font-size:14px;">
+				<tr style="vertical-align: top">
+					<td width="90">
+						Sender:
+					</td>
+					<td colspan="2">
+						[%NOHTML%][@bill_first_name@] [@bill_last_name@][%END NOHTML%]<br>
+						[%NOHTML%][@bill_street1@][%END NOHTML%]<br>
+						[%DATA id:'bill_street2' if:'ne' value:''%][%NOHTML%][@bill_street2@][%END NOHTML%]<br>[%END DATA%]
+						[%NOHTML%][@bill_city@][%END NOHTML%] &nbsp; [%NOHTML%][@bill_zip@][%END NOHTML%]<br>
+					</td>
+					<td width="100" >
+						Receiver:
+					</td>
+					<td colspan="2" style="font-weight:bold;font-size:15px">
+						[%NOHTML%][@ship_first_name@] [@ship_last_name@][%END NOHTML%]<br>
+						[%DATA id:'ship_company' if:'ne' value:''%][%NOHTML%][@ship_company@][%END NOHTML%]<br>[%END DATA%]
+						[%NOHTML%][@ship_street1@][%END NOHTML%]<br>
+						[%DATA id:'ship_street2' if:'ne' value:''%][%NOHTML%][@ship_street2@][%END NOHTML%]<br>[%END DATA%]
+						[%NOHTML%][@ship_city@][%END NOHTML%]<br>
+						[%NOHTML%][@ship_state@][%END NOHTML%] [%NOHTML%][@ship_zip@][%END NOHTML%]
+					</td>
+				</tr>
+				<tr style="vertical-align: top">
+					<td>Instructions:</td>
+					<td colspan="5" >
+						<div style="height:16px;overflow:hidden">
+							[%DATA id:'ship_comment' if:'ne' value:''%][%PARAM if_true%]
+							[%NOHTML%][@ship_comment@][%END NOHTML%]
+							[%END PARAM%][%END DATA%]
+						</div>
+					</td>
+				</tr>
+				<tr style="vertical-align: top">
+					<td></td>
+					<td colspan="5" style="text-align:center">
+						<br/>
+						<img  width="70%" height="40px" src="[%BARCODE_URL fn:'article' height:'30' cngmt:'[@cngmt_id@]' art:'[@art_id@]'%][@barcode@][%END BARCODE_URL%]" border="0"/><br>
+						[%NOHTML%][@barcode@][%END NOHTML%]<br/><br/>
+					</td>
+				</tr>
+				<tr style="vertical-align: top">
+					<td width="70">
+						Date:
+					</td>
+					<td colspan="2" >
+						[%FORMAT type:'date' now:1 format:'#d/#M/#Y' default:'n/a'%][@date_manifest@][%END FORMAT%]
+					</td>
+					<td width="70" >
+						Consignment Note:
+					</td>
+					<td colspan="2" style="font-weight:bold;font-size:15px">
+						[%NOHTML%][@cngmt_number@][%END NOHTML%]
+					</td>
+				</tr>
+				<tr style="vertical-align: top">
+					<td width="70">
+						Item Description:
+					</td>
+					<td colspan="2" >
+					</td>
+					<td width="70" >
+						Service:
+					</td>
+					<td colspan="2" style="font-weight:bold;font-size:15px">
+						[%NOHTML%][@shserv_name@][%END NOHTML%]
+					</td>
+				</tr>
+				<tr style="vertical-align: top">
+					<td width="70">
+						Item Reference:
+					</td>
+					<td colspan="2" >[@order_id@]</td>
+					<td colspan="3"></td>
+				</tr>
+				<tr style="vertical-align: top">
+					<td width="70">
+						[@count@]/[@total@] items
+					</td>
+					<td>Total dead weight: </td>
+					<td>[@total_weight_kg@]kg</td>
+					<td>Item dead weight:</td>
+					<td colspan="2">[@weight@]kg Item Dimensions: [@length_in_meter@] x [@width_in_meter@] x [@height_in_meter@]</td>
+				</tr>
+				<tr style="vertical-align: top">
+					<td colspan="4"></td>
+					<td colspan="2" align="right">Charge: [@merchant_id@]</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<span style="font-weight:bold">Items Received in Good Order and Condition:</span><br/><br/>
+			<table cellpadding="0" cellspacing="0" border="0" width="100%" style="table-layout: fixed;font-size:8px;">
+				<tr>
+					<td align="center">	___________________________<br/>(Please Print Surname)</td>
+					<td align="center"> ___________________________<br/>(Receiver's Signature)</td>
+					<td align="center"> ___________________________<br/>(Date and Time)</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td align="center">WE ARE NOT A COMMON CARRIER.</td>
+	</tr>
+	</tbody>
+</table>

@@ -1,0 +1,10 @@
+<center style="padding-top: 15px; padding-right:45px;">
+    <img align="center" src="[%BARCODE_URL fn:'' height:'32px' sku:'[@SKU@]' upc:'[@upc@]' scale:'3'%][%END BARCODE_URL%]" width="75%" border="0"/>
+    <br>
+    [%product sku:'[@sku@]' preview:'y'%]
+        [%param *body%]
+        <div style="font-size:12px; padding:0px 4px 2px 4px;">[%format type:'text' maxlength:'70'%][@name@][%/format%]</div>
+        <div style="font-size:16px;">[%format type:'currency'%][@price@][%/format%]</div>
+        [%/param%]
+    [%/product%]
+</center>

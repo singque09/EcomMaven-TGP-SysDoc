@@ -1,0 +1,192 @@
+<table cellpadding="0" cellspacing="0" border="0" width="350px" align="center">
+    <tr>
+        <td>
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                    <td>&nbsp;</td>
+                    <td valign="middle" rowspan="3" align="right">
+                        <b><span style="font-size:24px;text-transform:uppercase;"><!--##[%nohtml%]##-->[@sort_code@]<!--##[%/nohtml%]##--></span></b>
+                    </td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td><span style="font-size:14px;text-transform:uppercase;"><b>Couriers Please</b></span></td>
+                    <td>Service [@shserv_code@]</td>
+                    <td>&nbsp;</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                    <td>Connote:<span style="font-size:18px;padding-left:10px;"><b><!--##[%nohtml%]##-->[@cngmt_number@]<!--##[%/nohtml%]##--></b></span></td>
+                    <!--##[%if [@signature@] eq 'n'%]##-->
+                    <td style="border-style:solid;"><span style="font-size:18px;padding-left:10px"><b>ATL </b></span></td>
+                    <!--##[%else%]##-->
+                    <td>&nbsp;</td>
+                    <!--##[%/if%]##-->
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                    <td valign="top">To:</td>
+                    <td>
+                        <span style="font-size:18px;text-transform:uppercase;">
+                            <!--##[%nohtml%]##-->[@ship_first_name@] [@ship_last_name@]<!--##[%/nohtml%]##--><br/>
+                            <!--##[%data id:'ship_company' if:'ne' value:''%][%nohtml%]##-->[@ship_company@]<!--##[%/nohtml%]##--><br><!--##[%/data%]##-->
+                            <!--##[%nohtml%]##-->[@ship_street1@]<!--##[%/nohtml%]##--><br>
+                            <!--##[%data id:'ship_street2' if:'ne' value:''%][%nohtml%]##-->[@ship_street2@]<!--##[%/nohtml%]##--><br><!--##[%/data%]##-->
+                        </span>
+                        <table cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+                            <tr>
+                                <td width="70%" valign="top">
+                                    <span style="font-size:18px; text-transform:uppercase;"><!--##[%nohtml%]##-->[@ship_city@]<!--##[%/nohtml%]##--></span></td>
+                                <td width="30%" align="right" valign="top">
+                                    <span style="font-size:13px; text-transform:uppercase;"><!--##[%nohtml%]##-->[@ship_state@]<!--##[%/nohtml%]##--> </span>&nbsp;
+                                    <span style="font-size:18px; text-transform:uppercase;"> <!--##[%nohtml%]##-->[@ship_zip@]<!--##[%/nohtml%]##--></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td style="padding-bottom:8px;">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+                <tr>
+                    <td width="20%" align="left">
+                        <span style="font-size:12px;"> Items [@data:total@]</span>
+                    </td>
+                    <td width="40%" align="right">
+                        <span style="font-size:12px;">Weight <!--##[%nohtml%][%format type:'number' dp:'3'%]##-->[@total_weight@]
+                            <!--##[%/format%][%/nohtml%]##--> kg</span>
+                    </td>
+                    <td width="40%" align="right">
+                        <span style="font-size:12px;">Cube <!--##[%nohtml%][%format type:'number' dp:'3'%]##-->[@total_cubic@]<!--##[%/format%][%/nohtml%]##-->
+                            m3</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td colspan="3"><b>Contact:</b>&nbsp;<span style="font-size:12px;"><!--##[%nohtml%]##-->[@ship_first_name@]<!--##[%/nohtml%]##-->&nbsp;
+                        <!--##[%nohtml%]##-->[@ship_last_name@]<!--##[%/nohtml%][%data id:'ship_company' if:'ne' value:''%]##--><br/><!--##[%nohtml%]##-->
+                        [@ship_company@]<!--##[%/nohtml%][%/data%]##--></span></td>
+                </tr>
+                <tr>
+                    <td colspan="3"><b>Phone:</b>&nbsp;<span style="font-size:12px; text-transform:uppercase;"><!--##[%nohtml%]##-->[@ship_phone@]
+                        <!--##[%/nohtml%]##--></span></td>
+                </tr>
+                <tr>
+                    <td colspan="3"><b>Reference:</b>&nbsp;<span style="font-size:12px; text-transform:uppercase;"><!--##[%nohtml%]##-->[@order_id@]
+                        <!--##[%/nohtml%]##--></span></td>
+                </tr>
+
+            </table>
+        </td>
+    </tr>
+
+    <tr>
+        <td style="padding-bottom:8px;">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+                <tr>
+                    <td valign="top">
+                        <span style="font-size:12px;">From: </span>
+                    </td>
+                    <td valign="top">
+                        <span style="font-size:12px;"><!--##[%data id:'bill_company' if:'ne' value:''%][%nohtml%]##-->[@bill_company@]<!--##[%/nohtml%]##--><br>
+                            <!--##[%/data%][%nohtml%]##-->[@bill_street1@]<!--##[%/nohtml%]##--><br>
+                            <!--##[%data id:'bill_street2' if:'ne' value:''%][%nohtml%]##-->[@bill_street2@]<!--##[%/nohtml%]##--><br><!--##[%/data%]##--><br/>
+                            <!--##[%nohtml%]##-->[@bill_city@]<!--##[%/nohtml%]##--><br/> </span>
+                    </td>
+                    <td align="right" valign="top">
+                        <span style="font-size:12px;">Date: </span><!--##[%format type:'date' now:1 format:'#d/ #M/ #Y' default:'n/a'%]##-->[@label_created@]
+                        <!--##[%/format%]##--><br/>&nbsp;<br/>&nbsp;<br/><!--##[%nohtml%]##-->[@bill_zip@]<!--##[%/nohtml%]##--> &nbsp;
+                        <span style="font-size:12px; text-transform:uppercase;">
+                            <!--##[%nohtml%]##-->[@bill_state@]<!--##[%/nohtml%]##--></span>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+    </tr>
+    <!--##[%if [@danger@] eq 'n'%]##-->
+    <tr>
+        <td valign="top">
+            <span style="font-size:9px;">
+                <b>Aviation Security and Dangerous Goods Declaration</b>
+                <br/>
+                The sender acknowledges that this article may be carried by air and will be subject to
+                aviation security and clearing procedures; and the
+                sender declares that the article does not contain any dangerous or prohibited goods, explosive or
+                incendiary devices. A false declaration is a criminal offence</span><br/>
+        </td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+    </tr>
+    <!--##[%/if%]##-->
+    <tr>
+        <td style="padding-bottom:8px;">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+                <tr>
+                    <td align="center" style="padding-bottom:8px;">
+                        <img width="290px"
+                             src="[%barcode_url fn:'article' height:'40' cngmt:'[@cngmt_id@]' art:'[@art_id@]'%][@barcode@][%/barcode_url%]"
+                             border="0"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <b><span style="font-size:12px;"><!--##[%nohtml%]##-->[@article_number@]<!--##[%/nohtml%]##--></span></b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <span style="font-size:18px;">
+                            <b>ITEM: [@data:count@] OF [@data:total@]</b>
+                        </span>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding-bottom:8px;">
+            <b>Delivery Instructions:</b><br>
+            <span style="font-size:10px; text-transform:uppercase;">
+                <!--##[%data id:'ship_comment' if:'ne' value:''%][%param if_true%]##-->
+                <!--##[%nohtml%][%format type:'text' maxlength:'255'%]##-->[@ship_comment@]<!--##[%/format%][%/nohtml%]##-->
+                <!--##[%/param%][%param if_false%]##-->
+                n/a
+                <!--##[%/param%][%/data%]##-->
+            </span>
+        </td>
+    </tr>
+    <tr>
+        <td align="center"><span style="font-size:8px;">Printed With Maropost Commerce Cloud</span></td>
+    </tr>
+</table>

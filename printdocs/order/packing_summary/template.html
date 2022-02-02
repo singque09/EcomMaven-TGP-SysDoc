@@ -1,0 +1,164 @@
+[%load_template file:'printdocs/includes/styles.template.html'/%]
+<div class="nPrintDoc">
+	[%packing_summary order_id:'[@form:id@]' orders:'[@form:orders@]' orderlines:'[@form:ols@]' warehouse_id:'[@form:warehouse_id@]' process_id:'[@form:pid@]' page_width:'[@form:page_width@]' admin_name:'[@form:admin_name@]' no_item_split:'[@config:PICKING_SLIP_NO_ITEM_SPLIT@]' sortby:'pick_zone'%]
+	[%param *header%]
+		<div class="container">
+	[%/param%]
+	[%param *page_header%]
+		<div style="width:[@page_width@];">
+	[%/param%]
+	[%param *order_header%]
+		<div class="row">
+			<div class="col-xs-12">
+				[%if [@process_id@] > 0%]
+					<h1>Bulk process <span class="text-success">#[@process_id@]</span> <img class="barcode" src="[%barcode_url fn:'code128' barcode:'[@process_id@]' height:'35' /%]"></h1>
+				[%/if%]
+				<h1>Consolidated picking list for [%format type:'number' tl_unit:'order' tl_plural:'orders'%][@total_orders@][%/format%] : <span class="text-success">[%escape%][@order_id_list@][%/escape%]</span></h1>
+				<p>Printed by : <strong>[%escape%][@admin_name@][%/escape%]</strong>, <i>[%format type:'date' format:'#D/#M/#Y #H:#I'%]NOW[%/format%]</i></p>
+			</div>
+		</div>
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th>Image</th>
+					<th>Qty</th>
+					<th>SKU</th>
+					<th>Location</th>
+					<th>Item</th>
+					<th>Picked to date</th>
+					<th>Pick task</th>
+					<th>Unit</th>
+					<th>Picked</th>
+					<th>Checked</th>
+				</tr>
+			</thead>
+			<tbody>
+		[%/param%]
+		[%param *order_body%]
+			<tr>
+				<td><img class="img-small-thumb" src="[%asset_url type:'item' id:'[@SKU@]' thumb:'thumb' /%]"></td>
+				<td>[@quantity@]</td>
+				<td>[%escape%][@sku@][%/escape%]</td>
+				<td>
+					[%if [@pick_zone@]%]<p><strong>[%escape%][@pick_zone@][%/escape%]</strong></p>[%/if%]
+					<p>[@location@]</p>
+				</td>
+				<td>
+					[%if [@brand@]%]<p><i>[%escape%][@brand@][%/escape%]</i></p>[%/if%]
+					<p>[%escape%][@model@][%/escape%]</p>
+					[%if [@full_extra@] ne ''%]
+					<p><i>([%escape%][@full_extra@][%/escape%])</i></p>
+					[%/if%]
+					[%if [@config:PICKSLIP_SHOW_INTERNALNOTE@] AND [@internal_notes@] ne '' %]
+					<p><i>[%escape%][@internal_notes@][%/escape%]</i></p>
+					[%/if%]
+				</td>
+				<td>[@pick_qty@]</td>
+				<td><strong><span class="[%if [@warehouse_quantity@] < 1%]text-danger[%/if%]">[@pick_task@]</span></strong></td>
+				<td>[@item_unit@]</td>
+				<td><i class="square-o"></i></td>
+				<td><i class="square-o"></i></td>
+			</tr>
+		[%/param%]
+		[%param *order_footer%]
+			</tbody>
+		</table>
+		[%/param%]
+		[%param *component_header%]
+
+		<b>Items That Require Assembly:</b><br />
+		<table width="100%" cellpadding="2px" cellspacing="0" border="1" class="itmlist" >
+			<tr class="hdr">
+				<td width="50px">Image</td>
+				[%if [@no_item_split@]%]
+				<td>Qty Ordered</td>
+				[%/if%]
+				<td>SKU</td>
+				<td>Location</td>
+				<td>Brand/Product Name/Extra</td>
+				<td>Picked To Date</td>
+				<td>Assemble Task</td>
+				<td>Unit</td>
+				<td>Assembled</td>
+				<td>Checked</td>
+			</tr>
+			[%/param%][%param *component_body%]
+			<tr >
+				<td ><img src="[%ASSET_URL type:'item' id:'[@SKU@]' thumb:'thumb' /%]" width="50px" height="50px"></td>
+				[%if [@no_item_split@]%]
+				<td ><b>[@quantity@]</b></td>
+				[%/if%]
+				<td nowrap><b>[%escape%][@SKU@][%/escape%]</b></td>
+				<td nowrap valign="top"><b>[%escape%][@pick_zone@][%/escape%]</b></td>
+				<td valign="top"><b><font style="font-size:12px;"><i>[%escape%][@brand@][%/escape%]</i><br>
+					[%escape%][@model@][%/escape%]
+					[%if [@extra@] ne ''%]
+					<div><br>
+						(<i>[%escape%][@full_extra@][%/escape%]</i>)</div>
+					[%/if%] </font></b> [%if [@config:PICKSLIP_SHOW_INTERNALNOTE@] AND [@internal_notes@] ne '' %] <font style="font-size:12px;"><br>
+					<i>[[%escape%][@internal_notes@][%/escape%]</i></font> [%/if%] </td>
+				<td ><b>[@pick_qty@]</b></td>
+				<td ><b>[@pick_task@]</b></td>
+				<td >[@item_unit@]</td>
+				<td ><div style="border:1px solid #000000; background-color:#FFFFFF; width:20px; height:20px;"></div></td>
+				<td ><div style="border:1px solid #000000; background-color:#FFFFFF; width:20px; height:20px;"></div></td>
+			</tr>
+			[%/param%][%param *component_sub_header%]
+			<tr >
+				<td>&nbsp;</td>
+				<td colspan="9"><table width="100%" cellpadding="2px" cellspacing="0" border="1" >
+						<tr class="hdr">
+							<td width="50px">Image</td>
+							[%if [@no_item_split@]%]
+							<td>Qty Ordered</td>
+							[%/if%]
+							<td>SKU</td>
+							<td>Location</td>
+							<td>Brand/Product Name/Extra</td>
+							<td>Picked To Date</td>
+							<td>Assemble Task</td>
+							<td>Unit</td>
+						</tr>
+						[%/param%][%param *component_sub_body%]
+						<tr >
+							<td ><img src="[%ASSET_URL type:'item' id:'[@SKU@]' thumb:'thumb' /%]" width="50px" height="50px"></td>
+							[%if [@no_item_split@]%]
+							<td ><b>[@quantity@]</b></td>
+							[%/if%]
+							<td nowrap><b>[%escape%][@SKU@][%/escape%]</b></td>
+							<td nowrap valign="top"><b>[%escape%][@pick_zone@][%/escape%]</b><br>
+								[@location@]</td>
+							<td valign="top"><b><font style="font-size:12px;"><i>[%escape%][@brand@][%/escape%]</i><br>
+								[%escape%][@model@][%/escape%]
+								[%if [@extra@] ne ''%]
+								<div><br>
+									(<i>[%escape%][@full_extra@][%/escape%]</i>)</div>
+								[%/if%] </font></b> [%if [@config:PICKSLIP_SHOW_INTERNALNOTE@] AND [@internal_notes@] ne '' %] <font style="font-size:12px;"><br>
+								<i>[[%escape%][@internal_notes@][%/escape%]</i></font> [%/if%] </td>
+							<td ><b>[@pick_qty@]</b></td>
+							<td ><b>[@pick_task@]</b></td>
+							<td >[@item_unit@]</td>
+						</tr>
+						[%/param%][%param *component_sub_footer%]
+					</table></td>
+			</tr>
+			[%/param%][%param *component_footer%]
+		</table>
+		<br />
+		[%/param%][%param *page_footer%]
+
+		<div class="row">
+			<div class="col-xs-4">
+				<p class="underline-field">Picked By:</p>
+			</div>
+			<div class="col-xs-4">
+				<p class="underline-field">Checked By:</p>
+			</div>
+		</div>
+	</div>
+	[%/param%]
+	[%param *footer%]
+		</div>
+	[%/param%]
+	[%/packing_summary%]
+</div>

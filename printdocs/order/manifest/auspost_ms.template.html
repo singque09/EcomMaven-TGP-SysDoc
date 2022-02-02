@@ -1,0 +1,289 @@
+[%load_template file:'printdocs/includes/styles.template.html'/%]
+<div class="nPrintDoc">
+	[%shipping_manifest id:'[@manifest_id@]' module:'auspost_ms' date_manifest:'[@date_manifest@]'%]
+	[%param *header%]
+		<h1>Print contract mailing statement</h1>
+		<h3>Customer Details</h3>
+		<h4><strong>Manifest Created Date :</strong> [@date_manifest@]</h4>
+		<h4><strong>Name :</strong> [@ReturnName@]</h4>
+		<h4><strong>Address :</strong> [@ReturnAddressLine1@] [@ReturnAddressLine2@]</h4>
+		<h4><strong>Post Code :</strong> [@ReturnPostcode@]</h4>
+		<h4><strong>Suburb :</strong> [@ReturnSuburb@]</h4>
+		<h4><strong>State :</strong> [@ReturnStateCode@]</h4>
+		<h4><strong>Country :</strong> [@ReturnCountryCode@]</h4>
+		<h4><strong>Phone :</strong> [@ReturnPhone@]</h4>
+		<h4><strong>Charge Account No :</strong> [@data:merchant_acc@]</h4>
+		<h4><strong>Customer Reference :</strong> [@CustomerReference@]</h4>
+	[%/param%]
+	[%param *body_header%]
+		<h3>Parcels Under 500g within Australia - B30</h3>
+		<table class="table" >
+			<tr>
+				<th><b>B30</b></th>
+				<th>Up to 250gms</th>
+				<th>Over 250g to 500g</th>
+			</tr>
+			<tr>
+				<td>LC:Local Area</td>
+				<td>[@lru_quantity@]</td>
+				<td>[@lou_quantity@]</td>
+			</tr>
+			<tr>
+				<td>RA:Rest Of Australia</td>
+				<td>[@rru_quantity@]</td>
+				<td>[@rou_quantity@]</td>
+			</tr>
+			<tr>
+				<td>XT:External Territory</td>
+				<td>[@eru_quantity@]</td>
+				<td>[@eou_quantity@]</td>
+			</tr>
+			<tr>
+				<td>Express Post&nbsp;&nbsp;(<b>B20</b>)&nbsp;</td>
+				<td>[@expr_quantity@]</td>
+				<td>[@expe_quantity@]</td>
+			</tr>
+			<tr>
+				<td>Express Post Platinum&nbsp;&nbsp;(<b>B70</b>)&nbsp;</td>
+				<td>[@exprep_quantity@]</td>
+				<td>[@expeep_quantity@]</td>
+			</tr>
+			<tr>
+				<td>Medical/Education/Remotes&nbsp;&nbsp;(<b>B60</b>)&nbsp;</td>
+				<td>[@mer_quantity@]</td>
+				<td>[@mor_quantity@]</td>
+			</tr>
+		</table>
+		<h3>Parcels Over 500g within Australia-B31</h3>
+		<table class="table">
+			<tr>
+				<th rowspan="3">Destination</th>
+				<th colspan="6">Regular - B31</th>
+			</tr>
+			<tr>
+				<th colspan="2">Actual Declared </td>
+				<th colspan="2">&nbsp;</td>
+				<th colspan="2">Total Found </td>
+			</tr>
+			<tr>
+				<td>Quantity </td>
+				<td>Weight(kg) </td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>Quantity </td>
+				<td>Weight(kg) </td>
+			</tr>
+	[%/param%]
+	[%param *r_body%]
+			<tr>
+				<td>[@name@]</td>
+				<td>[@quantity@]</td>
+				<td>[@weight@] </td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+	[%/param%]
+	[%param *r_footer%]
+			<tr>
+				<td class="text-right">Total</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>[@total_qty_r@]</td>
+				<td>[@total_weight_r@]</td>
+			</tr>
+		</table>
+		<h3>Parcels Over 500g within Australia - B21</h3>
+		<table class="table" >
+			<tr>
+				<th rowspan="3">Destination</th>
+				<th colspan="6">Regular - B21</th>
+			</tr>
+			<tr>
+				<td colspan="2">Actual Weight Parcels </td>
+				<td colspan="2">Cubic Weight Parcels </td>
+				<td colspan="2">Total All Parcels </td>
+			</tr>
+			<tr>
+				<td>Quantity </td>
+				<td>Weight(kg) </td>
+				<td>Quantity </td>
+				<td>Weight(kg) </td>
+				<td>Quantity </td>
+				<td>Weight(kg) </td>
+			</tr>
+	[%/param%]
+	[%param *ex_body%]
+			<tr>
+				<td>[@name@]</td>
+				<td>[@quantity@]</td>
+				<td>[@actual_weight@] </td>
+				<td>[@quantity@] </td>
+				<td>[@cubic_weight@]</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+	[%/param%]
+	[%param *ex_footer%]
+			<tr>
+				<td class="text-right">Total</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>[@total_qty_ex@]</td>
+				<td>[@total_weight_ex@]</td>
+			</tr>
+		</table>
+		<h3>Parcels Over 500g within Australia - B71</h3>
+		<table class="table">
+			<tr>
+				<th rowspan="3">Destination</th>
+				<th colspan="6">Regular - B71</th>
+			</tr>
+			<tr>
+				<td colspan="2">Actual Weight Parcels </td>
+				<td colspan="2">Cubic Weight Parcels </td>
+				<td colspan="2">Total All Parcels </td>
+			</tr>
+			<tr>
+				<td> Quantity </td>
+				<td> Weight(kg) </td>
+				<td> Quantity </td>
+				<td> Weight(kg) </td>
+				<td> Quantity </td>
+				<td> Weight(kg) </td>
+			</tr>
+	[%/param%]
+	[%param *exp_body%]
+			<tr>
+				<td>[@name@]</td>
+				<td>[@quantity@]</td>
+				<td>[@actual_weight@] </td>
+				<td>[@quantity@] </td>
+				<td>[@cubic_weight@]</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+
+			[%/param%][%param *exp_footer%]
+			<tr>
+				<td class="text-right">Total</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>[@total_qty_exp@]</td>
+				<td>[@total_weight_exp@]</td>
+			</tr>
+		</table>
+		<h3>Parcels Over 500g within Australia - B61/B66</h3>
+		<table class="table">
+			<tr>
+				<th rowspan="3">Destination</th>
+				<th colspan="6">Regular - B61/B66</th>
+			</tr>
+			<tr>
+				<td colspan="2"> Actual Weight Parcels </td>
+				<td colspan="2"> Cubic Weight Parcels </td>
+				<td colspan="2"> Total All Parcels </td>
+			</tr>
+			<tr>
+				<td> Quantity </td>
+				<td> Weight(kg) </td>
+				<td> Quantity </td>
+				<td> Weight(kg) </td>
+				<td> Quantity </td>
+				<td> Weight(kg) </td>
+			</tr>
+	[%/param%]
+	[%param *m_body%]
+			<tr>
+				<td>[@name@]</td>
+				<td>[@quantity@]</td>
+				<td>[@actual_weight@] </td>
+				<td>[@quantity@] </td>
+				<td>[@cubic_weight@]</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+	[%/param%]
+	[%param *m_footer%]
+			<tr>
+				<td class="text-right">Total</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>[@total_qty_m@]</td>
+				<td>[@total_weight_m@]</td>
+			</tr>
+	[%/param%]
+	[%param *body_footer%]
+		</table>
+		<h3>Parcels Within Australia Only</h3>
+		<table class="table" >
+			<tr>
+				<th>Other Services</th>
+				<th>Domestic</th>
+				<th>External Territory</th>
+			</tr>
+			<tr>
+				<td>Receipted Delivery <strong>B40</strong></td>
+				<td>[@o_domestic@]</td>
+				<td>[@o_exteral@]</td>
+			</tr>
+		</table>
+		<h3>Small Letters within Australia - B01</h3>
+		<table class="table">
+			<tr>
+				<th>Small Letters</th>
+				<th>Domestic</th>
+				<th>External Territory</th>
+			</tr>
+			<tr>
+				<td>Small Letters</td>
+				<td>[@s_domestic@]</td>
+				<td>[@s_external@]</td>
+			</tr>
+		</table>
+		<h3>Large Letters within Australia - B03</h3>
+		<table class="table">
+			<tr>
+				<td width="200px" nowrap><b>B03</b></td>
+				<td width="150px" nowrap>Up to 125gms</td>
+				<td width="150px" nowrap>Over 125g to 250g</td>
+				<td width="150px" nowrap>Over 250g to 500g</td>
+			</tr>
+			<tr>
+				<td>Domestic</td>
+				<td>[@L_quantity@]</td>
+				<td>[@M_quantity@]</td>
+				<td>[@H_quantity@]</td>
+			</tr>
+			<tr>
+				<td>External Territories</td>
+				<td>[@L_quantity@]</td>
+				<td>[@M_quantity@]</td>
+				<td>[@H_quantity@]</td>
+			</tr>
+		</table>
+	[%/param%]
+	[%/shipping_manifest%]
+	<h2>Customer Declaration</h2>
+	<p>I certify that these articles have been prepared in accordance with Australia Post terms and conditions for  lodgement and carriage and/or the special condtions of our contract with Australia Post and that details supplied are accurate. I acknowledge that these articles may be carried by air and declare that they do not contain any dangerous or prohibited goods. (eg.explosives, flammables, corrosives, aerosois etc.).If in doubt ask at a Post office. A false declaration is a criminal offence.</p>
+	<div class="row">
+		<div class="col-xs-4">
+			<p class="underline-field">Customer's signature</p>
+		</div>
+		<div class="col-xs-4">
+			<p class="underline-field">Customer ID Recorded</p>
+		</div>
+		<div class="col-xs-4">
+			<p class="underline-field">Received By</p>
+		</div>
+	</div>
+</div>

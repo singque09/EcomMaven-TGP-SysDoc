@@ -1,0 +1,78 @@
+<style>
+	.hunter-express-label div, .hunter-express-label p {
+		font-size: inherit;
+	}
+	.hunter-express-label p {
+		padding: 0;
+		margin: 0.5ex 0;
+	}
+</style>
+<div class="hunter-express-label" style="width: 6cm; text-align: left; font-size: 2.4mm" align="center" cellpadding="0" cellspacing="0">
+	<div style="">
+		<div style="float:right; font-size: 4mm">
+			<div style="border: 1px solid black; text-align: center; padding: 1mm; border-collapse: collapse;">
+				[@ship_port@]
+			</div>
+			<div style="border: 1px solid black; text-align: center; padding: 1mm; border-collapse: collapse; margin-top: -1px">
+				[@ship_zone_code@]
+			</div>
+		</div>
+		<div>
+			<div style="font-weight: bold; font-size: 5mm">Hunter Express</div>
+			<div style="font-weight: bold; font-size: 3mm">Date: [%format type:'date' now:1 format:'#d/#M/#Y' default:'n/a'%][@date_manifest@][%/format%]</div>
+			<div style="font-weight: bold; font-size: 3.7mm">Consignment: [%escape%][@cngmt_number@][%/escape%]</div>
+			<div style="font-weight: bold; font-size: 3.7mm">Service: [%escape%][@shserv_name@][%/escape%]</div>
+		</div>
+	</div>
+	<div style="clear: both">
+		<div style="float: right; width: 50%; margin-right: -4mm;">
+			<img width="100%" src="[%barcode_url fn:'article' cngmt:'[@cngmt_id@]' art:'[@art_id@]' barcodetype:'qr'%][@barcode@][%/barcode_url%]" border="0"
+				 style="image-rendering: pixelated"/>
+		</div>
+		<div>
+			&nbsp;<br>
+			<div style="font-size: 3.7mm; font-weight: bold">[@count@] of [@total@]</div>
+			<p style="">
+				[%escape%][@bill_first_name@] [@bill_last_name@][%/escape%]<br>
+				[%escape%][@bill_street1@][%/escape%]<br>
+				[%if [@bill_street2 ne '' %][%escape%][@bill_street2@][%/escape%]<br>[%/if%]
+				[%escape%][@bill_city@][%/escape%], [%escape%][@bill_zip@][%/escape%]<br>
+				[%escape%][@phone@][%/escape%]
+			</p>
+			<p>
+				Dims: [@length@] x [@width@] x [@height@]<br>
+				Dead: [%format type:'number' dp:'0'%][@weight@][%/format%]kg<br>
+			</p>
+			<p>
+				Total Dead: [%format type:'number' dp:'0'%][@total_weight@][%/format%]kg
+			</p>
+			<p>
+				Sender Reference: [@order_id@]<br>
+				Account: [@merchant_id@]
+			</p>
+		</div>
+		<div style="clear: both">
+			<p style="font-weight: bold; font-size: 3.7mm">
+				[%nohtml%][@ship_first_name@] [@ship_last_name@][%/nohtml%]<br>
+				[%if [@ship_company ne '' %][%escape%][@ship_company@][%/escape%]<br>[%/if%]
+				[%nohtml%][@ship_street1@][%/nohtml%]<br>
+				[%if [@ship_street2 ne '' %][%escape%][@ship_street2@][%/escape%]<br>[%/if%]
+				[%nohtml%][@ship_city@][%/nohtml%] [%nohtml%][@ship_state@][%/nohtml%], [%nohtml%][@ship_zip@][%/nohtml%]
+			</p>
+			<p style="font-weight: bold; font-size: 3mm">
+				Instructions: [%if [@signature@] eq 'n' %]ATL[%else%]Signature Required[%/if%]<br>[%nohtml%][@ship_comment@][%/nohtml%]
+			</p>
+			<p>
+				Reference: [@order_id@]<br>
+				Other Reference:<br>
+			</p>
+		</div>
+	</div>
+	<div style="clear: both; text-align: center">
+		<img width="90%" height="40px" src="[%barcode_url fn:'article' height:'30' cngmt:'[@cngmt_id@]' art:'[@art_id@]'%][@barcode@][%/barcode_url%]"
+			 border="0" style="image-rendering: pixelated"/><br>
+		[@barcode@]
+	</div>
+</div>
+
+<div style="clear: both"></div>

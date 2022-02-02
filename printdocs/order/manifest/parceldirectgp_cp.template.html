@@ -1,0 +1,68 @@
+[%load_template file:'printdocs/includes/styles.template.html'/%]
+<div class="nPrintDoc">
+	[%shipping_manifest id:'[@MANIFEST_ID@]' module:'parceldirectgp_cp' date_manifest:'[@date_manifest@]'%]
+	[%param *header%]
+	<h1>Print Manifest Report</h1>
+	<h4><strong>File Name :</strong> [@DATA:MANIFEST_NUMBER@].DAT</h4>
+	<h4><strong>Manifest Created Date :</strong> [@date_manifest@]</h4>
+	<h4><strong>Manifest Number :</strong> [@DATA:MANIFEST_ID@]</h4>
+	<h4><strong>Merchant ID :</strong> [@DATA:MERCHANT_ID@]</h4>
+	<h4><strong>[@DATA:SHACC_NAME@] Account :</strong> [@DATA:LOCATION_ID@] ([@DATA:MERCHANT_ACC@])</h4>
+	<table class="table">
+		<tr>
+			<td>Cnsgmt Nbr</td>
+			<td>Article Nbr</td>
+			<td>DeliverTo</td>
+			<td>Suburb</td>
+			<td>Postcode</td>
+			<td>Country</td>
+			<td>Charge Code Description</td>
+			<td>Dngrous Goods</td>
+			<td>Total Articles in Consgmt</td>
+			<td>Cubic Weight</td>
+			<td>Actual Weight</td>
+			<td>Chargeable Weight</td>
+		</tr>
+	[%/param%]
+	[%param *body%]
+		<tr>
+			<td>[@cngmt_number@]</td>
+			<td>[@article_number@]</td>
+			<td>[@name@]</td>
+			<td>[@ship_city@]</td>
+			<td>[@ship_zip@]</td>
+			<td>[@ship_country_name@]</td>
+			<td>[@shserv_name@]</td>
+			<td align="center">[@danger_txt@]</td>
+			<td class="text-right">[@art_total@]</td>
+			<td class="text-right">[@cubic@]</td>
+			<td class="text-right">[@shipping@]</td>
+			<td class="text-right">[@charge@]</td>
+		</tr>
+	[%/param%]
+	[%param *total_body%]
+		<tr>
+			<td colspan="8"><b>Total</b> (for  [@total_con@])</td>
+			<td class="text-right">[@total_art@]</td>
+			<td class="text-right">[@total_cubic@]</td>
+			<td class="text-right">[@total_shipping@]</td>
+			<td class="text-right">[@total_charge@]</td>
+		</tr>
+		<tr>
+			<td colspan="13"><strong>Total Pallet(s)</strong> [@total_pallet@]</td>
+		</tr>
+	[%/param%]
+	[%/shipping_manifest%]
+	</table>
+
+	<h2>Dangerous Goods Declaration</h2>
+	<div class="row">
+		<div class="col-xs-6">
+			<p>I, the undersigned, do declare that, to the best of my knowledge and understanding ,this shipment does not contain any dangerous goods as defined in the Dangerous Goods Act. I understand that breaching this act may result in heavy fines or imprisonment.</p>
+		</div>
+		<div class="col-xs-6">
+			<p class="underline-field">Sender's signature : </p>
+			<p class="underline-field">Driver's signature : </p>
+		</div>
+	</div>
+</div>

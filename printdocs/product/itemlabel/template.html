@@ -1,0 +1,22 @@
+[%load_template file:'printdocs/includes/styles.template.html'/%]
+<div class="nPrintDoc">
+	<div class="panel panel-label">
+		<div class="panel-heading">
+			<div class="row">
+				<div class="col-xs-6">
+					<h3 class="header-title">[@company@]</h3>
+				</div>
+				<div class="col-xs-6 text-right">
+					[%if [@config:company_phone@]%]<p>[@config:company_phone@]</p>[%/if%]
+					<p>[@config:host_name@]</p>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<p>[@model@]</p>
+		</div>
+		<div class="panel-footer text-center">
+			<img src="[%barcode_url fn:'' height:'[@label_height@]' sku:'[@SKU@]'/%]"/>
+		</div>
+	</div>
+</div>

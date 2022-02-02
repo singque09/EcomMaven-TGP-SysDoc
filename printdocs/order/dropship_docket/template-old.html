@@ -1,0 +1,149 @@
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link
+  href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+  rel="stylesheet"
+/>
+<style>
+  * {
+    font-family: "Montserrat", sans-serif;
+  }
+  .box {
+    border-radius: 10px;
+    padding: 20px;
+    height: 210px;
+    width: calc(99% - 40px);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .textArea {
+    height: 60px;
+    line-height: 20px;
+    width: 99%;
+    overflow: hidden;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .xs-6 {
+    width: 50%;
+    overflow: hidden;
+    height: 18px;
+  }
+  .labelRecipient,
+  .labelMessage,
+  .labelSender {
+    text-align: center;
+  }
+</style>
+[%load_template file:'printdocs/includes/styles.template.html'/%]
+
+<div class="dataSet">
+  [%show_order ids:'[@ids@]' sortby:'[@tmpl_sort_by@]'
+  groupby:'[@tmpl_group_by@]' sortorder:'[@tmpl_sort_order@]'%][%PARAM *header%]
+  <div></div>
+  <div class="page-break"></div>
+  [%END PARAM%] [%PARAM *section_header%] [%END PARAM%] [%PARAM *body%] [%END
+  PARAM%] [%PARAM *section_footer%] [%END PARAM%] [%PARAM *footer%] [%show_order
+  id:'[@order_ID@]' customer:'[@username@]' dropshipper:'[@showdropshipper@]'%]
+  [%param *body%]
+  <div class="container">
+    <div class="box">
+      <span class="extraOptionHandler" hidden>[@extra@]</span>
+      <h1 class="labelRecipient"></h1>
+      <h1 class="labelMessage"></h1>
+      <h1 class="labelSender"></h1>
+    </div>
+    <div class="textArea">
+      <div class="xs-6"></div>
+      <div class="xs-6"></div>
+      <div class="xs-6">[@order_ID@]</div>
+      [%product sku:'[@SKU@]'%] [%param *body%] [%if [@product_type@] like
+      'hamper' %]
+      <div class="xs-6">[@model@]</div>
+      [%else%]
+      <div class="xs-6 normalProduct">Normal Product</div>
+      [%/if%] [%/param%] [%/product%]
+      <div class="xs-6 labelTextAreaRecipient"></div>
+      <div class="xs-6 labelGiftCardStyle"></div>
+    </div>
+  </div>
+  [%/param%] [%/show_order%] [%END PARAM%] [%END show_order%]
+</div>
+
+<script type="text/javascript">
+  var dataSet = document.getElementsByClassName("dataSet");
+
+  var labelRecipient = (index) =>
+    dataSet[index].getElementsByClassName("labelRecipient");
+  var labelTextAreaRecipient = (index) =>
+    dataSet[index].getElementsByClassName("labelTextAreaRecipient");
+  var labelMessage = (index) =>
+    dataSet[index].getElementsByClassName("labelMessage");
+  var labelSender = (index) =>
+    dataSet[index].getElementsByClassName("labelSender");
+  var labelGiftCardStyle = (index) =>
+    dataSet[index].getElementsByClassName("labelGiftCardStyle");
+
+  var extraOptionHandler = (index) =>
+    dataSet[index].getElementsByClassName("extraOptionHandler");
+
+  var isNormalProduct = (index) =>
+    dataSet[index].getElementsByClassName("normalProduct");
+
+  var camelize = (str) =>
+    str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function (match, index) {
+      if (+match === 0) return ""; // or if (/\s+/.test(match)) for white spaces
+      return index === 0 ? match.toLowerCase() : match.toUpperCase();
+    });
+
+  window.onload = function () {
+    for (let y = 0; y < dataSet.length; y++) {
+      for (let x = 0; x < extraOptionHandler(y).length; x++) {
+        let extraoptionObjects = {};
+        let extraOptionInnerText = extraOptionHandler(y)[x].innerText.split(
+          ";"
+        );
+        for (let z = 0; z < extraOptionInnerText.length - 1; z++) {
+          let extraInnerText = extraOptionInnerText[z].split(":");
+          extraoptionObjects = {
+            ...extraoptionObjects,
+            [camelize(extraInnerText[0])]: extraInnerText[1],
+          };
+        }
+
+        const {
+          recipientName,
+          GiftMessage,
+          giftMessage,
+          Sender,
+          GiftCardStyle,
+        } = extraoptionObjects;
+
+        console.log(extraoptionObjects);
+
+        labelRecipient(y)[x].innerHTML = recipientName
+          ? recipientName
+          : "Blank gift card";
+        labelTextAreaRecipient(y)[x].innerHTML = recipientName
+          ? recipientName
+          : "Blank gift card";
+        labelMessage(y)[x].innerHTML = GiftMessage
+          ? GiftMessage
+          : giftMessage
+          ? giftMessage
+          : "Blank gift card";
+        labelSender(y)[x].innerHTML = Sender ? Sender : "Blank gift card";
+        labelGiftCardStyle(y)[x].innerHTML = GiftCardStyle;
+        if (GiftCardStyle.includes("No Gift Card Selected"))
+          extraOptionHandler(y)[x].parentElement.parentElement.hidden = true;
+      }
+      for (let x = 1; x < isNormalProduct(y).length; x++) {
+        isNormalProduct(y)[x].parentElement.parentElement.hidden = true;
+      }
+    }
+  };
+</script>

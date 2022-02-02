@@ -1,0 +1,97 @@
+[%GIFT_MESSAGE_LABEL
+	order_id:'[@order_id@]' cngmt_id:'[@cngmt_id@]' article_id:'[@art_id@]'
+	gift_message_option:'[@giftmsgid@]' gift_card_options:'[@giftmsgp@]'
+%]
+[%PARAM *page_header%]
+	[%IF [@current_page@] > 1%]
+		<hr class="pagebreak">
+	[%/IF%]
+
+<div align="left" class="pageinner" style="width:[@page_width@];">
+<table cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+<tr>
+  <td valign="top">
+    <b>Order Number: [%ESCAPE%][@order_id@][%/ESCAPE%]<br />
+      [%IF [@customer_po@] ne ''%]Purchase Order Number: [%ESCAPE%][@customer_po@][%/ESCAPE%][%/IF%]</b><br />
+    </td>
+  <td align="right">
+    Parcel [@current_article@] of [@total_articles@]<br />
+    Page [@current_page@] of [@total_pages@]<br />
+    </td>
+  </tr>
+<tr><td colspan="2">
+[%/PARAM%]
+
+[%PARAM *product_header%]
+<div [%IF [@is_label_page@]%]style="height:400px; overflow:hidden;"[%/IF%]>
+	<table cellpadding="4" cellspacing="0" width="100%">
+[%/PARAM%]
+[%PARAM *product_body%]
+		<tr>
+			<td width="1%" valign="top" nowrap style="border-right: 1px solid #000; border-left: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000;"><b>[@pack_quantity@]</b></td>
+			<td width="1%" valign="top" nowrap style="border-right: 1px solid #000; border-bottom: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000;">[@SKU@]&nbsp;</td>
+			<td valign="top" style="border-right: 1px solid #000; border-bottom: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000;">[%ESCAPE%][@description@][%/ESCAPE%]<br />
+				<font class="tiny">
+				[%foreach data:'product_extra_list'%]
+					[%PARAM *body%]<b>[%ESCAPE%][@name@][%/ESCAPE%]:</b> [%ESCAPE%][@value@][%/ESCAPE%];[%/PARAM%]
+				[%/foreach%]
+
+				[%IF [@misc1@] ne ''%]<b>Pick Info:</b> [%ESCAPE%][@misc1@][%/ESCAPE%][%/IF%]
+				</font>
+			</td>
+		</tr>
+[%/PARAM%]
+[%PARAM *product_overflow_body%]
+		<tr><td align="center"><h2><b>Please find your full manifest of items in parcel on separate page.</b></h2></td></tr>
+[%/PARAM%]
+[%PARAM *product_footer%]
+	</table>
+</div>
+[%/PARAM%]
+[%PARAM *page_body%]
+</td></tr>
+<tr>
+	<td width="350" valign="top">
+		<div style="font-size:14px; height:110px; width:220px; overflow:hidden;">
+			<b>
+				<div>[%ESCAPE%][@ship_first_name@] [@ship_last_name@][%/ESCAPE%]</div>
+				<div>[%ESCAPE%][@ship_company@][%/ESCAPE%]</div>
+				<div>[%ESCAPE%][@ship_street1@][%/ESCAPE%]</div>
+				<div>[%ESCAPE%][@ship_street2@][%/ESCAPE%]</div>
+				<div>[%ESCAPE%][@ship_city@] [@ship_state@] [@ship_zip@][%/ESCAPE%]</div>
+			</b>
+		</div>
+		[%IF [@has_gift_message@]%]
+		<div style="font-size:10px; height:100px; overflow:hidden;">
+			<div><b>Gift Card No. [@gift_card_number@]</b></div>
+			[%foreach data:'gift_card_option_list'%]
+				[%PARAM *body%]<div><b>[%ESCAPE%][@name@][%/ESCAPE%]:</b> [%FORMAT type:'text' addbr:'1'%][%ESCAPE%][@value@][%/ESCAPE%][%/FORMAT%]</div>[%/PARAM%]
+			[%/foreach%]
+		</div>
+		<div style="width:210px; height:300px; margin-left:15px; font-size:13px;">
+			[%FORMAT type:'text' addbr:'1'%][%ESCAPE%][@gift_message@][%/ESCAPE%][%/FORMAT%]
+		</div>
+		[%/IF%]
+	</td>
+	<td width="350" valign="top">
+		[%IF [@current_page@] == 1%]
+		<div style="font-size:12px; width:350px; overflow:hidden;word-wrap: break-word;">
+			<div><font style="font-size:14px;">
+			[%foreach data:'gift_card_option_list'%]
+				[%PARAM *body%] <b>[%ESCAPE%][@name@][%/ESCAPE%]:</b> [%ESCAPE%][@value@][%/ESCAPE%] &nbsp;[%/PARAM%]
+			[%/foreach%]
+			</font></div>
+			[@label@]
+		</div>
+		[%/IF%]
+
+[%/PARAM%]
+
+[%PARAM *page_footer%]
+</td></tr>
+</table>
+</div>
+
+[%/PARAM%]
+
+[%/GIFT_MESSAGE_LABEL%]

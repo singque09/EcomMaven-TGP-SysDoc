@@ -1,0 +1,11 @@
+[%show_orderlist ids:'[@ids@]' sortby:'[@tmpl_sort_by@]' groupby:'[@tmpl_group_by@]' sortorder:'[@tmpl_sort_order@]'%]
+<p><img style="display: block; margin-left: auto; margin-right: auto;" src="https://www.thegourmetpantry.com.au/assets/website_logo.png" alt="" width="323" height="106" /></p>
+<h1 style="text-align: center;">[@Order_ID@]</h1>
+<p style="text-align: center;">&nbsp;</p>
+<h3 style="text-align: center;">This order requires Father&rsquo;s Day Delivery</h3>
+<p style="text-align: center;">&nbsp;</p>
+<p style="text-align: center;">&nbsp;</p>
+<p style="text-align: center;"><strong>[@ship_state@]</strong></p>
+<p style="text-align: center;">[@ship_zip@]</p>
+<p style="text-align: center;">[@ship_city@]</p>
+[%/show_orderlist%]

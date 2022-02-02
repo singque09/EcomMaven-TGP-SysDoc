@@ -1,0 +1,28 @@
+<!--[BCC:]-->
+<!--[SUBJECT:[$COMPANY_NAME$] User Password Changed]-->
+<!--[FROM:[$COMPANY_EMAIL$]]-->
+<!--[TO:[@EMAIL@]]-->
+
+<html>
+  <body>
+  <p>Hello,<p>
+
+  <p>
+    You requested a retrieval of your password for [$COMPANY_NAME$]
+    on [%FORMAT type:'date' now:'1' format:'#d #k #Y (#H:#I:#S)'%][%END FORMAT%].  You can reset your password with through the following link:
+  </p>
+  <p>
+    <a href="[%URL page:'account' type:'resetpwd' id:'[@logincode@]'%][%END URL%]">Click Here</a>
+  </p>
+  <p>
+    If you can't see the link above, copy and paste the following into your browser URL:
+  </p>
+  <p>
+    [%URL page:'account' type:'resetpwd' id:'[@logincode@]'%][%END URL%]
+  </p>
+  <p> 
+    Thank you!
+  </p>
+  
+  </body>
+</html>

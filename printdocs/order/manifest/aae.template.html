@@ -1,0 +1,107 @@
+[%load_template file:'printdocs/includes/styles.template.html'/%]
+<div class="nPrintDoc">
+	[%shipping_manifest id:'[@MANIFEST_ID@]' module:'aae' date_manifest:'[@date_manifest@]'%]
+	[%param *header%]
+	<h1>Print Manifest Report - AAE</h1>
+	<h4><strong>Manifest Created Date :</strong> [@date_manifest@]</h4>
+	<h4><strong>Date Printed :</strong> [@date_now@]</h4>
+	<h4><strong>Manifest Number :</strong> [@data:manifest_id@]</h4>
+	<h4><strong>Australia Air Express Account Number :</strong> [@data:merchant_acc@]</h4>
+	<h4><strong>Customer Account ID :</strong> [@data:merchant_id@]</h4>
+	<table class="table table-condensed">
+		<tr>
+			<th>Consignment #</th>
+			<th>Article #</th>
+			<th>DeliverTo</th>
+			<th>Postcode</th>
+			<th>Country</th>
+			<th>Charge Code Description</th>
+			<th>Charging Zone</th>
+			<th>Dangerous Goods</th>
+			<th>Total Articles in Consignment</th>
+			<th>Extra/ Transit Cover</th>
+			<th>Cubic Weight</th>
+			<th>Actual Weight</th>
+			<th>Chargeable Weight</th>
+		</tr>
+	[%/param%]
+	[%param *body%]
+		<tr>
+			<td>[@cngmt_number@]</td>
+			<td>[@article_number@]</td>
+			<td>[@name@]<br>
+				[@ship_street1@]<br>
+				[@ship_street2@]<br>
+				[@ship_city@]</td>
+			<td>[@ship_zip@]</td>
+			<td>[@ship_country_name@]</td>
+			<td>[@shserv_name@]</td>
+			<td>[@zone_code@]</td>
+			<td>[@danger_txt@]</td>
+			<td>[@art_total@]</td>
+			<td>[@tran_txt@]</td>
+			<td>[@cubic@]</td>
+			<td>[@shipping@]</td>
+			<td>[@charge@]</td>
+		</tr>
+	[%/param%]
+	[%param *stotal_body%]
+		<tr>
+			<td colspan="8" class="text-right"><strong>Subtotal</strong><span class="text-muted"> for [@stotal_con@] [@cng_txt@]</span></td>
+			<td>[@stotal_art@]</td>
+			<td>&nbsp;</td>
+			<td>[@stotal_cubic@]</td>
+			<td>[@stotal_shipping@]</td>
+			<td>[@stotal_charge@]</td>
+		</tr>
+	[%/param%]
+	[%param *total_body%]
+		<tr>
+			<td colspan="8" class="text-right"><strong>Total</strong><span class="text-muted"> for [@total_con@]</span></td>
+			<td>[@total_art@]</td>
+			<td>&nbsp;</td>
+			<td>[@total_cubic@]</td>
+			<td>[@total_shipping@]</td>
+			<td>[@total_charge@]</td>
+		</tr>
+	</table>
+	<div class="row">
+		<div class="col-xs-4">
+			<h4><strong>Consignments :</strong> [@total_con2@]</h4>
+			<h4><strong>Service :</strong> [@srvc@]</h4>
+			<h4><strong>Weight :</strong> [@total_shipping@]</h4>
+		</div>
+	[%/param%]
+	[%param *aae_footer%]
+		<div class="col-xs-4">
+			<h4><strong>Account :</strong> [@DATA:MERCHANT_ACC@]</h4>
+			<h4><strong>Consignments :</strong> [@total_con2@]</h4>
+			<h4><strong>Total Weight :</strong> [@total_shipping@]</h4>
+		</div>
+		<div class="col-xs-4">
+			<h4><strong>Service Provider Totals :</strong> There is [@total_con@] and [@total_art2@]</h4>
+			<h4><strong>Total Weight :</strong> [@total_shipping@]</h4>
+		</div>
+	</div>
+	[%/param%]
+	[%/shipping_manifest%]
+
+	<div class="row">
+		<div class="col-xs-8">
+			<h2>Security Statement</h2>
+			<p>This consignment does not contain any explosive or incendiary device. I understand that this consignment may be subject to security screening, by Explosive Trace Detection, X-Ray or physical search.</p>
+			<h2>Dangerous Goods Statement</h2>
+			<p>I acknowledge this consignment may travel by air and make this statement for	the purpose of Section 23A of the Civil Aviation Act. This consignment does not contain dangerous goods.</p>
+			<p>I understand that my signature renders me personally	responsible for the above statements and that a false or misleading statement made knowingly or recklessly is a statutory offence punishable by imprisonment and/or a fine and may render me liable in damages for breach of contract.</p>
+		</div>
+		<div class="col-xs-4">
+			<h2>Signatures</h2>
+			<p class="underline-field">Signed by Client :</p>
+			<p class="underline-field">Printed name :</p>
+			<p><strong>Sent via internet</strong></p>
+			<p class="underline-field">Signed by Driver :</p>
+			<p class="underline-field">Driver ID :</p>
+			<p class="underline-field">Pickup Time :</p>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,192 @@
+[%load_template file:'printdocs/includes/styles.template.html'/%]
+<div class="nPrintDoc">
+	<div id="adjustmentnote" class="container">
+	[%show_rma id:'[@rma_id@]' customer:'[@username@]'%]
+	[%param *header%]
+	<div class="row">
+		<div class="col-xs-7">
+			<h1>Adjustment Note</h1>
+			<h2>RMA # <span class="text-success">[@rma_id@]</span></h2>
+			[%if [@invoice_id@]%]<h2>Invoice # <span class="text-success">[@invoice_id@]</span></h2>[%/if%]
+			[%if [@order_id@]%]<h2>Order # <span class="text-success">[@order_id@]</span></h2>[%/if%]
+			[%if [@customer_po@]%]<h4>PO # [@customer_po@]</h4>[%/if%]
+		</div>
+		<div class="col-xs-5 text-right">
+			<p><img class="logo" src="[%asset_url type:'logo' thumb:'website' /%]"></p>
+  		[%if [@config:company_abn@]%]<p class="text-muted">[%if [@config:PRIMARY_ABN_LABEL@]%][@config:PRIMARY_ABN_LABEL@][%else%]ABN[%/if%]: [@config:company_abn@]</p>[%/if%]
+	  	[%if [@config:company_acn@]%]<p class="text-muted">[%if [@config:PRIMARY_ACN_LABEL@]%][@config:PRIMARY_ACN_LABEL@][%else%]ACN[%/if%]: [@config:company_acn@]</p>[%/if%]
+			[%if [@config:logo_footer@]%]<p>[@config:logo_footer@]</p>[%/if%]
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-4">
+			<h4>Ship to</h4>
+			[%if [@ship_company@]%]<p>[@ship_company@]</p>[%/if%]
+			<p>[@ship_first_name@] [@ship_last_name@][%if [@ship_phone@]%], [@ship_phone@][%/if%]</p>
+			<p>[@ship_street1@] [%if [@ship_street1@]%], [@ship_street2@][%/if%]
+			<p>[@ship_city@], [@ship_state@] [@ship_zip@]</p>
+			<p>[@ship_country_name@]</p>
+		</div>
+		<div class="col-xs-4">
+			<h4>Billed to</h4>
+			[%if [@bill_company@]%]<p>[@bill_company@]</p>[%/if%]
+			<p>[@bill_first_name@] [@bill_last_name@]</p>
+			<p>[@bill_street1@] [%if [@bill_street2@]%], [@bill_street2@][%/if%]
+			<p>[@bill_city@], [@bill_state@] [@bill_zip@]</p>
+			<p>[@bill_country_name@]</p>
+		</div>
+		<div class="col-xs-4 text-right">
+		<p>Date Issued : [%format type:"date" format:"#D/#M/#Y"%][@date_issued@][%/format%]</p>
+		[%if [@rma_status@] eq 'Closed'%]<p>Date Approved : [%format type:"date" format:"#D/#M/#Y"%][@date_approved@][%/format%]</p>[%/if%]
+		</div>
+	</div>
+
+	[%if [@ship_comment@]%]
+		<div class="row">
+			<div class="alert alert-warning">
+				<b>Instructions:</b> [%nohtml%][@ship_comment@][%/nohtml%]
+			</div>
+		</div>
+	[%/if%]
+
+	<table class="table table-items table-noborder">
+		<tr>
+			<th>QTY</th>
+			[%if [@config:INVOICE_SH_UNIT@]%]<th>Unit</th>[%/if%]
+			<th>Code</th>
+			<th>Name</th>
+			<th>Unit Price</th>
+			[%if [@has_product_discounts@]%]<th>Discounts</th>[%/if%]
+			[%if [@config:INVOICE_SH_TAX@]%]<th>Tax</th>[%/if%]
+			<th class="text-right">Subtotal</th>
+		</tr>
+	[%/param%]
+	[%param *body%]
+		<tr>
+			<td>[@qty@]</td>
+			[%if [@config:INVOICE_SH_UNIT@]%]<td>[@unit@]</td>[%/if%]
+			<td>[@sku@]</td>
+			<td>[@model@]<br>
+				<i>[@extra@]</i>
+				[%extra_options currentextra:'[@extra@]' id:'[@sku@]'%]
+				[%param header%]
+					<ul>
+				[%/param%]
+				[%param *text_option%]
+					<li>[@currentextra@]</li>
+				[%/param%]
+				[%param *select_option%]
+					<li>[@currentextra@] ([@price@]) [@choices@]</li>
+				[%/param%]
+				[%param *category_option%]
+					<li>[@currentextra@]</li>
+				[%/param%]
+				[%param *choices%]
+					<li>'[@name@]: [@text@]' '[@currentextra@]' -- [%if [@currentextra@] eq '[@name@]: [@text@]'%]OK [@price@][%/if%];</li>
+				[%/param%]
+				[%param footer%]
+					</ul>
+				[%/param%]
+				[%/extra_options%]
+				[%format type:'date' default:''%][%param *format%]Deliver On #D/#M/#Y (#G:#I#a)[%/param%][@date_delivery@][%/format%]
+				[%if [@rma_reason@]%]<p><i>[@rma_reason@]</i></p>[%/if%]
+			</td>
+			<td>[%format type:'currency'%][@price@][%/format%]</td>
+			[%if [@has_product_discounts@]%]<td>[%format type:'currency'%][@discount@][%/format%]</td>[%/if%]
+			[%if [@config:INVOICE_SH_TAX@]%]<td>[%format type:'percent' dp:'2'%][@tax_percent@][%/format%]</td>[%/if%]
+			<td class="text-right">[%format type:'currency'%][@subtotal@][%/format%]</td>
+		</tr>
+		[%multi_item_pack id:'[@order_id@]' counter:'[@counter@]'%]
+		[%param *header%]
+		<tr>
+			<td>&nbsp;</td>
+			[%if [@config:INVOICE_SH_UNIT@]%]<td>&nbsp;</td>[%/if%]
+			<td>&nbsp;</td>
+			<td>
+			<p class="text-muted small">[@sku@] Comprised of :</p>
+		[%/param%]
+		[%param *body%]
+			<p><b>[@quantity@] &times;</b> [@description@]</p>
+		[%/param%]
+		[%param *footer%]
+			</td>
+			<td>&nbsp;</td>
+			[%if [@has_product_discounts@]%]<td>&nbsp;</td>[%/if%]
+			[%if [@config:INVOICE_SH_TAX@]%]<td>&nbsp;</td>[%/if%]
+			<td>&nbsp;</td>
+		</tr>
+		[%/param%]
+		[%/multi_item_pack%]
+	[%/param%]
+	[%param *footer%]
+	</table>
+	<div class="row">
+		<div class="col-xs-5 col-xs-offset-7">
+		<table class="table table-noborder">
+			[%if [@shipping_quote@]%]
+				<tr>
+					<td><span class="text-primary"><b>[@shipping_method@]:</b></span></td>
+					<td class="text-right"><span class="text-primary"><b>P.O.A.</b></td>
+				</tr>
+				[%else%]
+				<tr>
+					<td class="text-right"><span class="text-primary"><b>[@shipping_method@]:</b></span></td>
+					<td class="text-right"><span class="text-primary"><b>[%format type:'currency'%][@shipping_total@][%/format%]</b></span></td>
+				</tr>
+				[%if [@shipping_discount@]%]
+				<tr>
+					<td class="text-right">Shipping Discount:</td>
+					<td class="text-right">-[%format type:'currency'%][@shipping_discount@][%/format%]</td>
+				</tr>
+				[%/if%]
+			[%/if%]
+			<tr>
+				<td class="text-right">Product Subtotal:</td>
+				<td class="text-right">[%format type:'currency'%][@product_total@][%/format%]</td>
+			</tr>
+			[%if [@shipping_quote@] eq 0%]
+			<tr>
+				<td class="text-right">Shipping Subtotal:</td>
+				<td class="text-right">[%format type:'currency'%][@shipping_total@][%/format%]</td>
+			</tr>
+			[%/if%]
+			[%if [@discount_total@] > 0%]
+			<tr>
+				<td class="text-right">Discount:</td>
+				<td class="text-right">-[%format type:'currency'%][@discount_total@][%/format%]</td>
+			</tr>
+			[%/if%]
+			[%if [@surcharge_total@] > 0%]
+			<tr>
+				<td class="text-right">Surcharge ([%format type:'percent' dc:'2'%][@surcharge_percent@][%/format%]):</td>
+				<td class="text-right">[%format type:'currency'%][@surcharge_total@][%/format%]</td>
+			</tr>
+			[%/if%]
+			[%if ![@notax@]%]
+			<tr>
+				<td class="text-right">[@config:PRIMARY_TAX_LABEL@] [%if [@tax_inc@]%]included[%/if%]:</td>
+				<td class="text-right">[%format type:'currency'%][@tax_total@][%/format%]</td>
+			</tr>
+			[%/if%]
+			<tr>
+				<td class="text-right"><b>Grand Total:</b></td>
+				<td class="text-right"><b>[%format type:'currency'%][@grand_total@][%/format%]</b></td>
+			</tr>
+			<tr>
+				<td class="text-right"><b>Amount Paid:</b></td>
+				<td class="text-right"><b>[%format type:'currency'%][@amount_paid@][%/format%]</b></td>
+			</tr>
+			<tr>
+				<td class="text-right"><h3 class="text-success"><b>Balance Due:</b></h3></td>
+				<td class="text-right"><h3 class="text-success"><b>[%format type:'currency'%][@amount_owed@][%/format%]</b></h3></td>
+			</tr>
+		</table>
+		</div>
+	</div>
+	[%if [@config:adj_note_footer@]%]
+		<div>[@config:adj_note_footer@]</div>
+	[%/if%]
+	[%/param%]
+	[%/show_rma%]
+	</div>
+</div>

@@ -1,0 +1,8 @@
+[%load_template file:'printdocs/includes/styles.template.html'/%]
+<div class="nPrintDoc">
+	[%if [@bill_company@]%]<p>[@bill_company@]</p>[%/if%]
+	<p>[@bill_first_name@] [@bill_last_name@][%if [@bill_phone@]%], [@bill_phone@][%/if%]</p>
+	<p>[@bill_street1@] [%if [@bill_street2@]%], [@bill_street2@][%/if%]</p>
+	<p>[@bill_city@], [@bill_state@] [@bill_zip@]</p>
+	<p>[@bill_country_name@]</p>
+</div>

@@ -1,0 +1,33 @@
+[%load_template file:'printdocs/includes/styles.template.html'/%]
+<!-- Latest compiled and minified CSS -->
+
+<div class="nPrintDoc">
+	<div class="container">
+		<div class="panel panel-default panel-label">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-6">
+						[%if [@user_logo@]%]
+							<p><img alt="[@company@]" src="[@user_logo@]"></p>
+						[%else%]
+							<h3 class="panel-title"><strong>[@company@]</strong></h3>
+						[%/if%]
+						[%if [@website@]%]<p class="small text-muted">[@website@]</p>[%/if%]
+						[%if [@config:company_phone@]%]<p class="small text-muted">Call [@config:company_phone@]</p>[%/if%]
+					</div>
+					<div class="col-xs-6 text-right">
+						<img class="order-barcode" src="[%barcode_url fn:'' height:'10'%][@order_id@][%/barcode_url%]"/>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body">
+				<p>[%escape%][@description@][%/escape%]</p>
+				[%if [@extra@]%]<p class="text-muted">[@extra@]</p>[%/if%]
+			</div>
+			<div class="panel-footer text-center">
+				<img src="[%BARCODE_URL fn:'' height:'[@label_height@]' sku:'[@SKU@]'/%]"/>
+			</div>
+		</div>
+	</div>
+</div>
+

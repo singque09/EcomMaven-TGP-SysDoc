@@ -1,0 +1,23 @@
+[%load_template file:'printdocs/includes/styles.template.html'/%]
+<div class="nPrintDoc">
+	[%service_document service_id:'[@service_id@]' id:'[@sdoc_id@]'%]
+	[%param *header%]
+		<h1>[@sdoc_title@]</h1>
+	[%/param%]
+	[%param *body%]
+		<div>[@sdoc_body@]</div>
+		[%document_filelist service_id:'[@service_id@]' id:'[@sdoc_id@]'%]
+			[%param *header%]
+				<h3>Attachments</h3>
+			[%/param%]
+			[%param *body%]
+				<p><a href="[@config:homeurl@][@file_url@]">[@config:homeurl@][@file_url@]</a></p>
+			[%/param%]
+			[%param *footer%]
+			[%/param%]
+		[%/document_filelist%]
+	[%/param%]
+	[%param *footer%]
+	[%/param%]
+	[%/service_document%]
+</div>

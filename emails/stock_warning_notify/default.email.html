@@ -1,0 +1,21 @@
+<!--[SUBJECT:[$COMPANY_NAME$] Stock Warning Notification]-->
+<!--[FROM:]-->
+<!--[TO:[$COMPANY_EMAIL$]]-->
+<!--[BCC:]-->
+Dear [$COMPANY_NAME$],
+<p>
+The follow SKU is out of stock / lower than a special stock level at [$home_url$].
+<br>
+[%THUMB_LIST type:'products_by_id' filter_inventory_id:'[@inventory_ids@]' sortby:'lowest_qty'%]
+	[%PARAM *body%]
+[@SKU@] [@store_quantity@]<br>
+	[%END PARAM%]
+[%END THUMB_LIST%]
+</p>
+<p>
+You are receiving this email because you requested to be advised when the above item returned to stock.
+</p>
+<p>
+Regards<br>
+[$COMPANY_NAME$]
+</p>

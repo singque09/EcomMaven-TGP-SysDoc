@@ -1,0 +1,18 @@
+<!--[SUBJECT:[@send_from_company@] Order Receipt #[@order_id@]]-->
+<!--[FROM:[@send_from_email@]]-->
+<!--[TO:[@email@]]-->
+<!--[BCC:[@secondary_email@],[@CONFIG:BCC_EMAIL@]]-->
+
+Dear [@bill_first_name@],
+<p>
+Thank you for shopping with [@send_from_company@].
+</p>
+<p>
+[%data id:'username' if:'ne' value:''%]
+To track the progress of this and other orders online please go to <a href="[%URL page:'account'%][%END URL%]">your account</a> and select the order you want to track.
+[%END data %]
+
+[%data  id:'username' if:'eq' value:''%]
+To track the progress of your order online please <a href="[%URL page:'account' type:'nr_track_order' id:'[@order_id@]' qs:'email=[@email@]&zip=[@ship_zip@]'%][%END URL%]">click here.</a>
+[%END data%]
+</p>

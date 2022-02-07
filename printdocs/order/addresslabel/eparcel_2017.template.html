@@ -214,7 +214,8 @@
 				<div class="left" style="width : 60%; float : left; text-align: left;">
 					<strong>Order Id :</strong> [@order_id@]<br />
 					<strong>Name :</strong> [@ship_first_name@] [@ship_last_name@]<br />
-					<strong>Shipping Address :</strong> [@ship_street1@] [%if [@ship_street2@]%], [@ship_street2@][%/if%]
+					<strong>Shipping Address :</strong> [@ship_street1@] [%if [@ship_street2@]%],
+					[@ship_street2@][%/if%]
 					[@ship_city@], [@ship_state@], [@ship_zip@], [@ship_country_name@]<br />
 				</div>
 				<div class="right" style="width : 40%; float : left; text-align: left;">
@@ -336,7 +337,8 @@
 					[%elseif [@sales_channel@] like 'David Jones' %]
 					<p style="margin-top: 0">The Team @ David Jones</p>
 
-					[%elseif [@sales_channel@] not like 'Everyday Market' and [@sales_channel@] not like 'David Jones' %]
+					[%elseif [@sales_channel@] not like 'Everyday Market' and [@sales_channel@] not like 'David Jones'
+					%]
 					<p style="margin-top: 0">The Team @ The Gourmet Pantry</p>
 					[%else%]
 					[%/if%]
@@ -396,7 +398,8 @@
 			<div class="box boxmessage" [%if [@sales_channel@] like 'Everyday Market' and [@customer_ref8@] eq ''
 				%]style="display : none;" [%/if%] [%if [@sales_channel@] like 'David Jones' and [@customer_ref8@] eq ''
 				%]style="display : none;" [%/if%] [%product sku:'[@SKU@]'%] [%param *body%] [%if [@product_type@] ne 'hamper'
-				and [@^count@]> 0 %]style="display : none;" [%/if%] [%/param%] [%/product%] [%if [@label_recipient@] eq ''
+				and [@^count@]> 0 %]style="display : none;" [%/if%] [%/param%] [%/product%] [%if
+				[@label_recipient@] eq ''
 				and [@label_message@] eq '' and [@label_sender@] eq '' %]style="display : none;" [%/if%]>
 				<div class="order-details">
 
@@ -407,7 +410,8 @@
 						<div class="left" style="width : 60%; float : left; text-align: left;">
 							<strong>Order Id :</strong> [@order_id@]<br />
 							<strong>Name :</strong> [@ship_first_name@] [@ship_last_name@]<br />
-							<strong>Shipping Address :</strong> [@ship_street1@] [%if [@ship_street2@]%], [@ship_street2@][%/if%]
+							<strong>Shipping Address :</strong> [@ship_street1@] [%if [@ship_street2@]%],
+							[@ship_street2@][%/if%]
 							[@ship_city@], [@ship_state@], [@ship_zip@], [@ship_country_name@]<br />
 						</div>
 						<div class="right" style="width : 40%; float : left; text-align: left;">

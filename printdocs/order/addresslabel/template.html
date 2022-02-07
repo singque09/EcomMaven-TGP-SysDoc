@@ -165,19 +165,16 @@
 				<td style="padding-bottom:8px;">
 					<table cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
 						<tr>
-							<td valign="top"
-								style="width:110px;font-size:116px;text-align: center;background: #000;color:#fff">
+							<td valign="top" style="width:110px;font-size:116px;text-align: center;background: #000;color:#fff">
 								P
 							</td>
 							<td style="text-align: center;">
 								<font style="font-size:24px;text-transform:uppercase;"><b> [@shacc_name@] </b></font>
 
 								[%if [@shacc_name@] eq 'HDS' %]
-								<img height="50px"
-									src="[%barcode_url fn:'' height:'10'%][@order_id@]-[@count@][%/barcode_url%]" />
+								<img height="50px" src="[%barcode_url fn:'' height:'10'%][@order_id@]-[@count@][%/barcode_url%]" />
 								[%else%]
-								<img height="50px"
-									src="[%barcode_url fn:'' height:'10'%][@order_id@][%/barcode_url%]" />
+								<img height="50px" src="[%barcode_url fn:'' height:'10'%][@order_id@][%/barcode_url%]" />
 								[%/if%]
 							</td>
 					</table>
@@ -232,8 +229,7 @@
 								</font>
 							</td>
 							<td valign="top" align="right">
-								<img class='qrcode'
-									id='qrcode-[@count@]-[%NOHTML%][@cngmt_id@]-[@order_id@][%END NOHTML%]' />
+								<img class='qrcode' id='qrcode-[@count@]-[%NOHTML%][@cngmt_id@]-[@order_id@][%END NOHTML%]' />
 								<br />
 								<span style="padding-right: 20px;">
 									[%NOHTML%][@count@] of [@total@][%END NOHTML%]
@@ -282,8 +278,7 @@
 								<font style="font-size: 20px; ">[@ship_state@]</font>
 							</td>
 							<td align="right">
-								<img class='qrcode'
-									id='qrcode-[@count@]-2-[%NOHTML%][@cngmt_id@]-[@order_id@][%END NOHTML%]' />
+								<img class='qrcode' id='qrcode-[@count@]-2-[%NOHTML%][@cngmt_id@]-[@order_id@][%END NOHTML%]' />
 								<br />
 								<span style="padding-right: 20px;">
 									[%NOHTML%][@count@] of [@total@][%END NOHTML%]
@@ -440,8 +435,8 @@
 	[%if [@cngmt_id@] ne ''%]
 
 
-	<div style="width:92%;"><a href="[@document_image@].pdf" target="_blank"><img
-				style="max-width:100%; max-height:100%;" src="[@document_image@]"></a></div>
+	<div style="width:92%;"><a href="[@document_image@].pdf" target="_blank"><img style="max-width:100%; max-height:100%;"
+				src="[@document_image@]"></a></div>
 
 
 	[%else%]
@@ -487,7 +482,11 @@
 		[%if [@sales_channel@] like 'Everyday Market' %]
 		<p style="margin-top: 0">The Team @ Everyday Market</p>
 
-		[%elseif [@sales_channel@] not like 'Everyday Market' %]
+		[%elseif [@sales_channel@] like 'David Jones' %]
+		<p style="margin-top: 0">The Team @ David Jones</p>
+
+		[%elseif [@sales_channel@] not like 'Everyday Market' and [@sales_channel@] not like 'David Jones'
+		%]
 		<p style="margin-top: 0">The Team @ The Gourmet Pantry</p>
 		[%else%]
 		[%/if%]
@@ -549,7 +548,11 @@
 			[%if [@sales_channel@] like 'Everyday Market' %]
 			<p style="margin-top: 0">The Team @ Everyday Market</p>
 
-			[%elseif [@sales_channel@] not like 'Everyday Market' %]
+			[%elseif [@sales_channel@] like 'David Jones' %]
+			<p style="margin-top: 0">The Team @ David Jones</p>
+
+			[%elseif [@sales_channel@] not like 'Everyday Market' and [@sales_channel@] not like 'David Jones'
+			%]
 			<p style="margin-top: 0">The Team @ The Gourmet Pantry</p>
 			[%else%]
 			[%/if%]
@@ -652,7 +655,11 @@
 					[%if [@sales_channel@] like 'Everyday Market' %]
 					<p style="margin-top: 0">The Team @ Everyday Market</p>
 
-					[%elseif [@sales_channel@] not like 'Everyday Market' %]
+					[%elseif [@sales_channel@] like 'David Jones' %]
+					<p style="margin-top: 0">The Team @ David Jones</p>
+
+					[%elseif [@sales_channel@] not like 'Everyday Market' and [@sales_channel@] not like 'David Jones'
+					%]
 					<p style="margin-top: 0">The Team @ The Gourmet Pantry</p>
 					[%else%]
 					[%/if%]
@@ -662,11 +669,11 @@
 			</div>
 
 			<hr class="pagebreak" style="display : none;" />
-			[%split delimiter:': '%]
+			[%split delimiter:'<b>Recipient Name</b>: '%]
 			[%param data1%][@extra@][%/param%]
 			[%param *body%]
 			[%if [@count@] eq 1%]
-			[%split delimiter:';'%]
+			[%split delimiter:'; <b>Gift Message</b>'%]
 			[%param data1%][@data1@][%/param%]
 			[%param *body%]
 			[%if [@count@] eq 0%]
@@ -677,11 +684,12 @@
 			[%if%]
 			[%/param%]
 			[%/split%]
-			[%split delimiter:': '%][%split delimiter:': '%]
+
+			[%split delimiter:'<b>Gift Message</b>: '%]
 			[%param data1%][@extra@][%/param%]
 			[%param *body%]
-			[%if [@count@] eq 2%]
-			[%split delimiter:';'%]
+			[%if [@count@] eq 1%]
+			[%split delimiter:'; <b>Sender</b>'%]
 			[%param data1%][@data1@][%/param%]
 			[%param *body%]
 			[%if [@count@] eq 0%]
@@ -692,13 +700,16 @@
 			[%if%]
 			[%/param%]
 			[%/split%]
+
+			[%split delimiter:'<b>Sender</b>: '%]
 			[%param data1%][@extra@][%/param%]
 			[%param *body%]
-			[%if [@count@] eq 3%]
-			[%split delimiter:';'%]
+			[%if [@count@] eq 1%]
+			[%split delimiter:'; <b>Gift Card Style</b>'%]
 			[%param data1%][@data1@][%/param%]
 			[%param *body%]
-			[%if [@count@] eq 0%][%set [@^^label_sender@] %][@data1@][%/set%]
+			[%if [@count@] eq 0%]
+			[%set [@^^label_sender@] %][@data1@][%/set%]
 			[%if%]
 			[%/param%]
 			[%/split%]
@@ -706,8 +717,12 @@
 			[%/param%]
 			[%/split%]
 
-			<div class="box boxmessage boxmessageHDS" [%if [@sales_channel@] like 'Everyday Market' %][%if
-				[@customer_ref8@] eq '' %]style="display : none;" [%/if%][%/if%]>
+			<div class="box boxmessage" [%if [@sales_channel@] like 'Everyday Market' and [@customer_ref8@] eq ''
+				%]style="display : none;" [%/if%] [%if [@sales_channel@] like 'David Jones' and [@customer_ref8@] eq ''
+				%]style="display : none;" [%/if%] [%product sku:'[@SKU@]'%] [%param *body%] [%if [@product_type@] ne 'hamper'
+				and [@^count@]> 0 %]style="display : none;" [%/if%] [%/param%] [%/product%] [%if
+				[@label_recipient@] eq ''
+				and [@label_message@] eq '' and [@label_sender@] eq '' %]style="display : none;" [%/if%]>
 				<div class="order-details">
 
 					[%show_order id:'[@order_id@]' customer:'[@username@]' hidechild:'1'%]
@@ -740,7 +755,7 @@
 					<div class="rotate"
 						style="-webkit-transform: rotate(270deg); -ms-transform: rotate(270deg); transform: rotate(270deg); text-align: center;">
 
-						[%if [@sales_channel@] like 'Everyday Market' %]
+						[%if [@sales_channel@] like 'Everyday Market' or [@sales_channel@] like 'David Jones' %]
 						<h2>[@customer_ref8@]</h2>
 						[%else%]
 
@@ -752,9 +767,9 @@
 						[%else%]
 						<span class="normalProduct" hidden>Normal Product</span>
 						[%/if%] [%/param%] [%/product%]
-						<h2 class="labelRecipient" style="margin-top: 0"></h2>
-						<h2 class="labelMessage" style="margin-top: 0"></h2>
-						<h2 class="labelSender" style="margin-top: 0"></h2>
+						<h2 class="labelRecipient" style="margin-top: 0">[@label_recipient@]</h2>
+						<h2 class="labelMessage" style="margin-top: 0">[@label_message@]</h2>
+						<h2 class="labelSender" style="margin-top: 0">[@label_sender@]</h2>
 						[%/if%]
 					</div>
 				</div>
@@ -788,49 +803,49 @@
 			return index === 0 ? match.toLowerCase() : match.toUpperCase();
 		});
 
-	window.onload = function () {
-		for (let y = 0; y < dataSet.length; y++) {
-			for (let x = 0; x < extraOptionHandler(y).length; x++) {
-				if (dataSet[y].children[0].children.length !== 6) {
-					dataSet[y].style.display = "none";
-				}
+	// window.onload = function () {
+	// 	for (let y = 0; y < dataSet.length; y++) {
+	// 		for (let x = 0; x < extraOptionHandler(y).length; x++) {
+	// 			if (dataSet[y].children[0].children.length !== 6) {
+	// 				dataSet[y].style.display = "none";
+	// 			}
 
-				let extraOptionObjects = {};
-				let extraOptionInnerText = extraOptionHandler(y)[x].innerText.split(";");
-				for (let z = 0; z < extraOptionInnerText.length - 1; z++) {
-					let extraInnerText = extraOptionInnerText[z].split(":");
-					extraOptionObjects = {
-						...extraOptionObjects,
-						[camelize(extraInnerText[0])]: extraInnerText[1],
-					};
-				}
+	// 			let extraOptionObjects = {};
+	// 			let extraOptionInnerText = extraOptionHandler(y)[x].innerText.split(";");
+	// 			for (let z = 0; z < extraOptionInnerText.length - 1; z++) {
+	// 				let extraInnerText = extraOptionInnerText[z].split(":");
+	// 				extraOptionObjects = {
+	// 					...extraOptionObjects,
+	// 					[camelize(extraInnerText[0])]: extraInnerText[1],
+	// 				};
+	// 			}
 
-				const { recipientName, GiftMessage, Sender, GiftCardStyle } = extraOptionObjects;
+	// 			const { recipientName, GiftMessage, Sender, GiftCardStyle } = extraOptionObjects;
 
-				labelRecipient(y)[x].innerHTML = recipientName || "Blank gift card";
-				labelMessage(y)[x].innerHTML = GiftMessage || "Blank gift card";
-				labelSender(y)[x].innerHTML = Sender || "Blank gift card";
-				labelGiftCardStyle(y)[x].innerHTML = GiftCardStyle;
+	// 			labelRecipient(y)[x].innerHTML = recipientName || "Blank gift card";
+	// 			labelMessage(y)[x].innerHTML = GiftMessage || "Blank gift card";
+	// 			labelSender(y)[x].innerHTML = Sender || "Blank gift card";
+	// 			labelGiftCardStyle(y)[x].innerHTML = GiftCardStyle;
 
-				if (!recipientName?.trim() && !GiftMessage?.trim() && !Sender?.trim()) {
-					let pageBreaks = extraOptionHandler(y)[x].parentElement.parentElement.parentElement.parentElement.getElementsByTagName("hr")
-					pageBreaks[pageBreaks.length - 1].classList.remove("pagebreak");
-					extraOptionHandler(y)[x].parentElement.parentElement.parentElement.style.display = "none";
-				}
-			}
-			for (let x = 1; x < isNormalProduct(y).length; x++) {
-				for (let z = 0; z < isNormalProduct(y)[x].parentElement.parentElement.parentElement.getElementsByTagName("hr").length; z++) {
-					isNormalProduct(y)
-					[x].parentElement.parentElement.parentElement.getElementsByTagName("hr")
-					[z].classList.remove("pagebreak");
-				}
+	// 			if (!recipientName?.trim() && !GiftMessage?.trim() && !Sender?.trim()) {
+	// 				let pageBreaks = extraOptionHandler(y)[x].parentElement.parentElement.parentElement.parentElement.getElementsByTagName("hr")
+	// 				pageBreaks[pageBreaks.length - 1].classList.remove("pagebreak");
+	// 				extraOptionHandler(y)[x].parentElement.parentElement.parentElement.style.display = "none";
+	// 			}
+	// 		}
+	// 		for (let x = 1; x < isNormalProduct(y).length; x++) {
+	// 			for (let z = 0; z < isNormalProduct(y)[x].parentElement.parentElement.parentElement.getElementsByTagName("hr").length; z++) {
+	// 				isNormalProduct(y)
+	// 				[x].parentElement.parentElement.parentElement.getElementsByTagName("hr")
+	// 				[z].classList.remove("pagebreak");
+	// 			}
 
-				if (isNormalProduct(y)[x]) {
-					isNormalProduct(y)[x].parentElement.parentElement.parentElement.style.display = "none";
-				}
-			}
-		}
-	};
+	// 			if (isNormalProduct(y)[x]) {
+	// 				isNormalProduct(y)[x].parentElement.parentElement.parentElement.style.display = "none";
+	// 			}
+	// 		}
+	// 	}
+	// };
 </script>
 
 [%/if%]

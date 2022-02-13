@@ -397,8 +397,8 @@
 
 			<div class="box boxmessage" [%if [@sales_channel@] like 'Everyday Market' and [@customer_ref8@] eq ''
 				%]style="display : none;" [%/if%] [%if [@sales_channel@] like 'David Jones' and [@customer_ref8@] eq ''
-				%]style="display : none;" [%/if%] [%product sku:'[@SKU@]'%] [%param *body%] [%if [@product_type@] ne 'hamper'
-				and [@^count@]> 0 %]style="display : none;" [%/if%] [%/param%] [%/product%] [%if
+				%]style="display : none;" [%/if%] [%product sku:'[@SKU@]'%] [%param *body%] [%if [@product_type@]
+				ne 'hamper' and [@^count@]> 0 %]style="display : none;" [%/if%] [%/param%] [%/product%] [%if
 				[@label_recipient@] eq ''
 				and [@label_message@] eq '' and [@label_sender@] eq '' %]style="display : none;" [%/if%]>
 				<div class="order-details">

@@ -109,7 +109,7 @@
 [%PARAM *header%]
 
 [%set [@^loopCount@] %][@count@][%/set%]
-<div class="box" style="padding-left: 10px" [@^loopCount@]>
+<div class="box" style="padding-left: 10px">
 	<div class="order-details">
 
 		[%show_order id:'[@order_id@]' customer:'[@username@]' hidechild:'1'%]

@@ -48,7 +48,7 @@
   }
 </style>
 [%show_orderlist ids:'[@ids@]' sortby:'[@tmpl_sort_by@]' groupby:'[@tmpl_group_by@]' sortorder:'[@tmpl_sort_order@]'%]
-[%param *body%]
+[%param *footer%]
 [%show_order id:'[@order_ID@]' customer:'[@username@]' dropshipper:'[@showdropshipper@]'%]
 [%param *body%]
 <div class="nPrintDoc" [%product sku:'[@SKU@]'%] [%param *body%] [%if [@product_type@] like 'hamper' %] style:"display:

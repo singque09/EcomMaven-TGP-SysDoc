@@ -145,7 +145,7 @@
 [%/set%]
 
 <div class="dataSet" [%product sku:'[@SKU@]'%] [%param *body%] [%if [@product_type@] ne 'hamper' and
-  [@^^normal_product_count@] ne '' %]style="display : none;" [%/if%] [%/param%] [%/product%]>
+  [@normal_product_count@] ne '' %]style="display : none;" [%/if%] [%/param%] [%/product%]>
   <div>
     <div class="box">
       [@order_details_component@]
@@ -267,7 +267,7 @@
 [%product sku:'[@SKU@]'%]
 [%param *body%]
 [%if [@product_type@] ne 'hamper' %]
-[%set [@^^normal_product_count@] %]true[%/set%]
+[%set [@^normal_product_count@] %]true[%/set%]
 [%/if%]
 [%/param%]
 [%/product%]

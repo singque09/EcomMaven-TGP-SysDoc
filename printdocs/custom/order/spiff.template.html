@@ -1,76 +1,82 @@
-
-
 <!-- from spiff -->
-<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"
+	integrity="sha512-E8QSvWZ0eCLGk4km3hxSsNmGWbLtSCSUcewDQPQWZF6pEU8GlT8a5fF32wOl1i8ftdMhssTrF/OhyGWwonTcXA=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/md5.min.js"
+	integrity="sha512-3sGbaDyhjGb+yxqvJKi/gl5zL4J7P5Yh4GXzq+E9puzlmVkIctjf4yP6LfijOUvtoBI3p9pLKia9crHsgYDTUQ=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/hmac-sha1.min.js"
+	integrity="sha512-OahNHQh8EnqAptVvXgLLIT3LOv+irJSkED9oyUvGvh1MULTHriuXGIk8RHFfRffj5ejGREfE9IRWoBCPSZ5XGw=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript" async src="https://assets.dev.spiff.com.au/api.js"></script>
-<Script>
-function generateToken(secretKey, method, body, contentType, dateString, path) {
-    const md5Hash = CryptoJS.MD5(body).toString();
+<script>
+	var config = {
+		contentType: "application/json",
+		accessKey: "4k=d=_qSKzjGq2aM^+qu6n_6+^^7O-Kr",
+		secretKey: "ru3W_qbKBL6Emd5G*BUodZt+2LeGIgJ*"
+	};
+	var paths = {
+		outputData: "/api/outputdata/{TRANSACTION_ID}/{RENDITION_NAME}"
+	};
+	var now = new Date();
+	var formatedDate = now.toUTCString();
 
-    const stringToSign = `${method}\n${md5Hash}\n${contentType}\n${dateString}\n${path}`;
-    const hmacHash = CryptoJS.HmacSHA1(stringToSign, secretKey);
+	const generateToken = (secretKey, method, body, contentType, dateString, path) => {
+		const md5Hash = CryptoJS.MD5(body).toString();
 
-    return spiffHexToBase64(hmacHash.toString());
-}
+		const stringToSign = `${method}\n${md5Hash}\n${contentType}\n${dateString}\n${path}`;
+		const hmacHash = CryptoJS.HmacSHA1(stringToSign, secretKey);
 
-function b64EncodeUnicode(str) {
-    return btoa(encodeURIComponent(str));
-};
+		return spiffHexToBase64(hmacHash.toString());
+	}
 
-function getAuthHeader(accessKey, secretKey, method, body, contentType, dateString, path) {
-    const signature = this.generateToken(secretKey, method, body, contentType, dateString, path)
+	const b64EncodeUnicode = (str) => {
+		return btoa(encodeURIComponent(str));
+	};
 
-    return `SOA ${accessKey}:${signature}`;
-}
+	const getAuthHeader = (accessKey, secretKey, method, body, contentType, dateString, path) => {
+		const signature = generateToken(secretKey, method, body, contentType, dateString, path)
 
-function spiffHexToBase64(hex) {
-    let returnTxt = "";
-    for (let pair of hex.match(/.{1,2}/g)) {
-        let elem = pair.toString(16).charCodeAt(0);
-        returnTxt += elem;
-    }
-    console.log(returnTxt);
+		return `SOA ${accessKey}:${signature}`;
+	}
 
-    return this.b64EncodeUnicode(returnTxt);
-}
+	const spiffHexToBase64 = (hex) => {
+		let returnTxt = "";
+		for (let pair of hex.match(/.{1,2}/g)) {
+			let elem = pair.toString(16).charCodeAt(0);
+			returnTxt += elem;
+		}
+		console.log(returnTxt);
 
-var config = {
-    contentType: "application/json",
-    accessKey: "4k=d=_qSKzjGq2aM^+qu6n_6+^^7O-Kr",
-    secretKey: "ru3W_qbKBL6Emd5G*BUodZt+2LeGIgJ*"
-};
+		return b64EncodeUnicode(returnTxt);
+	}
 
-var paths = {
-    outputData: "/api/outputdata/{TRANSACTION_ID}/{RENDITION_NAME}"
-};
+	console.log(formatedDate);
 
-var now = new Date();
-var formatedDate = now.toUTCString();
+	const spiffRequestHeader = (body) => {
+		const authHeader = getAuthHeader(
+			config.accessKey,
+			config.secretKey,
+			"GET",
+			body,
+			config.contentType,
+			formatedDate,
+			paths.outputData
+		);
 
-console.log(formatedDate);
+		fetch(`https://api.spiff.com.au/${paths.outputData}`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': config.contentType,
+				'Authorization': authHeader,
+				'Date': formatedDate
+			}
+		}).then(response => response.json())
+			.then(data => console.log(data))
+			.catch(err => console.log(err));
+	}
 
-const authHeader = getAuthHeader(
-    config.accessKey,
-    config.secretKey,
-    "GET",
-    config.contentType,
-    formatedDate,
-    paths.outputData
-);
-
-fetch(`https://api.spiff.com.au/${paths.outputData}`, {
-    method: 'GET',
-    headers: {
-        'Content-Type': config.contentType,
-        'Authorization': authHeader,
-        'Date': formatedDate
-    }
-})
-.then(response => response.json())
-.then(data => console.log(data))
-.catch(err => console.log(err));
-
-</Script>
+</script>
 
 <!-- end from spiff -->
 <style>
@@ -121,7 +127,7 @@ fetch(`https://api.spiff.com.au/${paths.outputData}`, {
 		for (let x = 0; x < showElements.length; x++) {
 			let spiffTransactionId = showElements[x].dataset.spiffTransactionId
 
-			spiffRequestHeader('get', { transactionId: spiffTransactionId, renditionName: "Gift Card Message" }, '/api/outputdata')
+			spiffRequestHeader({ transactionId: spiffTransactionId, renditionName: "Gift Card Message" })
 		}
 	};
 </script>

@@ -1,104 +1,78 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"
-	integrity="sha512-E8QSvWZ0eCLGk4km3hxSsNmGWbLtSCSUcewDQPQWZF6pEU8GlT8a5fF32wOl1i8ftdMhssTrF/OhyGWwonTcXA=="
-	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/hmac-sha1.min.js"
-	integrity="sha512-OahNHQh8EnqAptVvXgLLIT3LOv+irJSkED9oyUvGvh1MULTHriuXGIk8RHFfRffj5ejGREfE9IRWoBCPSZ5XGw=="
-	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/md5.min.js"
-	integrity="sha512-3sGbaDyhjGb+yxqvJKi/gl5zL4J7P5Yh4GXzq+E9puzlmVkIctjf4yP6LfijOUvtoBI3p9pLKia9crHsgYDTUQ=="
-	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/enc-base64.min.js"
-	integrity="sha512-IKpu1GFk/bQ+2fOc4sXuA6lm7Rct4P7611iDBxY9LReOZ2PpwoDWWqj6GSYejUce1FLxo/d4lxAnKqGWJuBw7g=="
-	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
-	integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
-	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdn.jsdelivr.net/npm/js-base64@3.7.2/base64.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-<script>
-	var accessKey = "4k=d=_qSKzjGq2aM^+qu6n_6+^^7O-Kr"
-	var secretKey = "ru3W_qbKBL6Emd5G*BUodZt+2LeGIgJ*"
 
-	const stringSplit = (string, splitLength = 1) => {
-		if (string === null || splitLength < 1) {
-			return false
-		}
-		string += ''
-		const chunks = []
-		let pos = 0
-		const len = string.length
-		while (pos < len) {
-			chunks.push(string.slice(pos, pos += splitLength))
-		}
-		return chunks
-	}
+<!-- from spiff -->
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+<script type="text/javascript" async src="https://assets.dev.spiff.com.au/api.js"></script>
+<Script>
+function generateToken(secretKey, method, body, contentType, dateString, path) {
+    const md5Hash = CryptoJS.MD5(body).toString();
 
-	const convertWordArrayToUint8Array = (wordArray) => {
-		var len = wordArray.words.length,
-			u8_array = new Uint8Array(len << 2),
-			offset = 0, word, i
-			;
-		for (i = 0; i < len; i++) {
-			word = wordArray.words[i];
-			u8_array[offset++] = word >> 24;
-			u8_array[offset++] = (word >> 16) & 0xff;
-			u8_array[offset++] = (word >> 8) & 0xff;
-			u8_array[offset++] = word & 0xff;
-		}
-		return u8_array;
-	}
+    const stringToSign = `${method}\n${md5Hash}\n${contentType}\n${dateString}\n${path}`;
+    const hmacHash = CryptoJS.HmacSHA1(stringToSign, secretKey);
 
-	const spiffHexToBase64 = (hex) => {
-		let parsedString = ''
+    return spiffHexToBase64(hmacHash.toString());
+}
 
-		stringSplit(hex, 2).forEach(char => {
-			parsedString += String.fromCharCode(parseInt(char, 16))
-		})
+function b64EncodeUnicode(str) {
+    return btoa(encodeURIComponent(str));
+};
 
-		console.log(parsedString)
+function getAuthHeader(accessKey, secretKey, method, body, contentType, dateString, path) {
+    const signature = this.generateToken(secretKey, method, body, contentType, dateString, path)
 
-		return Base64.encode(parsedString)
-	}
+    return `SOA ${accessKey}:${signature}`;
+}
 
-	const spiffAuthHeader = (method, body, contentType, dateString, path) => {
-		const md5 = CryptoJS.MD5(body)
-		const stringToSign = method + "\n" + md5 + "\n" + contentType + "\n" + dateString + "\n" + path;
-		const hmac = CryptoJS.HmacSHA1(stringToSign, secretKey)
-		const utf8Arr = convertWordArrayToUint8Array(hmac)
-		// const signature = CryptoJS.enc.Base64.stringify(hmac)
-		const signature = spiffHexToBase64(hmac)
+function spiffHexToBase64(hex) {
+    let returnTxt = "";
+    for (let pair of hex.match(/.{1,2}/g)) {
+        let elem = pair.toString(16).charCodeAt(0);
+        returnTxt += elem;
+    }
+    console.log(returnTxt);
 
-		return 'SOA ' + accessKey + ':' + signature;
-	}
+    return this.b64EncodeUnicode(returnTxt);
+}
 
-	const spiffRequestHeader = async (method, body, path) => {
-		const contentType = 'application/json';
-		const dateString = moment().format("ddd, D MMM YYYY H:m:s") + " GMT";
+var config = {
+    contentType: "application/json",
+    accessKey: "4k=d=_qSKzjGq2aM^+qu6n_6+^^7O-Kr",
+    secretKey: "ru3W_qbKBL6Emd5G*BUodZt+2LeGIgJ*"
+};
 
-		const requestBody = {
-			method, headers: {
-				'Content-Type': contentType,
-				// 'Date': dateString,
-				'Authorization': spiffAuthHeader(method, body, contentType, dateString, path)
-			}
-		}
-		const paramsOrData = method === 'GET' ? { data: body } : {}
+var paths = {
+    outputData: "/api/outputdata/{TRANSACTION_ID}/{RENDITION_NAME}"
+};
 
-		console.log(requestBody)
+var now = new Date();
+var formatedDate = now.toUTCString();
 
-		return await axios({
-			...requestBody,
-			url: `//api.spiff.com.au${path}`,
-			...paramsOrData
-		}).then((response) => response).catch((error) => {
-			console.log(error);
-		}).then(() => {
-			// noop
-		});
-	}
-</script>
+console.log(formatedDate);
 
+const authHeader = getAuthHeader(
+    config.accessKey,
+    config.secretKey,
+    "GET",
+    config.contentType,
+    formatedDate,
+    paths.outputData
+);
+
+fetch(`https://api.spiff.com.au/${paths.outputData}`, {
+    method: 'GET',
+    headers: {
+        'Content-Type': config.contentType,
+        'Authorization': authHeader,
+        'Date': formatedDate
+    }
+})
+.then(response => response.json())
+.then(data => console.log(data))
+.catch(err => console.log(err));
+
+</Script>
+
+<!-- end from spiff -->
 <style>
 	.container {
 		display: none;

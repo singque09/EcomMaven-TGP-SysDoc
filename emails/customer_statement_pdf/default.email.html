@@ -1,35 +1,119 @@
-<!--[SUBJECT:]-->
-<!--[TO:]-->
-<!--[FROM:]-->
-<!--[BCC:]-->
+[%load_template file:'printdocs/includes/styles.template.html'/%]
+<div class="nPrintDoc">
+	<div id="invoice" class="container">
+	[%order_statement customer:'[@username@]'%]
+	[%param *header%]
+	<div class="row">
+		<div class="col-xs-6">
+			<h1>Statement</h1>
+			<h2>Date : [%format type:"date" format:"#D/#M/#Y"%]NOW[%/format%]</h2>
+		</div>
+  	<div class="col-xs-6 text-right">
+		<p><img class="logo" src="[%asset_url type:'logo' thumb:'website' /%]"></p>
+		[%if [@config:company_abn@]%]<p class="text-muted">[%if [@config:PRIMARY_ABN_LABEL@]%][@config:PRIMARY_ABN_LABEL@][%else%]ABN[%/if%]: [@config:company_abn@]</p>[%/if%]
+		[%if [@config:company_acn@]%]<p class="text-muted">[%if [@config:PRIMARY_ACN_LABEL@]%][@config:PRIMARY_ACN_LABEL@][%else%]ACN[%/if%]: [@config:company_acn@]</p>[%/if%]
+		[%if [@config:logo_footer@]%]<p>[@config:logo_footer@]</p>[%/if%]
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<h4>Billed to</h4>
+			[%if [@bill_company@]%]<p>[@bill_company@]</p>[%/if%]
+			<p>[@bill_first_name@] [@bill_last_name@]</p>
+			<p>[@bill_street1@] [%if [@bill_street2@]%], [@bill_street2@][%/if%]
+			<p>[@bill_city@], [@bill_state@] [@bill_zip@]</p>
+			<p>[@bill_country_name@]</p>
+		</div>
+	</div>
+	<table class="table table-items table-noborder">
+		<tr>
+			<th>Date invoiced</th>
+			<th>Order ID</th>
+			<th>Customer PO#</th>
+			<th>Date Due</th>
+			<th>Amount</th>
+			<th class="text-right">Amount Owed</th>
+		</tr>
+	[%/param%]
+	[%param *body%]
+		<tr>
+			<td>[%format type:'date' default:'' format:'#D/#M/#Y'%][@date_invoiced@][%/format%]</td>
+			<td>[@order_id@]</td>
+			<td>[@customer_po@]</td>
+			<td>[%format type:'date' default:'' format:'#D/#M/#Y'%][@date_due@][%/format%]</td>
+			<td>[%format type:'currency'%][@grand_total@][%/format%]</td>
+			<td>[%format type:'currency'%][@amount_owed@][%/format%]</td>
+		</tr>
+	[%/param%]
+	[%param *footer%]
+	</table>
+	<div class="row">
+		<div class="col-xs-7">
+		<h3>Payment Options</h3>
+		[%payment_methods charge_type:'cc' sortby:'sortorder,name' visible:'1'%]
+			[%param *header%]
+				<h4>Credit Card</h4>
+			[%/param%]
+			[%param *body%]
+				[%if [@count@] != 0%], [%/if%]
+				[@name@]
+			[%/param%]
+			[%param *footer%]
+				[@config:CC_PAYMENT_NOTE@]
+			[%/param%]
+		[%/payment_methods%]
+		[%if [@bpay_crn@]%]
+			[%payment_methods charge_type:'bpay' visible:'1'%]
+				[%param *header%]
+					<h4>Telephone &amp; Internet Banking - BPAY</h4>
+				[%/param%]
+				[%param *body%]
+					<img width="60" src="/assets/paymenticons/bpay.svg">
+					Biller Code: <b>[@config:BPAY_BILLER_CODE@]</b>
+					Ref: <b>[@bpay_crn@]</b>
+				[%/param%]
+				[%param *footer%]
+					<p class="small text-muted"> Contact your bank, credit union or building society to make this payment from your cheque, savings or credit card account. <a href="http://www.bpay.com.au" target="_blank">More info</a></p>
+				[%/param%]
+			[%/payment_methods%]
+		[%/if%]
+		[%payment_methods charge_type:'bank' sortby:'sortorder,name'%]
+			[%param *header%]
+				<h4>Direct Bank Deposit or Internet Transfer</h4>
+				<p>Send To [@config:company_bank_acc@]</p>
+				<p>[@config:company_bank_name@]</p>
+				<p>[@config:PRIMARY_BSB_LABEL@]: [@config:company_bank_bsb@], Account Number: [@config:company_bank_num@]</p>
+				<h4>Money Order or Cheque</h4>
+				<p>Send To [@config:COMPANY_POADDR@]</p>
+			[%/param%]
+			[%param *footer%]
+				<p class="text-muted">[$BANK_PAYMENT_NOTE$]</p>
+			[%/param%]
+		[%/payment_methods%]
+		</div>
+		<div class="col-xs-5">
+		<table class="table table-noborder">
+			<tr>
+				<td class="text-right"><h3 class="text-success"><b>Balance Due:</b></h3></td>
+				<td class="text-right"><h3 class="text-success"><b>[%format type:'currency'%][@total_due@][%/format%]</b></h3></td>
 
-<style>
-    td {
-        font-size: 12px;
-    }
-</style>
+			
+			</tr>
+		</table>
+		</div>
+	</div>
+	[%/param%]
+	[%/order_statement%]
+	</div>
+</div>
+
+
+
+
+
 <div style="width: 750px; overflow:visible">
     [%customer_statement customer:'[@username@]' date_start:'[@date_start@]' date_finish:'[@date_finish@]' order_by_date_type:'[@order_by_date_type@]'%]
     [%PARAM *header%]
-    <table style="table-layout: fixed; width: 100%;" border=0 cellpadding=0 cellspacing=0>
-        <tr>
-            <td align=left valign=top>
-                [@bill_first_name@] [@bill_last_name@]<br>
-                [@bill_street1@]<br>
-                [%if [@bill_street2@]%][@bill_street2@]<br>[%/ if%]
-                [@bill_city@]<br>
-                [@bill_state@], [@bill_zip@]<br>
-                <br>
-                Account: [@username@]<br>
-            </td>
-            <td align=right valign=top>
-                <h2><b>[$COMPANY_NAME$]</b></h2><br>
-                <br>
-                Statement From: [%FORMAT type:'date' format:'DATEINPUT' default:'The beginning'%][@date_start@][%/FORMAT%]<br>
-                Statement To: [%FORMAT type:'date' format:'DATEINPUT'%][@date_finish@][%/FORMAT%]<br>
-            </td>
-        </tr>
-    </table>
     <table border=0 cellpadding=5 cellspacing=0 style="table-layout: fixed; width: 100%;">
         <thead>
             <tr>
@@ -37,7 +121,7 @@
                     <b>Date</b>
                 </td>
                 <td align=left valign=top style="border-top: 1px solid #333333; border-bottom: 1px solid #333333; " width="15%">
-                    <b>Invoice Number</b>
+                    <b>Order id</b>
                 </td>
                 <td align=left valign=top style="border-top: 1px solid #333333; border-bottom: 1px solid #333333; ">
                     <b>Description</b>
@@ -96,62 +180,6 @@
             [%END PARAM%]
             [%PARAM *footer%]
         </tbody>
-    </table>
-    <br />
-    <br />
-    <table width="100%" cellpadding="2" cellspacing="0" border="0">
-        <tr>
-            <td style="border-top: 1px solid #333333; border-bottom: 1px solid #333333;">
-                <b>NOT DUE</b>
-            </td>
-            <td style="border-top: 1px solid #333333; border-bottom: 1px solid #333333;">
-                <b>1-[@first_term_day@] DAYS</b>
-            </td>
-            <td style="border-top: 1px solid #333333; border-bottom: 1px solid #333333;">
-                <b>[%calc [@first_term_day@] + 1 /%]-[@second_term_day@] DAYS</b>
-            </td>
-            <td style="border-top: 1px solid #333333; border-bottom: 1px solid #333333;">
-                <b>[%calc [@second_term_day@] + 1 /%]-[@third_term_day@] DAYS</b>
-            </td>
-            <td style="border-top: 1px solid #333333; border-bottom: 1px solid #333333;">
-                <b>[@third_term_day@]+ DAYS</b>
-            </td>
-            <td style="border-top: 1px solid #333333; color:#CC0000; border-bottom: 1px solid #333333; text-align:right">
-                <b>
-                    Unallocated Credit
-                </b>
-            </td>
-            <td style="border-top: 1px solid #333333; color:#CC0000; border-bottom: 1px solid #333333; text-align:right">
-                <b>
-                    [%IF [@total_due@] < 0%]AMOUNT OWED
-                    [%ELSE%]AMOUNT DUE
-                    [%END IF%]
-                </b>
-            </td>
-        </tr>
-        <tr>
-            <td nowrap>
-                [%format type:"accounting"%][@not_overdue_amt@][%END format%]
-            </td>
-            <td nowrap>
-                [%format type:"accounting"%][@zeroth_overdue_amt@][%END format%]
-            </td>
-            <td nowrap>
-                [%format type:"accounting"%][@first_overdue_amt@][%END format%]
-            </td>
-            <td nowrap>
-                [%format type:"accounting"%][@second_overdue_amt@][%END format%]
-            </td>
-            <td nowrap>
-                [%format type:"accounting"%][@third_overdue_amt@][%END format%]
-            </td>
-            <td nowrap style="color:#CC0000; text-align:right;">
-                [%format type:"accounting"%][@credit@][%END format%]
-            </td>
-            <td nowrap style="color:#CC0000; text-align:right;">
-                [%format type:"accounting"%][@total_due@][%END format%]
-            </td>
-        </tr>
     </table>
     [%END PARAM%]
     [%END customer_statement%]

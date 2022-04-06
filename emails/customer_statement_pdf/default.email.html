@@ -26,14 +26,17 @@
 		</div>
 	</div>
 	<table class="table table-items table-noborder">
+		[%IF [@total_due@] != 0 %]		
 		<tr>
-			<th>Date invoiced</th>
+			<th>Date invoiced - [@total_due@]</th>
 			<th>Order ID</th>
 			<th>Customer PO#</th>
 			<th>Date Due</th>
 			<th>Amount</th>
 			<th class="text-right">Amount Owed</th>
 		</tr>
+		[%ELSE%]
+		[%END IF%]
 	[%/param%]
 	[%param *body%]
 		<tr>

@@ -264,7 +264,7 @@
 	<!-- Gift message variables end -->
 </div>
 
-<div class="dataSet" [%if [@this_product_type@] eq 'hamper' and [@normal_product_count@] ne '' %]style="display : none;"
+<div class="dataSet dataset-1 nor-[@normal_product_count@] type-[@this_product_type@]" [%if [@this_product_type@] eq 'hamper' and [@normal_product_count@] ne '' %]style="display : none;"
 	[%/if%][%if [@this_product_type@] eq 'hamper' and [@normal_product_count@] ne '' %]style="display : none;" [%/if%]>
 	<div>
 		<div class="box">
@@ -338,7 +338,7 @@
 </div>
 
 [%if [@this_product_type@] ne 'hamper' %]
-[%set [@^normal_product_count@] %]true[%/set%]
+[%set [@normal_product_count@] %]true[%/set%]
 [%/if%]
 
 [%/param%]

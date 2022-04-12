@@ -173,25 +173,10 @@
 [%load_template file:'printdocs/includes/styles.template.html'/%]
 
 [%show_order id:'[@order_id@]' customer:'[@username@]' dropshipper:'[@showdropshipper@]'%]
-[%param *body%]
-
-<div hidden>
-	<!-- Product type variable start -->
-	[%set [@this_product_type@] %]
-	[%product sku:'[@SKU@]'%]
-	[%param *body%]
-	[%if [@product_type@] eq 'hamper' %]
-	hamper
-	[%else%]
-	normal
-	[%/if%]
-	[%/param%]
-	[%/product%]
-	[%/set%]
-	<!-- Product type variable end -->
-
+[%param *header%]
+<div class="wrapper">
 	<!-- Order detail header component start -->
-	[%set [@order_details_component@] %]
+	[%set [@^order_details_component@] %]
 	<div class="order-details">
 		<div class="orderDetailsHolder">
 			<div class="left-detail-holder">
@@ -212,6 +197,66 @@
 	</div>
 	[%/set%]
 	<!-- Order detail header component end -->
+
+<div class="dataSet dataset-header">
+	<div>
+		<div class="box">
+			[@^order_details_component@]
+
+			[%if [@cngmt_id@] ne ''%]
+			<a href="[@document_image@].pdf" target="_blank">
+				<img class="consignment-document" src="[@document_image@]" />
+			</a>
+			[%else%]
+			<span style="text-align : center;">consignment not yet generated</span>
+			[%/if%]
+		</div>
+		<hr class="pagebreak" />
+
+		<div class="box" [%if [@ship_comment@]%] [%else%]style="display : none;" [%/if%]>
+			[@^order_details_component@]
+
+			<img class='tgp-logo' src="[@tgp_logo@]" />
+			<p style="margin-top: 50px">Dear AusPost driver, we hope you’re well!</p>
+			[%if [@ship_comment@]%] <h2 style="margin-top: 0">Sender’s Delivery Instructions:</h2>[%else%][%/if%]
+			<div style="text-align: center; position: relative; top: 250px">
+				<h2 style="margin-bottom: 0.3em">Thank you!</h2>
+				[%if [@sales_channel@] like 'Everyday Market' %]
+				<p style="margin-top: 0">The Team @ Everyday Market</p>
+
+				[%elseif [@sales_channel@] like 'David Jones' %]
+				<p style="margin-top: 0">The Team @ David Jones</p>
+
+				[%elseif [@sales_channel@] not like 'Everyday Market' and [@sales_channel@] not like 'David Jones'
+				%]
+				<p style="margin-top: 0">The Team @ The Gourmet Pantry</p>
+				[%else%]
+				[%/if%]
+			</div>
+			<p style="margin-top: 50px; text-align: center;padding: 0 15px;">[@ship_comment@]</p>
+		</div>
+		<hr class="pagebreak" />
+	</div>
+</div>
+
+[%/param%]
+[%param *body%]
+
+<div hidden>
+	<!-- Product type variable start -->
+	[%set [@this_product_type@] %]
+	[%product sku:'[@SKU@]'%]
+	[%param *body%]
+	[%if [@product_type@] eq 'hamper' %]
+	hamper
+	[%else%]
+	normal
+	[%/if%]
+	[%/param%]
+	[%/product%]
+	[%/set%]
+	<!-- Product type variable end -->
+
 
 	<!-- Gift message variables start -->
 	[%split delimiter:'<b>Recipient Name</b>: '%]
@@ -264,54 +309,44 @@
 	<!-- Gift message variables end -->
 </div>
 
-<div class="dataSet dataset-1 nor-[@normal_product_count@] type-[@this_product_type@]" [%if [@this_product_type@] eq 'hamper' and [@normal_product_count@] ne '' %]style="display : none;"
-	[%/if%][%if [@this_product_type@] eq 'hamper' and [@normal_product_count@] ne '' %]style="display : none;" [%/if%]>
+[%if [@this_product_type@] like 'hamper' %]
+[%else%]
+	[%set [@^normal_product_count@] %][%calc [@normal_product_count@] + 1 /%][%/set%]
+	
+[%/if%]
+
+<div class="dataSet dataset-1 nor-[@normal_product_count@] type-[@this_product_type@]" [%if [@this_product_type@] ne 'hamper' and [@normal_product_count@] > 1 %]style="display : none;"
+	[%/if%]>
 	<div>
-		<div class="box">
-			[@order_details_component@]
-
-			[%if [@cngmt_id@] ne ''%]
-			<a href="[@document_image@].pdf" target="_blank">
-				<img class="consignment-document" src="[@document_image@]" />
-			</a>
-			[%else%]
-			<span style="text-align : center;">consignment not yet generated</span>
-			[%/if%]
-		</div>
-		<hr class="pagebreak" />
-
-		<div class="box" [%if [@ship_comment@]%] [%else%]style="display : none;" [%/if%]>
-			[@order_details_component@]
-
-			<img class='tgp-logo' src="[@tgp_logo@]" />
-			<p style="margin-top: 50px">Dear AusPost driver, we hope you’re well!</p>
-			[%if [@ship_comment@]%] <h2 style="margin-top: 0">Sender’s Delivery Instructions:</h2>[%else%][%/if%]
-			<div style="text-align: center; position: relative; top: 250px">
-				<h2 style="margin-bottom: 0.3em">Thank you!</h2>
-				[%if [@sales_channel@] like 'Everyday Market' %]
-				<p style="margin-top: 0">The Team @ Everyday Market</p>
-
-				[%elseif [@sales_channel@] like 'David Jones' %]
-				<p style="margin-top: 0">The Team @ David Jones</p>
-
-				[%elseif [@sales_channel@] not like 'Everyday Market' and [@sales_channel@] not like 'David Jones'
-				%]
-				<p style="margin-top: 0">The Team @ The Gourmet Pantry</p>
-				[%else%]
-				[%/if%]
-			</div>
-			<p style="margin-top: 50px; text-align: center;padding: 0 15px;">[@ship_comment@]</p>
-		</div>
-		<hr class="pagebreak" />
-
 		<div class="box boxmessage" 
-		[%if [@sales_channel@] like 'Everyday Market' or [@sales_channel@] like 'David Jones' and [@customer_ref8@] eq '' %] 
+		[%if [@sales_channel@] like 'Everyday Market' or [@sales_channel@] like 'David Jones' %] 
+			[%if [@customer_ref8@] eq '' %]
+				style="display : none; mk dj"
+			[%/if%]
 		[%else%]
 			[%if [@label_recipient@] eq '' and [@label_message@] eq '' and
 			[@label_sender@] eq '' %]style="display : none; else" [%/if%]
 		[%/if%]
 		>
-			[@order_details_component@]
+			
+			<div class="order-details">
+				<div class="orderDetailsHolder">
+					<div class="left-detail-holder">
+						<strong>Order Id :</strong> [@order_id@]<br />
+						<strong>Name :</strong> [@ship_first_name@] [@ship_last_name@]<br />
+						<strong>Shipping Address :</strong> [@ship_street1@] [%if [@ship_street2@]%],
+						[@ship_street2@][%/if%]
+						[@ship_city@], [@ship_state@], [@ship_zip@],
+						[@ship_country_name@]<br />
+
+					</div>
+					<div class="right-detail-holder">
+						<strong>Product Name :</strong> [%if [@total_items@] >= 2 %]multiple
+						items[%else%][%escape%][@model@][%/escape%][%/if%]<br />
+						<strong>No. of SKUs on order :</strong> [@total_items@]
+					</div>
+				</div>
+			</div>
 
 			<div class="rotateHolder">
 				<div class="rotate">
@@ -337,10 +372,10 @@
 	</div>
 </div>
 
-[%if [@this_product_type@] ne 'hamper' %]
-[%set [@normal_product_count@] %]true[%/set%]
-[%/if%]
 
+[%/param%]
+[%param *footer%]
+</div>
 [%/param%]
 [%/show_order%]
 [%/if%]

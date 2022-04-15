@@ -170,106 +170,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" />
 <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet" />
 
-<!-- spiff js codes - start -->
-<link rel="preconnect" href="https://fonts.gstatic.com" />
-<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"
-	integrity="sha512-E8QSvWZ0eCLGk4km3hxSsNmGWbLtSCSUcewDQPQWZF6pEU8GlT8a5fF32wOl1i8ftdMhssTrF/OhyGWwonTcXA=="
-	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/md5.min.js"
-	integrity="sha512-3sGbaDyhjGb+yxqvJKi/gl5zL4J7P5Yh4GXzq+E9puzlmVkIctjf4yP6LfijOUvtoBI3p9pLKia9crHsgYDTUQ=="
-	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/hmac-sha1.min.js"
-	integrity="sha512-OahNHQh8EnqAptVvXgLLIT3LOv+irJSkED9oyUvGvh1MULTHriuXGIk8RHFfRffj5ejGREfE9IRWoBCPSZ5XGw=="
-	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script type="text/javascript" async src="https://assets.spiff.com.au/api.js">
-
-</script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script>
-	var config = {
-		contentType: "application/json",
-		accessKey: "4k=d=_qSKzjGq2aM^+qu6n_6+^^7O-Kr",
-		secretKey: "ru3W_qbKBL6Emd5G*BUodZt+2LeGIgJ*"
-	};
-	var paths = {
-		outputData: ({ transactionId, renditionName
-		}) => `/api/outputdata/${transactionId}/${renditionName}`
-	};
-	var now = new Date();
-	var formatedDate = now.toUTCString();
-
-	const generateToken = (secretKey, method, body, contentType, dateString, path) => {
-		const md5Hash = CryptoJS.MD5(body).toString();
-
-		const stringToSign = `${method}\n${md5Hash}\n${contentType}\n${dateString}\n${path}`;
-		const hmacHash = CryptoJS.HmacSHA1(stringToSign, secretKey);
-
-		return spiffHexToBase64(hmacHash.toString());
-	}
-
-	const b64EncodeUnicode = (str) => {
-		return btoa(encodeURIComponent(str));
-	};
-
-	const getAuthHeader = (accessKey, secretKey, method, body, contentType, dateString, path) => {
-		const signature = generateToken(secretKey, method, body, contentType, dateString, path)
-
-		return `SOA ${accessKey}:${signature}`;
-	}
-
-	const spiffHexToBase64 = (hex) => {
-		let returnTxt = "";
-		for (let pair of hex.match(/.{1,2}/g)) {
-			let elem = pair.toString(16).charCodeAt(0);
-			returnTxt += elem;
-		}
-		console.log(returnTxt);
-
-		return b64EncodeUnicode(returnTxt);
-	}
-
-	console.log(formatedDate);
-
-	const spiffRequestHeader = async (body) => {
-		const authHeader = getAuthHeader(
-			config.accessKey,
-			config.secretKey,
-			"GET",
-			body,
-			config.contentType,
-			formatedDate,
-			paths.outputData(body)
-		);
-
-		const requestBody = {
-			method: "GET", headers: {
-				'Content-Type': config.contentType,
-				// 'Date': dateString,
-				'Authorization': authHeader
-			}
-		}
-
-
-		axios({
-			...requestBody,
-			url: `https://api.spiff.com.au${paths.outputData(body)}`
-		}).then((response) => {
-			console.log(response)
-			document.getElementById(body.transactionId).src = response.data.data.renditionUrl;
-		}).catch((error) => {
-			console.log(error);
-		}).then(() => {
-			// noop
-		});
-	}
-
-</script>
-
-<!-- spiff js codes - end -->
-
-
-
 [%load_template file:'printdocs/includes/styles.template.html'/%]
 
 [%show_order id:'[@order_id@]' customer:'[@username@]' dropshipper:'[@showdropshipper@]'%]
@@ -407,25 +307,6 @@
 	[%/param%]
 	[%/split%]
 	<!-- Gift message variables end -->
-
-
-		<!-- Gift message variables start -->
-		[%split delimiter:'; Gift Message ID: '%]
-		[%param data1%][@extra@][%/param%]
-		[%param *body%]
-		[%if [@count@] eq 1%]
-		[%split delimiter:';'%]
-		[%param data1%][@data1@][%/param%]
-		[%param *body%]
-		[%if [@count@] eq 0%]
-		[%set [@^^label_spiff_transaction_id@] %][@data1@][%/set%]
-		[%if%]
-		[%/param%]
-		[%/split%]
-		[%if%]
-		[%/param%]
-		[%/split%]
-		<!-- Gift message variables end -->
 </div>
 
 [%if [@this_product_type@] like 'hamper' %]
@@ -468,8 +349,7 @@
 			</div>
 
 			<div class="rotateHolder">
-				<div class="rotate" data-order-count="[@count@]"
-				data-spiff-transaction-id="[@label_spiff_transaction_id@]">
+				<div class="rotate">
 
 					[%if [@sales_channel@] like 'Everyday Market' or [@sales_channel@] like 'David Jones' %]
 					<h2>[@customer_ref8@]</h2>
@@ -485,8 +365,6 @@
 					<h2 class="labelMessage" style="margin-top: 0">[@label_message@]</h2>
 					<h2 class="labelSender" style="margin-top: 0">[@label_sender@]</h2>
 					[%/if%]
-					
-					<img id="[@label_spiff_transaction_id@]" src="" alt="[@label_spiff_transaction_id@]">
 				</div>
 			</div>
 		</div>
@@ -501,18 +379,3 @@
 [%/param%]
 [%/show_order%]
 [%/if%]
-
-
-
-<script type="text/javascript">
-	var rotate = document.getElementsByClassName("rotate");
-
-	window.onload = function () {
-		for (let x = 0; x < rotate.length; x++) {
-			let spiffTransactionId = rotate[x].dataset.spiffTransactionId
-			if (!spiffTransactionId) return
-
-			spiffRequestHeader({ transactionId: spiffTransactionId, renditionName: "Greeting-Card" })
-		}
-	};
-</script>

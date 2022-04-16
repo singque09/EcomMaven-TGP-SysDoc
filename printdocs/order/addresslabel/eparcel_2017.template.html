@@ -120,6 +120,14 @@
 	br[clear="all"] {
     display: none;
 	}
+	/* spiff */
+	.rotate>img {
+    margin-top: -50px;
+    margin-left: -50px;
+    max-height: 100mm;
+    max-width: 170mm;
+	}
+	/* spiff - end */
 	/* added by neil - end */
 </style>
 <div hidden>
@@ -470,23 +478,24 @@
 			<div class="rotateHolder">
 				<div class="rotate" data-order-count="[@count@]"
 				data-spiff-transaction-id="[@label_spiff_transaction_id@]">
-
-					[%if [@sales_channel@] like 'Everyday Market' or [@sales_channel@] like 'David Jones' %]
-					<h2>[@customer_ref8@]</h2>
+					[%if [@label_spiff_transaction_id@] ne '' %]						
+						<img id="[@label_spiff_transaction_id@]" src="" alt="[@label_spiff_transaction_id@]">
 					[%else%]
-					<span class="extraOptionHandler" hidden>[@extra@]</span>
-					<span class="labelGiftCardStyle" hidden></span>
-					[%if [@this_product_type@] like 'hamper' %]
-					<span hidden>[@model@]</span>
-					[%else%]
-					<span class="normalProduct" hidden>Normal Product</span>
+						[%if [@sales_channel@] like 'Everyday Market' or [@sales_channel@] like 'David Jones' %]
+							<h2>[@customer_ref8@]</h2>
+						[%else%]
+							<span class="extraOptionHandler" hidden>[@extra@]</span>
+							<span class="labelGiftCardStyle" hidden></span>
+							[%if [@this_product_type@] like 'hamper' %]
+								<span hidden>[@model@]</span>
+							[%else%]
+								<span class="normalProduct" hidden>Normal Product</span>
+							[%/if%]
+							<h2 class="labelRecipient" style="margin-top: 0">[@label_recipient@]</h2>
+							<h2 class="labelMessage" style="margin-top: 0">[@label_message@]</h2>
+							<h2 class="labelSender" style="margin-top: 0">[@label_sender@]</h2>
+						[%/if%]
 					[%/if%]
-					<h2 class="labelRecipient" style="margin-top: 0">[@label_recipient@]</h2>
-					<h2 class="labelMessage" style="margin-top: 0">[@label_message@]</h2>
-					<h2 class="labelSender" style="margin-top: 0">[@label_sender@]</h2>
-					[%/if%]
-					
-					<img id="[@label_spiff_transaction_id@]" src="" alt="[@label_spiff_transaction_id@]">
 				</div>
 			</div>
 		</div>
@@ -516,3 +525,10 @@
 		}
 	};
 </script>
+
+<script>
+	if (typeof oldprint != 'function') {
+	var oldprint = window.print;
+	window.print = '';
+	}
+	</script>

@@ -116,21 +116,10 @@
 	.pageinner {
 		width: initial !important;
 	}
-
 	/* added by neil */
 	br[clear="all"] {
-		display: none;
+    display: none;
 	}
-
-	/* spiff */
-	.rotate>img {
-		margin-top: -50px;
-		margin-left: -50px;
-		max-height: 100mm;
-		max-width: 170mm;
-	}
-
-	/* spiff - end */
 	/* added by neil - end */
 </style>
 <div hidden>
@@ -155,7 +144,7 @@
 						[@ship_street2@][%/if%]
 						[@ship_city@], [@ship_state@], [@ship_zip@],
 						[@ship_country_name@]<br />
-
+			
 					</div>
 					<div class="right-detail-holder">
 						<strong>Product Name :</strong> [%if [@total_items@] >= 2 %]multiple
@@ -170,7 +159,6 @@
 				</a>
 			</div>
 		</div>
-		<hr class="pagebreak" />
 	</div>
 </div>
 
@@ -181,106 +169,6 @@
 [%else%]
 <link rel="preconnect" href="https://fonts.gstatic.com" />
 <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet" />
-
-<!-- spiff js codes - start -->
-<link rel="preconnect" href="https://fonts.gstatic.com" />
-<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"
-	integrity="sha512-E8QSvWZ0eCLGk4km3hxSsNmGWbLtSCSUcewDQPQWZF6pEU8GlT8a5fF32wOl1i8ftdMhssTrF/OhyGWwonTcXA=="
-	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/md5.min.js"
-	integrity="sha512-3sGbaDyhjGb+yxqvJKi/gl5zL4J7P5Yh4GXzq+E9puzlmVkIctjf4yP6LfijOUvtoBI3p9pLKia9crHsgYDTUQ=="
-	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/hmac-sha1.min.js"
-	integrity="sha512-OahNHQh8EnqAptVvXgLLIT3LOv+irJSkED9oyUvGvh1MULTHriuXGIk8RHFfRffj5ejGREfE9IRWoBCPSZ5XGw=="
-	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script type="text/javascript" async src="https://assets.spiff.com.au/api.js">
-
-</script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script>
-	var config = {
-		contentType: "application/json",
-		accessKey: "4k=d=_qSKzjGq2aM^+qu6n_6+^^7O-Kr",
-		secretKey: "ru3W_qbKBL6Emd5G*BUodZt+2LeGIgJ*"
-	};
-	var paths = {
-		outputData: ({ transactionId, renditionName
-		}) => `/api/outputdata/${transactionId}/${renditionName}`
-	};
-	var now = new Date();
-	var formatedDate = now.toUTCString();
-
-	const generateToken = (secretKey, method, body, contentType, dateString, path) => {
-		const md5Hash = CryptoJS.MD5(body).toString();
-
-		const stringToSign = `${method}\n${md5Hash}\n${contentType}\n${dateString}\n${path}`;
-		const hmacHash = CryptoJS.HmacSHA1(stringToSign, secretKey);
-
-		return spiffHexToBase64(hmacHash.toString());
-	}
-
-	const b64EncodeUnicode = (str) => {
-		return btoa(encodeURIComponent(str));
-	};
-
-	const getAuthHeader = (accessKey, secretKey, method, body, contentType, dateString, path) => {
-		const signature = generateToken(secretKey, method, body, contentType, dateString, path)
-
-		return `SOA ${accessKey}:${signature}`;
-	}
-
-	const spiffHexToBase64 = (hex) => {
-		let returnTxt = "";
-		for (let pair of hex.match(/.{1,2}/g)) {
-			let elem = pair.toString(16).charCodeAt(0);
-			returnTxt += elem;
-		}
-		console.log(returnTxt);
-
-		return b64EncodeUnicode(returnTxt);
-	}
-
-	console.log(formatedDate);
-
-	const spiffRequestHeader = async (body) => {
-		const authHeader = getAuthHeader(
-			config.accessKey,
-			config.secretKey,
-			"GET",
-			body,
-			config.contentType,
-			formatedDate,
-			paths.outputData(body)
-		);
-
-		const requestBody = {
-			method: "GET", headers: {
-				'Content-Type': config.contentType,
-				// 'Date': dateString,
-				'Authorization': authHeader
-			}
-		}
-
-
-		axios({
-			...requestBody,
-			url: `https://api.spiff.com.au${paths.outputData(body)}`
-		}).then((response) => {
-			console.log(response)
-			document.getElementById(body.transactionId).src = response.data.data.renditionUrl;
-		}).catch((error) => {
-			console.log(error);
-		}).then(() => {
-			// noop
-		});
-	}
-
-</script>
-
-<!-- spiff js codes - end -->
-
-
 
 [%load_template file:'printdocs/includes/styles.template.html'/%]
 
@@ -310,219 +198,184 @@
 	[%/set%]
 	<!-- Order detail header component end -->
 
-	<div class="dataSet dataset-header">
-		<div>
-			<div class="box">
-				[@^order_details_component@]
+<div class="dataSet dataset-header">
+	<div>
+		<div class="box">
+			[@^order_details_component@]
 
-				[%if [@cngmt_id@] ne ''%]
-				<a href="[@document_image@].pdf" target="_blank">
-					<img class="consignment-document" src="[@document_image@]" />
-				</a>
+			[%if [@cngmt_id@] ne ''%]
+			<a href="[@document_image@].pdf" target="_blank">
+				<img class="consignment-document" src="[@document_image@]" />
+			</a>
+			[%else%]
+			<span style="text-align : center;">consignment not yet generated</span>
+			[%/if%]
+		</div>
+		<hr class="pagebreak" />
+
+		<div class="box" [%if [@ship_comment@]%] [%else%]style="display : none;" [%/if%]>
+			[@^order_details_component@]
+
+			<img class='tgp-logo' src="[@tgp_logo@]" />
+			<p style="margin-top: 50px">Dear AusPost driver, we hope you’re well!</p>
+			[%if [@ship_comment@]%] <h2 style="margin-top: 0">Sender’s Delivery Instructions:</h2>[%else%][%/if%]
+			<div style="text-align: center; position: relative; top: 250px">
+				<h2 style="margin-bottom: 0.3em">Thank you!</h2>
+				[%if [@sales_channel@] like 'Everyday Market' %]
+				<p style="margin-top: 0">The Team @ Everyday Market</p>
+
+				[%elseif [@sales_channel@] like 'David Jones' %]
+				<p style="margin-top: 0">The Team @ David Jones</p>
+
+				[%elseif [@sales_channel@] not like 'Everyday Market' and [@sales_channel@] not like 'David Jones'
+				%]
+				<p style="margin-top: 0">The Team @ The Gourmet Pantry</p>
 				[%else%]
-				<span style="text-align : center;">consignment not yet generated</span>
 				[%/if%]
 			</div>
-			<hr class="pagebreak" />
+			<p style="margin-top: 50px; text-align: center;padding: 0 15px;">[@ship_comment@]</p>
+		</div>
+		<hr class="pagebreak" />
+	</div>
+</div>
 
-			<div class="box" [%if [@ship_comment@]%] [%else%]style="display : none;" [%/if%]>
-				[@^order_details_component@]
+[%/param%]
+[%param *body%]
 
-				<img class='tgp-logo' src="[@tgp_logo@]" />
-				<p style="margin-top: 50px">Dear AusPost driver, we hope you’re well!</p>
-				[%if [@ship_comment@]%] <h2 style="margin-top: 0">Sender’s Delivery Instructions:</h2>[%else%][%/if%]
-				<div style="text-align: center; position: relative; top: 250px">
-					<h2 style="margin-bottom: 0.3em">Thank you!</h2>
-					[%if [@sales_channel@] like 'Everyday Market' %]
-					<p style="margin-top: 0">The Team @ Everyday Market</p>
+<div hidden>
+	<!-- Product type variable start -->
+	[%set [@this_product_type@] %]
+	[%product sku:'[@SKU@]'%]
+	[%param *body%]
+	[%if [@product_type@] eq 'hamper' %]
+	hamper
+	[%else%]
+	normal
+	[%/if%]
+	[%/param%]
+	[%/product%]
+	[%/set%]
+	<!-- Product type variable end -->
 
-					[%elseif [@sales_channel@] like 'David Jones' %]
-					<p style="margin-top: 0">The Team @ David Jones</p>
 
-					[%elseif [@sales_channel@] not like 'Everyday Market' and [@sales_channel@] not like 'David Jones'
-					%]
-					<p style="margin-top: 0">The Team @ The Gourmet Pantry</p>
+	<!-- Gift message variables start -->
+	[%split delimiter:'<b>Recipient Name</b>: '%]
+	[%param data1%][@extra@][%/param%]
+	[%param *body%]
+	[%if [@count@] eq 1%]
+	[%split delimiter:'; <b>Gift Message</b>'%]
+	[%param data1%][@data1@][%/param%]
+	[%param *body%]
+	[%if [@count@] eq 0%]
+	[%set [@^^label_recipient@] %][@data1@][%/set%]
+	[%if%]
+	[%/param%]
+	[%/split%]
+	[%if%]
+	[%/param%]
+	[%/split%]
+
+	[%split delimiter:'<b>Gift Message</b>: '%]
+	[%param data1%][@extra@][%/param%]
+	[%param *body%]
+	[%if [@count@] eq 1%]
+	[%split delimiter:'; <b>Sender</b>'%]
+	[%param data1%][@data1@][%/param%]
+	[%param *body%]
+	[%if [@count@] eq 0%]
+	[%set [@^^label_message@] %][@data1@][%/set%]
+	[%if%]
+	[%/param%]
+	[%/split%]
+	[%if%]
+	[%/param%]
+	[%/split%]
+
+	[%split delimiter:'<b>Sender</b>: '%]
+	[%param data1%][@extra@][%/param%]
+	[%param *body%]
+	[%if [@count@] eq 1%]
+	[%split delimiter:'; <b>Gift Card Style</b>'%]
+	[%param data1%][@data1@][%/param%]
+	[%param *body%]
+	[%if [@count@] eq 0%]
+	[%set [@^^label_sender@] %][@data1@][%/set%]
+	[%if%]
+	[%/param%]
+	[%/split%]
+	[%if%]
+	[%/param%]
+	[%/split%]
+	<!-- Gift message variables end -->
+</div>
+
+[%if [@this_product_type@] like 'hamper' %]
+[%else%]
+	[%set [@^normal_product_count@] %][%calc [@normal_product_count@] + 1 /%][%/set%]
+	
+[%/if%]
+
+<div class="dataSet dataset-1 nor-[@normal_product_count@] type-[@this_product_type@]" [%if [@this_product_type@] ne 'hamper' and [@normal_product_count@] > 1 %]style="display : none;"
+	[%/if%]>
+	<div>
+		<div class="box boxmessage" 
+		[%if [@sales_channel@] like 'Everyday Market' or [@sales_channel@] like 'David Jones' %] 
+			[%if [@customer_ref8@] eq '' %]
+				style="display : none; mk dj"
+			[%/if%]
+		[%else%]
+			[%if [@label_recipient@] eq '' and [@label_message@] eq '' and
+			[@label_sender@] eq '' %]style="display : none; else" [%/if%]
+		[%/if%]
+		>
+			
+			<div class="order-details">
+				<div class="orderDetailsHolder">
+					<div class="left-detail-holder">
+						<strong>Order Id :</strong> [@order_id@]<br />
+						<strong>Name :</strong> [@ship_first_name@] [@ship_last_name@]<br />
+						<strong>Shipping Address :</strong> [@ship_street1@] [%if [@ship_street2@]%],
+						[@ship_street2@][%/if%]
+						[@ship_city@], [@ship_state@], [@ship_zip@],
+						[@ship_country_name@]<br />
+
+					</div>
+					<div class="right-detail-holder">
+						<strong>Product Name :</strong> [%if [@total_items@] >= 2 %]multiple
+						items[%else%][%escape%][@model@][%/escape%][%/if%]<br />
+						<strong>No. of SKUs on order :</strong> [@total_items@]
+					</div>
+				</div>
+			</div>
+
+			<div class="rotateHolder">
+				<div class="rotate">
+
+					[%if [@sales_channel@] like 'Everyday Market' or [@sales_channel@] like 'David Jones' %]
+					<h2>[@customer_ref8@]</h2>
 					[%else%]
+					<span class="extraOptionHandler" hidden>[@extra@]</span>
+					<span class="labelGiftCardStyle" hidden></span>
+					[%if [@this_product_type@] like 'hamper' %]
+					<span hidden>[@model@]</span>
+					[%else%]
+					<span class="normalProduct" hidden>Normal Product</span>
+					[%/if%]
+					<h2 class="labelRecipient" style="margin-top: 0">[@label_recipient@]</h2>
+					<h2 class="labelMessage" style="margin-top: 0">[@label_message@]</h2>
+					<h2 class="labelSender" style="margin-top: 0">[@label_sender@]</h2>
 					[%/if%]
 				</div>
-				<p style="margin-top: 50px; text-align: center;padding: 0 15px;">[@ship_comment@]</p>
 			</div>
-			<hr class="pagebreak" />
 		</div>
+		<hr class="pagebreak" />
 	</div>
-
-	[%/param%]
-	[%param *body%]
-
-	<div hidden>
-		<!-- Product type variable start -->
-		[%set [@this_product_type@] %]
-		[%product sku:'[@SKU@]'%]
-		[%param *body%]
-		[%if [@product_type@] eq 'hamper' %]
-		hamper
-		[%else%]
-		normal
-		[%/if%]
-		[%/param%]
-		[%/product%]
-		[%/set%]
-		<!-- Product type variable end -->
+</div>
 
 
-		<!-- Gift message variables start -->
-		[%split delimiter:'<b>Recipient Name</b>: '%]
-		[%param data1%][@extra@][%/param%]
-		[%param *body%]
-		[%if [@count@] eq 1%]
-		[%split delimiter:'; <b>Gift Message</b>'%]
-		[%param data1%][@data1@][%/param%]
-		[%param *body%]
-		[%if [@count@] eq 0%]
-		[%set [@^^label_recipient@] %][@data1@][%/set%]
-		[%if%]
-		[%/param%]
-		[%/split%]
-		[%if%]
-		[%/param%]
-		[%/split%]
-
-		[%split delimiter:'<b>Gift Message</b>: '%]
-		[%param data1%][@extra@][%/param%]
-		[%param *body%]
-		[%if [@count@] eq 1%]
-		[%split delimiter:'; <b>Sender</b>'%]
-		[%param data1%][@data1@][%/param%]
-		[%param *body%]
-		[%if [@count@] eq 0%]
-		[%set [@^^label_message@] %][@data1@][%/set%]
-		[%if%]
-		[%/param%]
-		[%/split%]
-		[%if%]
-		[%/param%]
-		[%/split%]
-
-		[%split delimiter:'<b>Sender</b>: '%]
-		[%param data1%][@extra@][%/param%]
-		[%param *body%]
-		[%if [@count@] eq 1%]
-		[%split delimiter:'; <b>Gift Card Style</b>'%]
-		[%param data1%][@data1@][%/param%]
-		[%param *body%]
-		[%if [@count@] eq 0%]
-		[%set [@^^label_sender@] %][@data1@][%/set%]
-		[%if%]
-		[%/param%]
-		[%/split%]
-		[%if%]
-		[%/param%]
-		[%/split%]
-
-		[%split delimiter:'; Gift Message ID: '%]
-		[%param data1%][@extra@][%/param%]
-		[%param *body%]
-		[%if [@count@] eq 1%]
-		[%split delimiter:';'%]
-		[%param data1%][@data1@][%/param%]
-		[%param *body%]
-		[%if [@count@] eq 0%]
-		[%set [@^^label_spiff_transaction_id@] %][@data1@][%/set%]
-		[%if%]
-		[%/param%]
-		[%/split%]
-		[%if%]
-		[%/param%]
-		[%/split%]
-		<!-- Gift message variables end -->
-	</div>
-
-	[%if [@this_product_type@] like 'hamper' %]
-	[%else%]
-	[%set [@^normal_product_count@] %][%calc [@normal_product_count@] + 1 /%][%/set%]
-
-	[%/if%]
-
-	<div class="dataSet dataset-1 nor-[@normal_product_count@] type-[@this_product_type@]" [%if [@this_product_type@]
-		ne 'hamper' and [@normal_product_count@]> 1 %]style="display : none;"
-		[%/if%]>
-		<div>
-			<div class="box boxmessage" [%if [@sales_channel@] like 'Everyday Market' or [@sales_channel@] like 'David Jones'
-				%] [%if [@customer_ref8@] eq '' %] style="display : none;" [%/if%] [%else%] [%if [@label_recipient@] eq '' and
-				[@label_message@] eq '' and [@label_sender@] eq '' %]style="display : none; else" [%/if%] [%/if%]>
-
-				<div class="order-details">
-					<div class="orderDetailsHolder">
-						<div class="left-detail-holder">
-							<strong>Order Id :</strong> [@order_id@]<br />
-							<strong>Name :</strong> [@ship_first_name@] [@ship_last_name@]<br />
-							<strong>Shipping Address :</strong> [@ship_street1@] [%if [@ship_street2@]%],
-							[@ship_street2@][%/if%]
-							[@ship_city@], [@ship_state@], [@ship_zip@],
-							[@ship_country_name@]<br />
-
-						</div>
-						<div class="right-detail-holder">
-							<strong>Product Name :</strong> [%if [@total_items@] >= 2 %]multiple
-							items[%else%][%escape%][@model@][%/escape%][%/if%]<br />
-							<strong>No. of SKUs on order :</strong> [@total_items@]
-						</div>
-					</div>
-				</div>
-
-				<div class="rotateHolder">
-					<div class="rotate" data-order-count="[@count@]" data-spiff-transaction-id="[@label_spiff_transaction_id@]">
-						[%if [@label_spiff_transaction_id@] ne '' %]
-						<img id="[@label_spiff_transaction_id@]" src="" alt="[@label_spiff_transaction_id@]">
-						[%else%]
-						[%if [@sales_channel@] like 'Everyday Market' or [@sales_channel@] like 'David Jones' %]
-						<h2>[@customer_ref8@]</h2>
-						[%else%]
-						<span class="extraOptionHandler" hidden>[@extra@]</span>
-						<span class="labelGiftCardStyle" hidden></span>
-						[%if [@this_product_type@] like 'hamper' %]
-						<span hidden>[@model@]</span>
-						[%else%]
-						<span class="normalProduct" hidden>Normal Product</span>
-						[%/if%]
-						<h2 class="labelRecipient" style="margin-top: 0">[@label_recipient@]</h2>
-						<h2 class="labelMessage" style="margin-top: 0">[@label_message@]</h2>
-						<h2 class="labelSender" style="margin-top: 0">[@label_sender@]</h2>
-						[%/if%]
-						[%/if%]
-					</div>
-				</div>
-			</div>
-			<hr class="pagebreak" />
-		</div>
-	</div>
-
-
-	[%/param%]
-	[%param *footer%]
+[%/param%]
+[%param *footer%]
 </div>
 [%/param%]
 [%/show_order%]
 [%/if%]
-
-
-
-<script type="text/javascript">
-	var rotate = document.getElementsByClassName("rotate");
-
-	window.onload = function () {
-		for (let x = 0; x < rotate.length; x++) {
-			let spiffTransactionId = rotate[x].dataset.spiffTransactionId
-			if (!spiffTransactionId) return
-
-			spiffRequestHeader({ transactionId: spiffTransactionId, renditionName: "Greeting-Card" })
-		}
-	};
-</script>
-
-<script>
-	if (typeof oldprint != 'function') {
-		var oldprint = window.print;
-		window.print = '';
-	}
-</script>

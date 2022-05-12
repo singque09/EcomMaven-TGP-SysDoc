@@ -10,26 +10,61 @@
 [%load_template file:'printdocs/includes/styles.template.html'/%]
 
 [%show_orderlist ids:'[@ids@]' sortby:'[@tmpl_sort_by@]'
-groupby:'[@tmpl_group_by@]' sortorder:'[@tmpl_sort_order@]'%][%PARAM *header%]
-[%END PARAM%] [%PARAM *section_header%] [%END PARAM%] [%PARAM *body%] [%END
-PARAM%] [%PARAM *section_footer%] [%END PARAM%] [%PARAM *footer%] [%show_order
-id:'[@order_ID@]' customer:'[@username@]' dropshipper:'[@showdropshipper@]'%]
-[%param *body%]
+groupby:'[@tmpl_group_by@]' sortorder:'[@tmpl_sort_order@]'%]
+  [%PARAM *header%]
+  [%END PARAM%]
+  [%PARAM *section_header%]
+  [%END PARAM%]
+  [%PARAM *body%]
+  [%END PARAM%]
+  [%PARAM *section_footer%]
+  [%END PARAM%]
+  [%PARAM *footer%]
+    [%show_order id:'[@order_ID@]' customer:'[@username@]' dropshipper:'[@showdropshipper@]'%]
+      [%param *body%]
 
-<p><img style="display: block; margin-left: auto; margin-right: auto;margin-top: 25px;" src="https://www.thegourmetpantry.com.au/assets/website_logo.png" alt="" width="323" height="106" /></p>
-<h1 style="text-align: center;font-size: 24px;margin-top: 60px;">[@order_ID@]</h1>
-<p style="text-align: center;">&nbsp;</p>
-<h3 style="text-align: center;">[@shipping_method@]</h3>
-<p style="text-align: center;">&nbsp;</p>
-<p style="text-align: center;">&nbsp;</p>
-<p style="text-align: center;font-size: 24px;"><strong>[@ship_state@]</strong></p>
-<p style="text-align: center;">[@ship_zip@]</p>
-<p style="text-align: center;">[@ship_city@]</p>
-<p></p>
-<p style="text-align: center;">Shipping to: [@ship_first_name@] [@ship_last_name@]</p>
-<p style="text-align: center;">[@model@]</p>
-			
-[%/param%] [%/show_order%] [%END PARAM%] [%END show_orderlist%]
+        <!-- Product type variable start -->
+        [%set [@this_product_type@] %]
+          [%product sku:'[@SKU@]'%]
+            [%param *body%]
+              [%if [@product_type@] eq 'hamper' %]
+                hamper
+              [%else%]
+              normal
+              [%/if%]
+            [%/param%]
+          [%/product%]
+        [%/set%]
+        <!-- Product type variable end -->
+
+
+        [%if [@this_product_type@] like 'hamper' %]
+        [%else%]
+          [%set [@^normal_product_count@] %][%calc [@normal_product_count@] + 1 /%][%/set%]
+          
+        [%/if%]
+
+
+        <div class="dataSet dataset-1 nor-[@normal_product_count@] type-[@this_product_type@]" [%if [@this_product_type@] ne 'hamper' and [@normal_product_count@] > 1 %]style="display : none;" [%/if%]>
+
+          <p><img style="display: block; margin-left: auto; margin-right: auto;margin-top: 25px;" src="https://www.thegourmetpantry.com.au/assets/website_logo.png" alt="" width="323" height="106" /></p>
+          <h1 style="text-align: center;font-size: 24px;margin-top: 60px;">[@order_ID@]</h1>
+          <p style="text-align: center;">&nbsp;</p>
+          <h3 style="text-align: center;">[@shipping_method@]</h3>
+          <p style="text-align: center;">&nbsp;</p>
+          <p style="text-align: center;">&nbsp;</p>
+          <p style="text-align: center;font-size: 24px;"><strong>[@ship_state@]</strong></p>
+          <p style="text-align: center;">[@ship_zip@]</p>
+          <p style="text-align: center;">[@ship_city@]</p>
+          <p></p>
+          <p style="text-align: center;">Shipping to: [@ship_first_name@] [@ship_last_name@]</p>
+          <p style="text-align: center; padding : 0 10px;">[@extra@]</p>
+          <p style="text-align: center;">[@model@]</p>
+        </div>
+      [%/param%]
+    [%/show_order%]
+  [%END PARAM%]
+[%END show_orderlist%]
 
 
 

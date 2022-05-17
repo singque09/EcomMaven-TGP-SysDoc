@@ -286,7 +286,7 @@
 
 [%show_order id:'[@order_id@]' customer:'[@username@]' dropshipper:'[@showdropshipper@]'%]
 [%param *header%]
-<div class="wrapper [@count@]">
+<div class="wrapper">
 	<!-- Order detail header component start -->
 	[%set [@^order_details_component@] %]
 	<div class="order-details">
@@ -444,7 +444,7 @@
 	[%/if%]
 
 	<div class="dataSet dataset-1 nor-[@normal_product_count@] type-[@this_product_type@]" [%if [@this_product_type@]
-		not like 'hamper' and [@normal_product_count@]> 1 %]style="display : none;"
+		ne 'hamper' and [@normal_product_count@]> 1 %]style="display : none;"
 		[%/if%]>
 		<div>
 			<div class="box boxmessage" [%if [@sales_channel@] like 'Everyday Market' or [@sales_channel@] like 'David Jones'
@@ -473,24 +473,22 @@
 				<div class="rotateHolder">
 					<div class="rotate" data-order-count="[@count@]" data-spiff-transaction-id="[@label_spiff_transaction_id@]">
 						[%if [@label_spiff_transaction_id@] ne '' %]
-							<img id="" src="/assets/gift-messages/[@order_id@]_[@label_spiff_transaction_id@]_0.jpg" alt="">
+						<img id="[@label_spiff_transaction_id@]" src="" alt="[@label_spiff_transaction_id@]">
 						[%else%]
-							[%if [@sales_channel@] like 'Everyday Market' or [@sales_channel@] like 'David Jones' %]
-								<h2>[@customer_ref8@]</h2>
-							[%else%]
-								<!-- /* <div class="hidden" style="display : none;"><span class="extraOptionHandler" hidden>[@extra@]</span>
-								<span class="labelGiftCardStyle" hidden></span>
-								</div>
-								*/ -->
-								[%if [@this_product_type@] like 'hamper' %]
-									<span hidden>[@model@]</span>
-								[%else%]
-									<span class="normalProduct" hidden>Normal Product</span>
-								[%/if%]
-								<h2 class="labelRecipient" style="margin-top: 0">[@label_recipient@]</h2>
-								<h2 class="labelMessage" style="margin-top: 0">[@label_message@]</h2>
-								<h2 class="labelSender" style="margin-top: 0">[@label_sender@]</h2>
-							[%/if%]
+						[%if [@sales_channel@] like 'Everyday Market' or [@sales_channel@] like 'David Jones' %]
+						<h2>[@customer_ref8@]</h2>
+						[%else%]
+						<span class="extraOptionHandler" hidden>[@extra@]</span>
+						<span class="labelGiftCardStyle" hidden></span>
+						[%if [@this_product_type@] like 'hamper' %]
+						<span hidden>[@model@]</span>
+						[%else%]
+						<span class="normalProduct" hidden>Normal Product</span>
+						[%/if%]
+						<h2 class="labelRecipient" style="margin-top: 0">[@label_recipient@]</h2>
+						<h2 class="labelMessage" style="margin-top: 0">[@label_message@]</h2>
+						<h2 class="labelSender" style="margin-top: 0">[@label_sender@]</h2>
+						[%/if%]
 						[%/if%]
 					</div>
 				</div>

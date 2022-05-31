@@ -124,7 +124,7 @@
 				[%if [@brand@]%]<p><i>[%escape%][@brand@][%/escape%]</i></p>[%/if%]
 				<p class="modelName">[@model@] (Bay: [@pick_zone@] - Barcode: [@barcode@])</p>
 				[%if [@full_extra@] ne ''%]
-				<p><i class="extraName">([@full_extra@])</i></p>
+				<p><i class="extraName1">([@full_extra@])</i></p>
 				[%else%]
 				<i class="extraName"></i>
 				[%/if%]
@@ -340,7 +340,7 @@
 				}
 				
 				normalProductList[y].appendChild(node);
-				extraNameHeader[y].innerHTML = productTable[y].getElementsByClassName("extraName")[0].innerHTML
+				extraNameHeader[y].innerHTML = productTable[y].getElementsByClassName("extraName1")[0].innerHTML
 			}
 			if(normalProductList[y].children.length <= 0 ) normalProductTable[y].hidden = true
 			if(productTable[y].getElementsByClassName("hamperProductRow").length <= 0 ) productTable[y].hidden = true

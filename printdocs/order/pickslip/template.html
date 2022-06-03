@@ -3,210 +3,224 @@
 </div>
 
 <div class="nPrintDoc">
-	[%picking_list order_id:'[@form:id@]' orders:'[@form:orders@]' orderlines:'[@form:ols@]' id_type:'[@form:use@]'	warehouse_id:'[@form:warehouse_id@]' process_id:'[@form:pid@]' page_width:'[@form:page_width@]' admin_name:'[@form:admin_name@]' no_item_split:'[@config:PICKING_SLIP_NO_ITEM_SPLIT@]' sortby:'pick_zone'%]
+	[%picking_list order_id:'[@form:id@]' orders:'[@form:orders@]' orderlines:'[@form:ols@]' id_type:'[@form:use@]'
+	warehouse_id:'[@form:warehouse_id@]' process_id:'[@form:pid@]' page_width:'[@form:page_width@]'
+	admin_name:'[@form:admin_name@]' no_item_split:'[@config:PICKING_SLIP_NO_ITEM_SPLIT@]' sortby:'pick_zone'%]
 	[%param *header%]
 	<div class="container">
-	[%/param%]
-	[%param *page_header%]
+		[%/param%]
+		[%param *page_header%]
 		[%if [@count@] > 0 %]
-			<hr class="pagebreak">
+		<hr class="pagebreak">
 		[%/if%]
 		<div style="width:[@page_width@];">
-	[%/param%]
-	[%param *order_header%]
-	[%show_order id:'[@order_id@]' hidechild:'1'%]
-		[%param *header%]
+			[%/param%]
+			[%param *order_header%]
+			[%show_order id:'[@order_id@]' hidechild:'1'%]
+			[%param *header%]
 			[%set [@^extra_sales_channel@] %]
-				[%escape%][@sales_channel@][%/escape%]
+			[%escape%][@sales_channel@][%/escape%]
 			[%/set%]
-		[%/param%]
-	[%/show_order%]
-	<div class="order_id">
-		<div class="row">
-			<div class="col-xs-7">
-				[%if [@process_id@] > 0%]
-					<h1>Bulk process <span class="text-success">#[@process_id@]</span> <img class="barcode" src="[%BARCODE_URL fn:'code128' barcode:'[@process_id@]' height:'35' /%]"></h1>
-				[%/if%]
-				<h1>Picking Slip for <span class="text-success">#[%escape%][@order_id@][%/escape%]</span></h1>
-				<h2>
-					Customer: [%escape%][@ship_first_name@] [@ship_last_name@] [%/escape%]
-					[%if [@ship_company@] ne ''%]<i class="text-muted">([%escape%][@ship_company@][%/escape%])</i>[%/if%]
-				</h2>
-				[%if [@date_required@] ne '0000-00-00 00:00:00'%]
-					<h3>Date Required: [%format type:'date' default:'' format:'#D/#M/#Y #H:#I (#w)'%][@date_required@][%/format%]</h3>
-				[%/if%]
-				[%if [@customer_po@] ne ''%]
-					<h3>Purchase Order Number: [%escape%][@customer_po@][%/escape%]</h3>
-				[%/if%]
-				<h3>Sales channel: [%show_order id:'[@order_id@]' hidechild:'1'%][%param *header%][%escape%][@sales_channel@][%/escape%][%/param%][%/show_order%]</h3>
-				<p>Printed by <strong>[%escape%][@admin_name@][%/escape%]</strong>, <i>[%format type:'date' format:'#D/#M/#Y #H:#I'%]NOW[%/format%]</i></p>
-			</div>
-			<div class="col-xs-5">
-				<div class="panel panel-default panel-margin-top">
-					<div class="panel-body">
-						[%if [@ship_company@]%]
-							<p>[%escape%][@ship_company@][%/escape%]</p>
+			[%/param%]
+			[%/show_order%]
+			<div class="order_id">
+				<div class="row">
+					<div class="col-xs-7">
+						[%if [@process_id@] > 0%]
+						<h1>Bulk process <span class="text-success">#[@process_id@]</span> <img class="barcode"
+								src="[%BARCODE_URL fn:'code128' barcode:'[@process_id@]' height:'35' /%]"></h1>
 						[%/if%]
-						<p>[%escape%][@ship_street1@] [@ship_street2@][%/escape%]</p>
-						<p>[%escape%][@ship_city@][%/escape%]</p>
-						<p>[%escape%][@ship_state@] [@ship_zip@], [@ship_country@][%/escape%]</p>
-						<p>Shipping With: [%escape%][@shipping_method@][%/escape%]</p>
-						<p>Estimated Shipping Weight: [@weight@]KG</p>
-						[%if [@internal_notes@] ne ''%]
-							<p>Internal Order Notes: [%escape%][@internal_notes@][%/escape%]</p>
+						<h1>Picking Slip for <span class="text-success">#[%escape%][@order_id@][%/escape%]</span></h1>
+						<h2>
+							Customer: [%escape%][@ship_first_name@] [@ship_last_name@] [%/escape%]
+							[%if [@ship_company@] ne ''%]<i class="text-muted">([%escape%][@ship_company@][%/escape%])</i>[%/if%]
+						</h2>
+						[%if [@date_required@] ne '0000-00-00 00:00:00'%]
+						<h3>Date Required: [%format type:'date' default:'' format:'#D/#M/#Y #H:#I
+							(#w)'%][@date_required@][%/format%]</h3>
 						[%/if%]
-						[%if [@special@] ne ''%]
-							<p>Customer Instructions: [%escape%][@special@][%/escape%]</p>
+						[%if [@customer_po@] ne ''%]
+						<h3>Purchase Order Number: [%escape%][@customer_po@][%/escape%]</h3>
 						[%/if%]
+						<h3>Sales channel: [%show_order id:'[@order_id@]' hidechild:'1'%][%param
+							*header%][%escape%][@sales_channel@][%/escape%][%/param%][%/show_order%]</h3>
+						<p>Printed by <strong>[%escape%][@admin_name@][%/escape%]</strong>, <i>[%format type:'date' format:'#D/#M/#Y
+								#H:#I'%]NOW[%/format%]</i></p>
+					</div>
+					<div class="col-xs-5">
+						<div class="panel panel-default panel-margin-top">
+							<div class="panel-body">
+								[%if [@ship_company@]%]
+								<p>[%escape%][@ship_company@][%/escape%]</p>
+								[%/if%]
+								<p>[%escape%][@ship_street1@] [@ship_street2@][%/escape%]</p>
+								<p>[%escape%][@ship_city@][%/escape%]</p>
+								<p>[%escape%][@ship_state@] [@ship_zip@], [@ship_country@][%/escape%]</p>
+								<p>Shipping With: [%escape%][@shipping_method@][%/escape%]</p>
+								<p>Estimated Shipping Weight: [@weight@]KG</p>
+								[%if [@internal_notes@] ne ''%]
+								<p>Internal Order Notes: [%escape%][@internal_notes@][%/escape%]</p>
+								[%/if%]
+								[%if [@special@] ne ''%]
+								<p>Customer Instructions: [%escape%][@special@][%/escape%]</p>
+								[%/if%]
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-				
-	<table class="table table-striped table-condensed table-bordered normalProductTable">
-		<thead>
-			<tr>
-				<th colspan="11"><h4>Normal Products</h4></th>
-			</tr>
-		</thead>
-		
-	<tbody>
-		<td>
-			<p><b>Item List:</b></p>
-			<ul class="normalProductList">
-			</ul>
-			<p><i class="extraNameHeader"></i></p>
-		</td>
-		
-	</tbody>
-	</tr>
-	<table class="table table-striped table-condensed table-bordered productTable">
-		<thead>
-			<tr>
-				<th colspan="11"><h4>Hamper Products</h4></th>
-			</tr>
-			<tr>
-				<th>Image</th>
-				<th>QTY</th>
-				<th>SKU</th>
-				<th>Location</th>
-				<th>Item</th>
-				<th>QTY picked</th>
-				<th>Pick Task</th>
-				<th>Unit</th>
-				<th>Picked</th>
-				<th>Pick Bin</th>
-				<th>Checked</th>
-			</tr>
-		</thead>	
-		<tbody>
-	[%/param%]
-	[%param *order_body%]
-		[%set [@order_extra@] %][@extra@][%/set%]
-		[%set [@order_extra@] %][%/set%]
-		[%product sku:'[@SKU@]'%]
-			[%param *body%]
-				[%set [@^extra_product_type@] %]
-					[@product_type@]
-				[%/set%]
-			[%/param%]
-		[%/product%]
-		<tr class="[%if [@extra_product_type@] not like 'hamper' or [@extra_sales_channel@] like 'website' %]normalProductRow[%else%] hamperProductRow[%/if%]" [%if [@extra_product_type@] not like 'hamper' or [@extra_sales_channel@] like 'website'%]hidden[%/if%]>
-			<td><img class="img-small-thumb" src="[%asset_url type:'item' id:'[@SKU@]' thumb:'thumb' /%]"></td>
-			<td  class="skuName">[@quantity@][%if [@quantity@] ne '1'%] (!!)[%/if%]</td>
-			<td>[%escape%][@sku@][%/escape%]</td>
-			<td>
-				[%if [@pick_zone@]%]<p><strong>[%escape%][@pick_zone@][%/escape%]</strong></p>[%/if%]
-				<p>[@location@]</p>
-			</td>
-			<td>
-				[%if [@brand@]%]<p><i>[%escape%][@brand@][%/escape%]</i></p>[%/if%]
-				<p class="modelName">[@model@] (Bay: [@pick_zone@] - Barcode: [@barcode@])</p>
-				[%if [@full_extra@] ne ''%]
-				<p><i class="extraName1">([@full_extra@])</i></p>
-				[%else%]
-				<i class="extraName"></i>
-				[%/if%]
-				[%if [@config:PICKSLIP_SHOW_INTERNALNOTE@] AND [@internal_notes@] ne '' %]
-				<p><i class="internalNotes">[%escape%][@internal_notes@][%/escape%]</i></p>
-				[%else%]
-				<p><i class="internalNotes">[@internal_notes@]</i></p>
-				[%/if%]
-				<div class="multi item kitting">
-					[%list_item_variations id:'[@current_sku@]'%]
-						[%param *variation_header%]
-							<select class="component-var-opt form-control component-config-input" component-id="[@component_count@]" ref="[@specific_id@]">
-								<option value="" disabled selected>[@specific_name@]</option>
+
+			<table class="table table-striped table-condensed table-bordered normalProductTable">
+				<thead>
+					<tr>
+						<th colspan="11">
+							<h4>Normal Products</h4>
+						</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<td>
+						<p><b>Item List:</b></p>
+						<ul class="normalProductList">
+						</ul>
+						<p><i class="extraNameHeader"></i></p>
+					</td>
+
+				</tbody>
+				</tr>
+				<table class="table table-striped table-condensed table-bordered productTable">
+					<thead>
+						<tr>
+							<th colspan="11">
+								<h4>Hamper Products</h4>
+							</th>
+						</tr>
+						<tr>
+							<th>Image</th>
+							<th>QTY</th>
+							<th>SKU</th>
+							<th>Location</th>
+							<th>Item</th>
+							<th>QTY picked</th>
+							<th>Pick Task</th>
+							<th>Unit</th>
+							<th>Picked</th>
+							<th>Pick Bin</th>
+							<th>Checked</th>
+						</tr>
+					</thead>
+					<tbody>
 						[%/param%]
-						[%param *variation_body%]
-								<option value="[@value_id@]">[@value_name@] [%IF ![@variation_qty@]%](Out of Stock)[%/IF%]</option>
+						[%param *order_body%]
+						[%set [@order_extra@] %][@extra@][%/set%]
+						[%set [@order_extra@] %][%/set%]
+						[%product sku:'[@SKU@]'%]
+						[%param *body%]
+						[%set [@^extra_product_type@] %]
+						[@product_type@]
+						[%/set%]
 						[%/param%]
-						[%param *variation_footer%]
-							</select>
+						[%/product%]
+						<tr
+							class="[%if [@extra_product_type@] not like 'hamper' or [@extra_sales_channel@] like 'website' %]normalProductRow[%else%] hamperProductRow[%/if%]"
+							[%if [@extra_product_type@] not like 'hamper' or [@extra_sales_channel@] like 'website' %]hidden[%/if%]>
+							<td><img class="img-small-thumb" src="[%asset_url type:'item' id:'[@SKU@]' thumb:'thumb' /%]"></td>
+							<td class="skuName">[@quantity@][%if [@quantity@] ne '1'%] (!!)[%/if%]</td>
+							<td>[%escape%][@sku@][%/escape%]</td>
+							<td>
+								[%if [@pick_zone@]%]<p><strong>[%escape%][@pick_zone@][%/escape%]</strong></p>[%/if%]
+								<p>[@location@]</p>
+							</td>
+							<td>
+								[%if [@brand@]%]<p><i>[%escape%][@brand@][%/escape%]</i></p>[%/if%]
+								<p class="modelName">[@model@] (Bay: [@pick_zone@] - Barcode: [@barcode@])</p>
+								[%if [@full_extra@] ne ''%]
+								<p><i class="extraName">([@full_extra@])</i></p>
+								[%else%]
+								<i class="extraName"></i>
+								[%/if%]
+								[%if [@config:PICKSLIP_SHOW_INTERNALNOTE@] AND [@internal_notes@] ne '' %]
+								<p><i class="internalNotes">[%escape%][@internal_notes@][%/escape%]</i></p>
+								[%else%]
+								<p><i class="internalNotes">[@internal_notes@]</i></p>
+								[%/if%]
+								<div class="multi item kitting">
+									[%list_item_variations id:'[@current_sku@]'%]
+									[%param *variation_header%]
+									<select class="component-var-opt form-control component-config-input"
+										component-id="[@component_count@]" ref="[@specific_id@]">
+										<option value="" disabled selected>[@specific_name@]</option>
+										[%/param%]
+										[%param *variation_body%]
+										<option value="[@value_id@]">[@value_name@] [%IF ![@variation_qty@]%](Out of Stock)[%/IF%]</option>
+										[%/param%]
+										[%param *variation_footer%]
+									</select>
+									[%/param%]
+									[%/list_item_variations%]
+								</div>
+							</td>
+							<td>[@pick_qty@]</td>
+							<td><strong><span
+										class="[%if [@warehouse_quantity@] < 1%]text-danger[%/if%]">[@pick_task@]</span></strong></td>
+							<td>[@item_unit@]</td>
+							<td><i class="square-o"></i></td>
+							<td>[%escape%][@bin_location@][%/escape%]</td>
+							<td><i class="square-o"></i></td>
+						</tr>
 						[%/param%]
-					[%/list_item_variations%]
-				</div>
-			</td>
-			<td>[@pick_qty@]</td>
-			<td><strong><span class="[%if [@warehouse_quantity@] < 1%]text-danger[%/if%]">[@pick_task@]</span></strong></td>
-			<td>[@item_unit@]</td>
-			<td><i class="square-o"></i></td>
-			<td >[%escape%][@bin_location@][%/escape%]</td>
-			<td><i class="square-o"></i></td>
-		</tr>
-	[%/param%]
-	[%param *order_footer%]
-	</tbody>
-	</table>
-	[%/param%]
-	[%param *component_header%]
-	<h4>Items That Require Assembly</h4>
-	<table class="table table-bordered table-condensed">
-		<tr>
-			<th>Image</th>
-			[%if [@no_item_split@]%]
-			<th>Qty Ordered</th>
-			[%/if%]
-			<th>SKU</th>
-			<th>Location</th>
-			<th>Item</th>
-			<th>Picked To Date</th>
-			<th>Assemble Task</th>
-			<th>Unit</th>
-			<th>Assembled</th>
-			<th>Checked</th>
-		</tr>
-	[%/param%]
-	[%param *component_body%]
-		<tr>
-			<td><img class="img-small-thumb" src="[%ASSET_URL type:'item' id:'[@SKU@]' thumb:'thumb' /%]"></td>
-			[%if [@no_item_split@]%]
-			<td>[@quantity@][%if [@quantity@] ne '1'%]<strong> (MULTIPLE!)</strong>[%/if%]</td>
-			[%/if%]
-			<td>[%escape%][@SKU@][%/escape%]</td>
-			<td>[%escape%][@pick_zone@][%/escape%]</td>
-			<td>
-				[%if [@brand@]%]<p><i>[%escape%][@brand@][%/escape%]</i></p>[%/if%]
-				<p>[%escape%][@model@] (Bay: [@pick_zone@] - Barcode: [@barcode@])[%/escape%]</p>
-				[%if [@extra@] ne ''%]
-				<p><i>([@full_extra@])</i></p>
-				[%/if%]
-				[%if [@config:PICKSLIP_SHOW_INTERNALNOTE@] AND [@internal_notes@] ne '' %]
-				<p><i>[%escape%][@internal_notes@][%/escape%]</i></p>
-				[%/if%]
-			</td>
-			<td>[@pick_qty@]</td>
-			<td>[@pick_task@]</td>
-			<td>[@item_unit@]</td>
-			<td><i class="square-o"></i></td>
-			<td><i class="square-o"></i></td>
-		</tr>
-	[%/param%]
-	[%param *component_sub_header%]
-		<tr>
-			<td class="info" colspan="10"><strong>[@sku@] components : </strong></td>
-		</tr>
+						[%param *order_footer%]
+					</tbody>
+				</table>
+				[%/param%]
+				[%param *component_header%]
+				<h4>Items That Require Assembly</h4>
+				<table class="table table-bordered table-condensed">
+					<tr>
+						<th>Image</th>
+						[%if [@no_item_split@]%]
+						<th>Qty Ordered</th>
+						[%/if%]
+						<th>SKU</th>
+						<th>Location</th>
+						<th>Item</th>
+						<th>Picked To Date</th>
+						<th>Assemble Task</th>
+						<th>Unit</th>
+						<th>Assembled</th>
+						<th>Checked</th>
+					</tr>
+					[%/param%]
+					[%param *component_body%]
+					<tr>
+						<td><img class="img-small-thumb" src="[%ASSET_URL type:'item' id:'[@SKU@]' thumb:'thumb' /%]"></td>
+						[%if [@no_item_split@]%]
+						<td>[@quantity@][%if [@quantity@] ne '1'%]<strong> (MULTIPLE!)</strong>[%/if%]</td>
+						[%/if%]
+						<td>[%escape%][@SKU@][%/escape%]</td>
+						<td>[%escape%][@pick_zone@][%/escape%]</td>
+						<td>
+							[%if [@brand@]%]<p><i>[%escape%][@brand@][%/escape%]</i></p>[%/if%]
+							<p>[%escape%][@model@] (Bay: [@pick_zone@] - Barcode: [@barcode@])[%/escape%]</p>
+							[%if [@extra@] ne ''%]
+							<p><i>([@full_extra@])</i></p>
+							[%/if%]
+							[%if [@config:PICKSLIP_SHOW_INTERNALNOTE@] AND [@internal_notes@] ne '' %]
+							<p><i>[%escape%][@internal_notes@][%/escape%]</i></p>
+							[%/if%]
+						</td>
+						<td>[@pick_qty@]</td>
+						<td>[@pick_task@]</td>
+						<td>[@item_unit@]</td>
+						<td><i class="square-o"></i></td>
+						<td><i class="square-o"></i></td>
+					</tr>
+					[%/param%]
+					[%param *component_sub_header%]
+					<tr>
+						<td class="info" colspan="10"><strong>[@sku@] components : </strong></td>
+					</tr>
 					<tr>
 						<th>Image</th>
 						[%if [@no_item_split@]%]<th>Qty Ordered</th>[%/if%]
@@ -218,13 +232,15 @@
 						<th>Unit</th>
 						<th>Picked</th>
 					</tr>
-			[%/param%]
-			[%param *component_sub_body%]
+					[%/param%]
+					[%param *component_sub_body%]
 					<tr>
 						<td><img class="img-small-thumb" src="[%ASSET_URL type:'item' id:'[@SKU@]' thumb:'thumb'/%]"></td>
-						[%if [@no_item_split@]%]<td>[@quantity@][%if [@quantity@] ne '1'%]<strong> (MULTIPLE!)</strong>[%/if%]</td>[%/if%]
+						[%if [@no_item_split@]%]<td>[@quantity@][%if [@quantity@] ne '1'%]<strong> (MULTIPLE!)</strong>[%/if%]</td>
+						[%/if%]
 						<td>[%escape%][@SKU@][%/escape%]</td>
-						<td>[%if [@pick_zone@]%]<p><strong>[%escape%][@pick_zone@][%/escape%]</strong></p>[%/if%]<p>[@location@]</p></td>
+						<td>[%if [@pick_zone@]%]<p><strong>[%escape%][@pick_zone@][%/escape%]</strong></p>[%/if%]<p>[@location@]</p>
+						</td>
 						<td colspan="2">
 							[%if [@brand@]%]<p><i>[%escape%][@brand@][%/escape%]</i></p>[%/if%]
 							<p>[%escape%][@model@] (Bay: [@pick_zone@] - Barcode: [@barcode@])[%/escape%]</p>
@@ -241,12 +257,12 @@
 						<td><i class="square-o"></i></td>
 					</tr>
 					[%/param%]
-				[%param *component_sub_footer%]
-			[%/param%]
-	[%param *component_footer%]
-	</table>
-	[%/param%]
-	[%param *page_footer%]
+					[%param *component_sub_footer%]
+					[%/param%]
+					[%param *component_footer%]
+				</table>
+				[%/param%]
+				[%param *page_footer%]
 				<table class="table table-bordered">
 					<tr>
 						<th>No. Cartons</th>
@@ -289,17 +305,17 @@
 						<td>&nbsp;</td>
 					</tr>
 				</table>
-		<div class="row">
-			<div class="col-xs-4">
-				<p class="underline-field">Picked By:</p>
-			</div>
-			<div class="col-xs-4">
-				<p class="underline-field">Checked By:</p>
-			</div>
+				<div class="row">
+					<div class="col-xs-4">
+						<p class="underline-field">Picked By:</p>
+					</div>
+					<div class="col-xs-4">
+						<p class="underline-field">Checked By:</p>
+					</div>
+				</div>
 		</div>
-	</div>
-	[%/param%]
-	[%param *footer%]
+		[%/param%]
+		[%param *footer%]
 	</div>
 	[%/param%]
 	[%/picking_list%]
@@ -313,8 +329,8 @@
 	var productTable = document.getElementsByClassName("productTable");
 
 	window.onload = function () {
-		for(let y = 0; y < productTable.length; y++){
-			for(let x = 0; x < productTable[y].getElementsByClassName("normalProductRow").length; x++){
+		for (let y = 0; y < productTable.length; y++) {
+			for (let x = 0; x < productTable[y].getElementsByClassName("normalProductRow").length; x++) {
 				let internalNotes = productTable[y].getElementsByClassName("normalProductRow")[x].getElementsByClassName("internalNotes")[0].innerHTML
 
 				var node = document.createElement("LI");
@@ -326,7 +342,7 @@
 				itemListTextNode.appendChild(textnode);
 				node.appendChild(itemListTextNode);
 
-				if(!!internalNotes){
+				if (!!internalNotes) {
 					var InternalNotesNode = document.createElement("P");
 					var InternalNotesTextNode = document.createElement("I");
 					var InternalNotesTextLabelNode = document.createElement("B");
@@ -338,12 +354,14 @@
 					InternalNotesNode.appendChild(InternalNotesTextNode);
 					node.appendChild(InternalNotesNode);
 				}
-				
+
 				normalProductList[y].appendChild(node);
-				extraNameHeader[y].innerHTML = productTable[y].getElementsByClassName("extraName1")[0].innerHTML
+				if (!!extraNameHeader[y]) {
+					extraNameHeader[y].innerHTML = productTable[y].getElementsByClassName("extraName")[0].innerHTML
+				}
 			}
-			if(normalProductList[y].children.length <= 0 ) normalProductTable[y].hidden = true
-			if(productTable[y].getElementsByClassName("hamperProductRow").length <= 0 ) productTable[y].hidden = true
+			if (normalProductList[y].children.length <= 0) normalProductTable[y].hidden = true
+			if (productTable[y].getElementsByClassName("hamperProductRow").length <= 0) productTable[y].hidden = true
 		}
 	}
 </script>

@@ -40,6 +40,7 @@
 
 	.consignment-document {
 		width: 100%;
+		height: 140mm;
 	}
 
 	.textArea {
@@ -285,7 +286,7 @@
 
 [%show_order id:'[@order_id@]' customer:'[@username@]' dropshipper:'[@showdropshipper@]'%]
 [%param *header%]
-<div class="wrapper [@count@]">
+<div class="wrapper">
 	<!-- Order detail header component start -->
 	[%set [@^order_details_component@] %]
 	<div class="order-details">
@@ -311,7 +312,7 @@
 
 	<div class="dataSet dataset-header">
 		<div>
-			<div class="box" style="display: block;">
+			<div class="box">
 				[@^order_details_component@]
 
 				[%if [@cngmt_id@] ne ''%]
@@ -352,24 +353,6 @@
 
 	[%/param%]
 	[%param *body%]
-	[%set [@normal_sku@] %]
-	[@SKU@]
-	[%/set%]
-	[%set [@sku_breakdown@] %]
-	[%consignment_breakdown order_id:'[@order_id@]' article_id:'[@art_id@]' cngmt_id:'[@cngmt_id@]'%]
-	[%param *body%]
-	[@SKU@]
-	[%/param%]
-	[%/consignment_breakdown%]
-	[%/set%]
-
-
-
-
-
-	[%consignment_breakdown order_id:'[@order_id@]' article_id:'[@art_id@]' cngmt_id:'[@cngmt_id@]'%]
-	[%param *body%]
-
 
 	<div hidden>
 		<!-- Product type variable start -->
@@ -460,11 +443,9 @@
 
 	[%/if%]
 
-	<div
-		class="dataSet dataset-1 nor-[@normal_product_count@] type-[@this_product_type@] breakdown-[@sku@] normal-sku-[@normal_sku@]"
-		[%if [@normal_sku@] like [@sku@] %] [%if [@this_product_type@] ne 'hamper' and [@normal_product_count@]> 1
-		%]style="display : none; ham"
-		[%/if%] [%else%] style="display : none; sku" [%/if%]>
+	<div class="dataSet dataset-1 nor-[@normal_product_count@] type-[@this_product_type@]" [%if [@this_product_type@]
+		ne 'hamper' and [@normal_product_count@]> 1 %]style="display : none;"
+		[%/if%]>
 		<div>
 			<div class="box boxmessage" [%if [@sales_channel@] like 'Everyday Market' or [@sales_channel@] like 'David Jones'
 				%] [%if [@customer_ref8@] eq '' %] style="display : none;" [%/if%] [%else%] [%if [@label_recipient@] eq '' and
@@ -492,15 +473,13 @@
 				<div class="rotateHolder">
 					<div class="rotate" data-order-count="[@count@]" data-spiff-transaction-id="[@label_spiff_transaction_id@]">
 						[%if [@label_spiff_transaction_id@] ne '' %]
-						<img src="/assets/gift-messages/[@order_id@]_[@label_spiff_transaction_id@]_0.jpg">
+						<img id="[@label_spiff_transaction_id@]" src="" alt="[@label_spiff_transaction_id@]">
 						[%else%]
 						[%if [@sales_channel@] like 'Everyday Market' or [@sales_channel@] like 'David Jones' %]
 						<h2>[@customer_ref8@]</h2>
 						[%else%]
-						<!-- /* <div class="hidden" style="display : none;"><span class="extraOptionHandler" hidden>[@extra@]</span>
-								<span class="labelGiftCardStyle" hidden></span>
-								</div>
-								*/ -->
+						<span class="extraOptionHandler" hidden>[@extra@]</span>
+						<span class="labelGiftCardStyle" hidden></span>
 						[%if [@this_product_type@] like 'hamper' %]
 						<span hidden>[@model@]</span>
 						[%else%]
@@ -517,10 +496,6 @@
 			<hr class="pagebreak" />
 		</div>
 	</div>
-
-
-	[%/param%]
-	[%/consignment_breakdown%]
 
 
 	[%/param%]

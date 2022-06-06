@@ -7,11 +7,11 @@
 		font-family: "Montserrat", sans-serif;
 	}
 
-	.dataSet:last-child>div>hr:last-child {
+	.labels.dataSet:last-child>div>hr:last-child {
 		display: none;
 	}
 
-	.box {
+	.labels .box {
 		width: 95%;
 		max-height: 170mm;
 		margin: auto;
@@ -33,16 +33,16 @@
 		padding-left: 10px;
 	}
 
-	.tgp-logo {
+	.labels .tgp-logo {
 		max-width: 75%;
 		margin-top: 30px
 	}
 
-	.consignment-document {
+	.labels .consignment-document {
 		width: 100%;
 	}
 
-	.textArea {
+	.labels .textArea {
 		height: 60px;
 		line-height: 20px;
 		width: 99%;
@@ -56,55 +56,55 @@
 		flex-wrap: wrap;
 	}
 
-	.xs-6 {
+	.labels .xs-6 {
 		width: 50%;
 		overflow: hidden;
 		height: 18px;
 	}
 
-	.labelRecipient,
-	.labelMessage,
-	.labelSender {
+	.labels .labelRecipient,
+	.labels .labelMessage,
+	.labels .labelSender {
 		text-align: center;
 	}
 
-	hr {
+	.labels hr {
 		border-color: transparent;
 	}
 
-	.orderDetailsHolder {
+	.labels .orderDetailsHolder {
 		display: grid;
 		grid-template-columns: 6fr 4fr;
 		grid-gap: 10px;
 		width: 100%;
 	}
 
-	.orderDetailsHolder>div {
+	.labels .orderDetailsHolder>div {
 		font-size: 9px;
 	}
 
-	.order-details {
+	.labels .order-details {
 		height: 20mm;
 		overflow: hidden;
 	}
 
-	.pagebreak {
+	.labels .pagebreak {
 		display: none;
 	}
 
-	.rotate h2 {
+	.labels .rotate h2 {
 		display: block;
 		word-wrap: break-word;
 	}
 
-	.rotate {
+	.labels .rotate {
 		-webkit-transform: rotate(270deg);
 		-ms-transform: rotate(270deg);
 		transform: rotate(270deg);
 		text-align: center;
 	}
 
-	.rotateHolder {
+	.labels .rotateHolder {
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -112,25 +112,114 @@
 		height: 140mm;
 	}
 
-	.pageinner {
+	.labels .pageinner {
 		width: initial !important;
 	}
 
-	/* added by neil */
-	br[clear="all"] {
+	.labels br[clear="all"] {
 		display: none;
 	}
 
-	/* spiff */
-	.rotate>img {
+	.labels .rotate>img {
 		margin-top: -50px;
 		margin-left: -50px;
 		max-height: 100mm;
 		max-width: 170mm;
 	}
 
-	/* spiff - end */
-	/* added by neil - end */
+	@media print and (min-width: 149.99mm) {
+		.labels {
+			display: none !important;
+		}
+	}
+
+	@media screen and (min-width: 979px) {
+		.labels {
+			display: none !important;
+		}
+	}
+</style>
+<style>
+	.a4-labels.nPrintDoc>.pagebreak:first-child {
+		page-break-after: auto;
+	}
+
+	.a4-labels.nPrintDoc>.pagebreak:last-child {
+		page-break-before: auto;
+	}
+
+	.a4-labels hr.pagebreak {
+		border-top: none;
+	}
+
+	.a4-labels .container {
+		position: relative;
+		padding: 0 2.21mm !important;
+		height: 137mm;
+		width: 100%;
+	}
+
+	.a4-labels .container>.notes {
+		position: absolute;
+		bottom: 10.318mm;
+		right: 4.762mm;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border: 1px dashed black;
+		border-radius: 5mm;
+		width: 101.6mm;
+		height: 41.275mm;
+	}
+
+	.a4-labels .grid-container {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-gap: 2.38mm;
+		height: 152.4mm;
+		width: 100%;
+		padding: 0 2.21mm;
+	}
+
+	.a4-labels .grid-container>div {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		border: 1px dashed black;
+		border-radius: 6mm;
+	}
+
+	.a4-labels .rotate-holder {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 570px !important;
+	}
+
+	.a4-labels .rotate {
+		-webkit-transform: rotate(270deg);
+		-ms-transform: rotate(270deg);
+		transform: rotate(270deg);
+		text-align: center;
+	}
+
+	.a4-labels .rotate h2 {
+		margin-top: 0;
+
+		line-height: 1.2;
+	}
+
+	@media print and (max-width: 150mm) {
+		.a4-labels {
+			display: none !important;
+		}
+	}
+
+	@media screen and (max-width: 980px) {
+		.a4-labels {
+			display: none !important;
+		}
+	}
 </style>
 <div hidden>
 	[%set [@tgp_logo@] %]
@@ -142,7 +231,7 @@
 
 [%show_order id:'[@order_id@]' customer:'[@username@]' dropshipper:'[@showdropshipper@]'%]
 [%param *header%]
-<div class="dataSet">
+<div class="labels dataSet">
 	<div>
 		<div class="box">
 			<div class="order-details">
@@ -285,7 +374,7 @@
 
 [%show_order id:'[@order_id@]' customer:'[@username@]' dropshipper:'[@showdropshipper@]'%]
 [%param *header%]
-<div class="wrapper [@count@]">
+<div class="labels wrapper [@count@]">
 	<!-- Order detail header component start -->
 	[%set [@^order_details_component@] %]
 	<div class="order-details">
@@ -526,6 +615,329 @@
 	[%/param%]
 	[%param *footer%]
 </div>
+
+<!-- Product type variable start -->
+[%set [@this_product_type@] %]
+[%product sku:'[@SKU@]'%]
+[%param *body%]
+[%if [@product_type@] eq 'hamper' %]
+hamper
+[%else%]
+normal
+[%/if%]
+[%/param%]
+[%/product%]
+[%/set%]
+<!-- Product type variable end -->
+
+[%if [@this_product_type@] like 'hamper' %]
+<div class="a4-labels nPrintDoc pagebreak">
+	<div class="container">
+		[%show_order id:'[@order_id@]' hidechild:'1'%]
+		[%param header%]
+		[%set [@^extra_sales_channel@] %][%escape%][@sales_channel@][%/escape%][%/set%]
+		[%/param%]
+		[%/show_order%]
+		<h1>#[%escape%][@order_id@][%/escape%] ([@extra_sales_channel@])</h1>
+		<table class="table table-bordered table-condensed">
+			<tr>
+				<th>Qty</th>
+				<th>Hamper</th>
+				<th>Location Code</th>
+			</tr>
+			<tr>
+				<td>[@quantity@]</td>
+				<td>
+					<p>[%escape%][@model@][%/escape%]</p>
+				</td>
+				<td>[%escape%][@pick_zone@][%/escape%]</td>
+			</tr>
+		</table>
+		<div>
+			<div class=" order_id">
+				<div class="col-xs">
+					<div>
+						<p><b>Shipping Name:</b> [%escape%][@ship_company@][%/escape%]</p>
+						<p><b>Shipping Address:</b> [%escape%][@ship_street1@] [@ship_street2@][%/escape%],
+							[%escape%][@ship_city@][%/escape%]</p>
+						<p><b>Shipping Post Code, State:</b> [%escape%][@ship_state@] [@ship_zip@],
+							[@ship_country@][%/escape%]
+						</p>
+						<p><b>Shipping Method:</b> [%escape%][@shipping_method@][%/escape%]</p>
+						<p><b>Internal Order Notes:</b> [%escape%][@internal_notes@][%/escape%]</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="notes">
+			[@ship_comment@]
+		</div>
+	</div>
+	<div class="grid-container">
+		<div>
+			[%split delimiter:'<b>Recipient Name</b>: '%]
+			[%param data1%][@extra@][%/param%]
+			[%param *body%]
+			[%if [@count@] eq 1%]
+			[%split delimiter:'; <b>Gift Message</b>'%]
+			[%param data1%][@data1@][%/param%]
+			[%param *body%]
+			[%if [@count@] eq 0%]
+			[%set [@^^label_recipient@] %][@data1@][%/set%]
+			[%if%]
+			[%/param%]
+			[%/split%]
+			[%if%]
+			[%/param%]
+			[%/split%]
+
+			[%split delimiter:'<b>Gift Message</b>: '%]
+			[%param data1%][@extra@][%/param%]
+			[%param *body%]
+			[%if [@count@] eq 1%]
+			[%split delimiter:'; <b>Sender</b>'%]
+			[%param data1%][@data1@][%/param%]
+			[%param *body%]
+			[%if [@count@] eq 0%]
+			[%set [@^^label_message@] %][@data1@][%/set%]
+			[%if%]
+			[%/param%]
+			[%/split%]
+			[%if%]
+			[%/param%]
+			[%/split%]
+
+			[%split delimiter:'<b>Sender</b>: '%]
+			[%param data1%][@extra@][%/param%]
+			[%param *body%]
+			[%if [@count@] eq 1%]
+			[%split delimiter:'; <b>Gift Card Style</b>'%]
+			[%param data1%][@data1@][%/param%]
+			[%param *body%]
+			[%if [@count@] eq 0%]
+			[%set [@^^label_sender@] %][@data1@][%/set%]
+			[%if%]
+			[%/param%]
+			[%/split%]
+			[%if%]
+			[%/param%]
+
+			[%/split%][%split delimiter:'; Gift Message ID: '%]
+			[%param data1%][@extra@][%/param%]
+			[%param *body%]
+			[%if [@count@] eq 1%]
+			[%split delimiter:';'%]
+			[%param data1%][@data1@][%/param%]
+			[%param *body%]
+			[%if [@count@] eq 0%]
+			[%set [@^^label_spiff_transaction_id@] %][@data1@][%/set%]
+			[%if%]
+			[%/param%]
+			[%/split%]
+			[%if%]
+			[%/param%]
+			[%/split%]
+			<div class="rotate-holder">
+				<div class="rotate">
+					[%if [@label_spiff_transaction_id@] ne '' %]
+					<img id="" src="/assets/gift-messages/[@order_id@]_[@label_spiff_transaction_id@]_0.jpg" alt="">
+					[%else%]
+					<h2 hidden>[%escape%][@extra@][%/escape%]</h2>
+					<h2 class="labelRecipient" style="margin-top: 0">[@label_recipient@]</h2>
+					<h2 class="labelMessage" style="margin-top: 0">[@label_message@]</h2>
+					<h2 class="labelSender" style="margin-top: 0">[@label_sender@]</h2>
+					[%/if%]
+				</div>
+			</div>
+		</div>
+		<div>
+			<a href="[@document_image@].pdf" target="_blank">
+				<img class="consignment-document" src="[@document_image@]" />
+			</a>
+		</div>
+	</div>
+</div>
+[%else%]
+[%set [@^has_normal_product@] %]true[%/set%]
+[%/if%]
+
+[%if [@has_normal_product@] eq 'true' %]
+<div class="a4-labels nPrintDoc pagebreak">
+	<div class="container">
+		[%show_order id:'[@order_id@]' hidechild:'1'%]
+		[%param header%]
+		[%set [@^extra_sales_channel@] %][%escape%][@sales_channel@][%/escape%][%/set%]
+		[%/param%]
+		[%/show_order%]
+		<h1>#[%escape%][@order_id@][%/escape%] ([@extra_sales_channel@])</h1>
+		<table class="table table-bordered table-condensed">
+			<tr>
+				<th>Qty</th>
+				<th>Product</th>
+				<th>Location Code</th>
+			</tr>
+			[%show_order id:'[@order_ID@]' customer:'[@username@]' dropshipper:'[@showdropshipper@]'%]
+			[%param *body%]
+
+			<!-- Product type variable start -->
+			[%set [@this_product_type@] %]
+			[%product sku:'[@SKU@]'%]
+			[%param *body%]
+			[%if [@product_type@] eq 'hamper' %]
+			hamper
+			[%else%]
+			normal
+			[%/if%]
+			[%/param%]
+			[%/product%]
+			[%/set%]
+			<!-- Product type variable end -->
+
+			[%if [@this_product_type@] like 'normal' %]
+			<tr>
+				<td>[@quantity@]</td>
+				<td>
+					<p>[%escape%][@model@][%/escape%]</p>
+				</td>
+				<td>[%escape%][@pick_zone@][%/escape%]</td>
+			</tr>
+			[%%/if]
+			[%/param%]
+			[%/show_order%]
+		</table>
+
+		[%set [@is_product_set@] %]false[%/set%]
+
+		[%show_order id:'[@order_ID@]' customer:'[@username@]' dropshipper:'[@showdropshipper@]'%]
+		[%param *body%]
+
+		<!-- Product type variable start -->
+		[%set [@this_product_type@] %]
+		[%product sku:'[@SKU@]'%]
+		[%param *body%]
+		[%if [@product_type@] eq 'hamper' %]
+		hamper
+		[%else%]
+		normal
+		[%/if%]
+		[%/param%]
+		[%/product%]
+		[%/set%]
+		<!-- Product type variable end -->
+
+		[%if [@this_product_type@] like 'normal' and [@is_product_set@] eq 'false' %]
+
+		<div>
+			<div class=" order_id">
+				<div class="col-xs">
+					<div>
+						<p><b>Shipping Name:</b> [%escape%][@ship_company@][%/escape%]</p>
+						<p><b>Shipping Address:</b> [%escape%][@ship_street1@] [@ship_street2@][%/escape%],
+							[%escape%][@ship_city@][%/escape%]</p>
+						<p><b>Shipping Post Code, State:</b> [%escape%][@ship_state@] [@ship_zip@],
+							[@ship_country@][%/escape%]
+						</p>
+						<p><b>Shipping Method:</b> [%escape%][@shipping_method@][%/escape%]</p>
+						<p><b>Internal Order Notes:</b> [%escape%][@internal_notes@][%/escape%]</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="notes">
+			[@ship_comment@]
+		</div>
+	</div>
+	<div class="grid-container">
+		<div>
+			[%split delimiter:'<b>Recipient Name</b>: '%]
+			[%param data1%][@extra@][%/param%]
+			[%param *body%]
+			[%if [@count@] eq 1%]
+			[%split delimiter:'; <b>Gift Message</b>'%]
+			[%param data1%][@data1@][%/param%]
+			[%param *body%]
+			[%if [@count@] eq 0%]
+			[%set [@^^label_recipient@] %][@data1@][%/set%]
+			[%if%]
+			[%/param%]
+			[%/split%]
+			[%if%]
+			[%/param%]
+			[%/split%]
+
+			[%split delimiter:'<b>Gift Message</b>: '%]
+			[%param data1%][@extra@][%/param%]
+			[%param *body%]
+			[%if [@count@] eq 1%]
+			[%split delimiter:'; <b>Sender</b>'%]
+			[%param data1%][@data1@][%/param%]
+			[%param *body%]
+			[%if [@count@] eq 0%]
+			[%set [@^^label_message@] %][@data1@][%/set%]
+			[%if%]
+			[%/param%]
+			[%/split%]
+			[%if%]
+			[%/param%]
+			[%/split%]
+
+			[%split delimiter:'<b>Sender</b>: '%]
+			[%param data1%][@extra@][%/param%]
+			[%param *body%]
+			[%if [@count@] eq 1%]
+			[%split delimiter:'; <b>Gift Card Style</b>'%]
+			[%param data1%][@data1@][%/param%]
+			[%param *body%]
+			[%if [@count@] eq 0%]
+			[%set [@^^label_sender@] %][@data1@][%/set%]
+			[%if%]
+			[%/param%]
+			[%/split%]
+			[%if%]
+			[%/param%]
+
+			[%/split%][%split delimiter:'; Gift Message ID: '%]
+			[%param data1%][@extra@][%/param%]
+			[%param *body%]
+			[%if [@count@] eq 1%]
+			[%split delimiter:';'%]
+			[%param data1%][@data1@][%/param%]
+			[%param *body%]
+			[%if [@count@] eq 0%]
+			[%set [@^^label_spiff_transaction_id@] %][@data1@][%/set%]
+			[%if%]
+			[%/param%]
+			[%/split%]
+			[%if%]
+			[%/param%]
+			[%/split%]
+			<div class="rotate-holder">
+				<div class="rotate">
+					[%if [@label_spiff_transaction_id@] ne '' %]
+					<img id="" src="/assets/gift-messages/[@order_id@]_[@label_spiff_transaction_id@]_0.jpg" alt="">
+					[%else%]
+					<h2 hidden>[%escape%][@extra@][%/escape%]</h2>
+					<h2 class="labelRecipient" style="margin-top: 0">[@label_recipient@]</h2>
+					<h2 class="labelMessage" style="margin-top: 0">[@label_message@]</h2>
+					<h2 class="labelSender" style="margin-top: 0">[@label_sender@]</h2>
+					[%/if%]
+				</div>
+			</div>
+		</div>
+		<div>
+			<a href="[@document_image@].pdf" target="_blank">
+				<img class="consignment-document" src="[@document_image@]" />
+			</a>
+		</div>
+	</div>
+
+	[%set [@^is_product_set@] %]true[%/set%]
+	[%/if%]
+	[%/param%]
+	[%/show_order%]
+</div>
+
+[%/if%]
 [%/param%]
 [%/show_order%]
 [%/if%]

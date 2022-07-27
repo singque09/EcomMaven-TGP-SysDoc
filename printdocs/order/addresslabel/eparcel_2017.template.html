@@ -127,9 +127,9 @@
 		max-width: 170mm;
 	}
 
-	[%if [@shipping_method@] like 'DS - Myer' %] .labels img.consignment-document {
+	[%if [@shipping_method@] like 'DS - Myer'%] .labels img.consignment-document.myerAupostStandard {
 		width: 212%;
-		margin-left: -36px;
+		margin-left: -10px;
 	}
 
 	[%/if%] @media print and (min-width: 149.99mm) {
@@ -226,6 +226,34 @@
 			display: none !important;
 		}
 	}
+
+	img.consignment-document.myerAupostStandard {
+		width: 200% !important;
+		max-width: 200% !important;
+		margin-top: 560px;
+		margin-left: 400px;
+	}
+
+	div.myerAupostStandard {
+		overflow: hidden;
+	}
+
+
+	img.consignment-document.myerAupostStandard4x6 {
+		width: 212%;
+		margin-left: -10px;
+	}
+
+	div.myerAupostStandard4x6 {
+		height: 580px;
+		overflow: hidden;
+	}
+
+	@media print and (max-width: 150mm) {
+		hr.pagebreak {
+			display: none;
+		}
+	}
 </style>
 <div hidden>
 	[%set [@tgp_logo@] %]
@@ -310,7 +338,12 @@
 				[@^order_details_component@]
 
 				[%if [@cngmt_id@] ne ''%]
-				<img class="consignment-document" src="[@document_image@]" />
+				[%if [@shipping_method@] like 'DS - Myer (AusPost - Standard)' %]
+				<div class="myerAupostStandard4x6">
+					<img class="consignment-document myerAupostStandard4x6" src="[@document_image@]" />
+				</div>
+				[%else%]<img class="consignment-document top 1" src="[@document_image@]" />
+				[%/if%]
 				[%else%]
 				<span style="text-align : center;">consignment not yet generated</span>
 				[%/if%]
@@ -655,7 +688,7 @@ normal
 					<img id="" src="/assets/gift-messages/[@order_id@]_[@label_spiff_transaction_id@]_0.jpg"
 						alt="GIFT MESSAGE DIDNT WORK Regenerate from Spiff Hub and try again">
 					[%else%]
-					<h2 hidden>[%escape%][@extra@][%/escape%]</h2>
+					<h2 hidden style="display : none;">[%escape%][@extra@][%/escape%]</h2>
 					<h2 class="labelRecipient" style="margin-top: 0">[@label_recipient@]</h2>
 					<h2 class="labelMessage" style="margin-top: 0">[@label_message@]</h2>
 					<h2 class="labelSender" style="margin-top: 0">[@label_sender@]</h2>
@@ -663,8 +696,11 @@ normal
 				</div>
 			</div>
 		</div>
-		<div>
-			<img class="consignment-document" src="[@document_image@]" />
+		<div
+			class="[%if [@shipping_method@] like 'DS - Myer (AusPost - Standard)' %]myerAupostStandard [%/if%] [@shipping_method@]">
+			<img
+				class="consignment-document [%if [@shipping_method@] like 'DS - Myer (AusPost - Standard)' %]myerAupostStandard [%/if%] [@shipping_method@]"
+				src="[@document_image@]" />
 		</div>
 	</div>
 </div>
@@ -842,7 +878,7 @@ normal
 					<img id="" src="/assets/gift-messages/[@order_id@]_[@label_spiff_transaction_id@]_0.jpg"
 						alt="GIFT MESSAGE DIDNT WORK Regenerate from Spiff Hub and try again">
 					[%else%]
-					<h2 hidden>[%escape%][@extra@][%/escape%]</h2>
+					<h2 hidden style="display : none;">[%escape%][@extra@][%/escape%]</h2>
 					<h2 class="labelRecipient" style="margin-top: 0">[@label_recipient@]</h2>
 					<h2 class="labelMessage" style="margin-top: 0">[@label_message@]</h2>
 					<h2 class="labelSender" style="margin-top: 0">[@label_sender@]</h2>
@@ -850,10 +886,11 @@ normal
 				</div>
 			</div>
 		</div>
-		<div>
-			<a href="[@document_image@].pdf" target="_blank">
-				<img class="consignment-document" src="[@document_image@]" />
-			</a>
+		<div
+			class="[%if [@shipping_method@] like 'DS - Myer (AusPost - Standard)' %]myerAupostStandard [%/if%] [@shipping_method@]">
+			<img
+				class="consignment-document [%if [@shipping_method@] like 'DS - Myer (AusPost - Standard)' %]myerAupostStandard [%/if%] [@shipping_method@]"
+				src="[@document_image@]" />
 		</div>
 	</div>
 
